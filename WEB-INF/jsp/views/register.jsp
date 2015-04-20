@@ -12,7 +12,7 @@
 			<div class="col-md-4 col-lg-4">
 				<div class="form-group">
 				
-			        <label for="drp_department"><font color="#e67e22" size="4">Department</label> 
+			        <label for="drp_department"><font color="#e67e22" size="4">Departments</label> 
 					<br>
 					<select id="drp_department" name="drp_department" class="btn btn-default btn-lg dropdown-toggle">
 						<option value="select">Select</option>
