@@ -36,6 +36,22 @@ public class AdvisorUser extends LoginUser{
 		}
 
 	}
+	public AdvisorUser(){
+		super();
+
+	}
+	//Testing Constructor Dont modify it
+	public AdvisorUser( String pname, String name_low, String name_high, Integer degree_types){
+		super();
+		this.pname = pname;
+		this.nameLow = name_low;
+		this.nameHigh = name_high;
+		this.degType = degree_types;
+		this.majors.add("Software Engineering");
+		this.majors.add("Computer Science");
+		this.majors.add("Computer Engineering");
+	}
+	
 	
 	public AdvisorUser(String em, String p){
 		super(em);

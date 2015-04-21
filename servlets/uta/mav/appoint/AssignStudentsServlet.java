@@ -1,6 +1,7 @@
 package uta.mav.appoint;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import uta.mav.appoint.login.LoginUser;
+import uta.mav.appoint.login.*;
+import uta.mav.appoint.db.DatabaseManager;
 
 /**
  * Servlet implementation class AssignStudentsServlet
@@ -19,6 +21,8 @@ public class AssignStudentsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HttpSession session;   
     private String header;
+    private AdvisorUser advUser;
+    private ArrayList<AdvisorUser> deptAdvisors;
     
 
 	/**
@@ -28,18 +32,30 @@ public class AssignStudentsServlet extends HttpServlet {
 		session = request.getSession();
 		LoginUser user = (LoginUser)session.getAttribute("user");
 		if (user == null){
-				user = new LoginUser();
-				session.setAttribute("user", user);
-				response.sendRedirect("/WEB-INF/jsp/views/login.jsp");		
+				
+				response.sendRedirect("login");		
 		}
 		else{
 			try{
-				header = "templates/" + user.getHeader() + ".jsp";
+				advUser = new AdvisorUser();
+				System.out.println(user.getEmail());
+				DatabaseManager dbm = new DatabaseManager();
+				header = "templates/" + advUser.getHeader() + ".jsp";
+				deptAdvisors = new ArrayList<AdvisorUser>();
+				AdvisorUser adv1 = new AdvisorUser( "Dr. Reynaldo", "A", "Z", 8);
+				AdvisorUser adv2 = new AdvisorUser( "Dr. Alex", "A", "Z", 8);
+				deptAdvisors.add(adv2);
+				deptAdvisors.add(adv1);
+				if (deptAdvisors.size() > 0){
+					session.setAttribute("deptAdvisors", deptAdvisors);
+				}
 			}
 			catch(Exception e){
 				System.out.printf(e.toString());
 			}
 		}
+	
+		
 		
 		request.setAttribute("includeHeader", header);
 		request.getRequestDispatcher("/WEB-INF/jsp/views/assignstudents.jsp").forward(request, response);
@@ -53,3 +69,4 @@ public class AssignStudentsServlet extends HttpServlet {
 	}
 
 }
+
