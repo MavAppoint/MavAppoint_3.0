@@ -92,6 +92,5 @@ public class DatabaseManager {
 	public Boolean createAdvisor(Integer userId, String pname, String name_low, String name_high, Integer degree_types, Integer lead_status) throws SQLException{
 		return imp.createAdvisor(userId, pname, name_low, name_high, degree_types, lead_status);
 	}
-	
 }
 
