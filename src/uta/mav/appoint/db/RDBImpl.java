@@ -97,17 +97,6 @@ public class RDBImpl implements DBImplInterface{
 		}
 	}
 	
-	public ArrayList<AdvisorUser> getFullAdvisor() throws SQLException{
-		ArrayList<AdvisorUser> arraylist = new ArrayList<>();
-		try{
-			
-		}
-		catch(Exception sq){
-			System.out.printf(sq.toString());
-		}
-		return arraylist;
-	}
-	
 	//using command pattern
 	public ArrayList<String> getAdvisors() throws SQLException{
 		ArrayList<String> arraylist = new ArrayList<String>();
@@ -376,7 +365,6 @@ public class RDBImpl implements DBImplInterface{
 		SQLCmd cmd = new GetAdvisor(email);
 		cmd.execute();
 		AdvisorUser advisorUser = new AdvisorUser(email);
-		System.out.println(cmd.getResult().toString());
 		int i=0;
 		advisorUser.setPassword((String)cmd.getResult().get(i));
 		i++;
