@@ -10,6 +10,8 @@ public class LoginUser {
 	private String password;
 	private Integer validated;
 	private String role;
+	private ArrayList<String> majors;
+	private ArrayList<String> departments;
 	String email;
 	String msg;
 	
@@ -102,6 +104,29 @@ public class LoginUser {
 	public void setValidated(Integer validated) {
 		this.validated = validated;
 	}
-	
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public ArrayList<String> getMajors() {
+		return majors;
+	}
+
+	public void setMajors(ArrayList<String> majors) {
+		this.majors = majors;
+	}
+
+	public ArrayList<String> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(ArrayList<String> departments) {
+		this.departments = departments;
+	}
 	
 }

@@ -14,6 +14,7 @@ public class AdvisorUser extends LoginUser{
 	private String pname;
 	private String dept;
 	private ArrayList<String> majors;
+	private String notification;
 	private String nameLow;
 	private String nameHigh;
 	private Integer degType;
@@ -142,5 +143,15 @@ public class AdvisorUser extends LoginUser{
 		this.pname = pname;
 	}
 	
+	public String getNotification() {
+		return notification;
+	}
 	
+	public void setNotification(String notification) {
+		this.notification = notification;
+	}
+	
+	public void setIsLead(Integer isLead) {
+		this.isLead = isLead;
+	}
 }
