@@ -78,7 +78,7 @@ public class RDBImpl implements DBImplInterface{
 			System.out.print("Used Bean & has "+ (Boolean)cmd.getResult().get(0)+"\n");
 			if ((Boolean)cmd.getResult().get(0)){
 				System.out.print("Created user & has "+ (Boolean)cmd.getResult().get(0)+"\n");
-				cmd = new GetUserID(registerBean.getEmail());
+				cmd = new GetUserIDByEmail(registerBean.getEmail());
 				cmd.execute();
 				System.out.printf("Created user & has %d\n", (int)cmd.getResult().get(0));
 				cmd = new RegisterInitialStudent((int)cmd.getResult().get(0),registerBean);
@@ -346,7 +346,7 @@ public class RDBImpl implements DBImplInterface{
 	}
 	
 	public String addTimeSlot(AllocateTime at){
-		SQLCmd cmd = new GetUserID(at.getEmail());
+		SQLCmd cmd = new GetUserIDByEmail(at.getEmail());
 		cmd.execute();
 		int id = (int)cmd.getResult().get(0);
 		cmd = new CheckTimeSlot(at,id);
@@ -445,7 +445,7 @@ public class RDBImpl implements DBImplInterface{
 			SQLCmd cmd = new CreateUser(email, password, role);
 			cmd.execute();
 			if ((Boolean)cmd.getResult().get(0)){
-				cmd = new GetUserID(email);
+				cmd = new GetUserIDByEmail(email);
 				cmd.execute();
 				userId = (int)cmd.getResult().get(0);
 			}
@@ -473,7 +473,7 @@ public class RDBImpl implements DBImplInterface{
 	
 	public String addAppointmentType(AdvisorUser user, AppointmentType at){
 		String msg = null;
-		SQLCmd cmd = new GetUserID(user.getEmail());
+		SQLCmd cmd = new GetUserIDByEmail(user.getEmail());
 		cmd.execute();
 		cmd = new AddAppointmentType(at, (int)cmd.getResult().get(0));
 		cmd.execute();
@@ -501,7 +501,7 @@ public class RDBImpl implements DBImplInterface{
 	public ArrayList<String> getMajor() throws SQLException{
 		ArrayList<String> arraylist = new ArrayList<String>();
 		try{
-			SQLCmd cmd = new GetMajor();
+			SQLCmd cmd = new GetMajors();
 			cmd.execute();
 			ArrayList<Object> tmp = cmd.getResult();
 			for (int i=0;i<tmp.size();i++){
@@ -512,6 +512,24 @@ public class RDBImpl implements DBImplInterface{
 			System.out.printf(sq.toString());
 		}
 		return arraylist;
+	}
+	
+	public ArrayList<AdvisorUser> getAdvisorsOfDepartment(String department) throws SQLException {
+		
+		ArrayList<AdvisorUser> advisorUsers = new ArrayList<AdvisorUser>();
+		SQLCmd sqlCmd = new GetAdvisorIdsOfDepartment(department);
+		sqlCmd.execute();
+		
+		for(int i=0; i<sqlCmd.getResult().size(); i++)
+		{
+			Integer userId = Integer.valueOf((String)sqlCmd.getResult().get(i));
+			SQLCmd sqlCmd2 = new GetAdvisorById(userId);
+			sqlCmd2.execute();
+			AdvisorUser advisorUser = (AdvisorUser)sqlCmd2.getResult().get(0);
+			advisorUsers.add(advisorUser);
+		}
+		
+		return advisorUsers;
 	}
 }
 
