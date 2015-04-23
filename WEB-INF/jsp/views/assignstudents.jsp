@@ -51,7 +51,7 @@
         	  for(int i = 0; i < deptAdvisors.size(); i++){ %>
         		 <tr>
         		 <td><%= deptAdvisors.get(i).getPname()%></td>
-        		 <td><select id="lowRange" title ="<%= deptAdvisors.get(i).getNameLow() %>" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
+        		 <td><select name="lowRange<%=i %>" id="lowRange" title ="<%= deptAdvisors.get(i).getNameLow() %>" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
 					<option value ="A" >A</option>
 					<option value ="B" >B</option>
 					<option value ="C" >C</option>
@@ -78,7 +78,7 @@
 					<option value ="X" >X</option>
 					<option value ="Y" >Y</option>
 					<option value ="Z" >Z</option></select></td>
-        		 <td><select id="highRange" title ="<%= deptAdvisors.get(i).getNameHigh() %>" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
+        		 <td><select name="highRange<%=i%>"  id="highRange" title ="<%= deptAdvisors.get(i).getNameHigh() %>" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
 					<option value ="A" >A</option>
 					<option value ="B" >B</option>
 					<option value ="C" >C</option>
@@ -105,12 +105,12 @@
 					<option value ="X" >X</option>
 					<option value ="Y" >Y</option>
 					<option value ="Z" >Z</option></select></td>
-        		 <td><select id="degree" title ="" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
+        		 <td><select name="degree<%=i %>" id="degree" title ="" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
 		    		 <option value ="all" >All</option>
 		    		 <option value ="undergrad" >Undergrad</option>
 		    		 <option value ="graduate" >Graduate</option>
 		    		 <option value ="doctorate" >Doctorate</option></select></td>
-        		 <td><select multiple id="majors" title ="" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
+        		 <td><select multiple name = "majors<%=i %>" id="majors" title ="" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
 		    		 <% for(int m = 0; m < deptAdvisors.get(i).getMajors().size(); m++) {%>
 		    		 <option value ="<%=deptAdvisors.get(i).getMajors().get(m) %>" > <%=deptAdvisors.get(i).getMajors().get(m) %></option>
 		    		 <%} %></select></td>
