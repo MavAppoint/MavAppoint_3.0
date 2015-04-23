@@ -74,20 +74,10 @@ public class RDBImpl implements DBImplInterface{
 			SQLCmd cmd = new CreateUser(studentUser);
 			cmd.execute();
 			
-			if ((Boolean)cmd.getResult().get(0)){
-				
-				cmd = new GetUserIDByEmail(studentUser.getEmail());
-				cmd.execute();
-				studentUser.setUserId((int)cmd.getResult().get(0));
-				
-				cmd = new CreateStudent(studentUser);
-				cmd.execute();
-				return (Boolean)cmd.getResult().get(0);
-			}
-			else{
-				System.out.println("Wrong value: "+cmd.getResult().get(0)+"RBImpl.java");
-				return false;
-			}	
+			cmd = new CreateStudent(studentUser);
+			cmd.execute();
+			System.out.println(cmd.getResult());
+			return (Boolean)cmd.getResult().get(0);
 		}
 		catch(Exception e){
 			System.out.println(e+this.getClass().getName());
@@ -462,12 +452,6 @@ public class RDBImpl implements DBImplInterface{
 		try{
 			SQLCmd cmd = new CreateUser(advisorUser);
 			cmd.execute();
-			System.out.println("Created User");
-			cmd = new GetUserIDByEmail(advisorUser.getEmail());
-			cmd.execute();
-			System.out.println("Got UserId");
-			advisorUser.setUserId((Integer)cmd.getResult().get(0));
-			System.out.println("Set UserId");
 			cmd = new CreateAdvisor(advisorUser);
 			cmd.execute();
 			System.out.println("Created Advisor");
@@ -492,7 +476,7 @@ public class RDBImpl implements DBImplInterface{
 	public ArrayList<String> getDepartmentStrings() throws SQLException{
 		ArrayList<String> arraylist = new ArrayList<String>();
 		try{
-			SQLCmd cmd = new GetDepartmentStrings();
+			SQLCmd cmd = new GetDepartmentNames();
 			cmd.execute();
 			ArrayList<Object> tmp = cmd.getResult();
 			for (int i=0;i<tmp.size();i++){
@@ -549,6 +533,24 @@ public class RDBImpl implements DBImplInterface{
 		}
 		
 		return true;
+	}
+	
+	public ArrayList<Department> getDepartments() throws SQLException {
+		SQLCmd sqlCmd = new GetDepartmentNames();
+		sqlCmd.execute();
+		
+		ArrayList<Department> departments = new ArrayList<Department>();
+		for(int depIndex=0; depIndex<sqlCmd.getResult().size(); depIndex++)
+		{
+			String depName = (String)sqlCmd.getResult().get(depIndex);
+			SQLCmd sqlCmd2 = new GetDepartmentByName(depName);
+			sqlCmd2.execute();
+		
+			Department department = (Department)sqlCmd2.getResult().get(0);
+			departments.add(department);
+		}
+		
+		return departments;
 	}
 }
 

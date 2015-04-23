@@ -6,10 +6,11 @@ import uta.mav.appoint.login.*;
 
 public class CreateUser  extends SQLCmd{
 	
-	String email;
-	String password;
-	String role;
-	Boolean b;
+	private LoginUser loginUser;
+	private String email;
+	private String password;
+	private String role;
+	private Boolean b;
 	
 	public CreateUser(LoginUser loginUser){
 		this.email=loginUser.getEmail();
@@ -40,6 +41,16 @@ public class CreateUser  extends SQLCmd{
 
 	@Override
 	public void processResult() {
+		SQLCmd cmd = new GetUserIDByEmail(loginUser.getEmail());
+		cmd.execute();
+		loginUser.setUserId((int)cmd.getResult().get(0));
+		
+		cmd = new AddMajorsByUserId(loginUser.getUserId(), loginUser.getMajors());
+		cmd.execute();
+		
+		cmd = new AddDepartmentsByUserId(loginUser.getUserId(), loginUser.getDepartments());
+		cmd.execute();
+		
 		result.add(b);	
 	}
 

@@ -100,5 +100,9 @@ public class DatabaseManager {
 	public Boolean updateAdvisors(ArrayList<AdvisorUser> advisorUsers) throws SQLException {
 		return imp.updateAdvisors(advisorUsers);
 	}
+	
+	public ArrayList<Department> getDepartments() throws SQLException {
+		return imp.getDepartments();
+	}
 }
 

@@ -3,9 +3,9 @@ package uta.mav.appoint.db.command;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class GetDepartmentStrings extends SQLCmd{
+public class GetDepartmentNames extends SQLCmd{
 	
-	public GetDepartmentStrings(){
+	public GetDepartmentNames(){
 		super();
 	}
 	

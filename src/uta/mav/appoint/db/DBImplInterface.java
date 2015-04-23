@@ -13,6 +13,7 @@ import uta.mav.appoint.beans.GetSet;
 import uta.mav.appoint.beans.RegisterBean;
 import uta.mav.appoint.login.AdminUser;
 import uta.mav.appoint.login.AdvisorUser;
+import uta.mav.appoint.login.Department;
 import uta.mav.appoint.login.LoginUser;
 import uta.mav.appoint.login.StudentUser;
 
@@ -40,4 +41,5 @@ public interface DBImplInterface {
 	public Boolean createAdvisor(AdvisorUser advisorUser) throws SQLException;
 	public ArrayList<AdvisorUser> getAdvisorsOfDepartment(String department) throws SQLException;
 	public Boolean updateAdvisors(ArrayList<AdvisorUser> advisorUsers) throws SQLException;
+	public ArrayList<Department> getDepartments() throws SQLException;
 }
