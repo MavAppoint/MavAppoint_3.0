@@ -20,21 +20,6 @@ public class LoginUser {
 		msg = "";
 	}
 	
-	public LoginUser(String email, String password, String role){
-		this.email=email;
-		this.password=password;
-		this.role = role;
-		validated = 0;
-		
-		try
-		{
-			DatabaseManager databaseManager = new DatabaseManager();
-			userId = databaseManager.createUser(email, password, role);
-		} catch (Exception e){
-			System.out.println(e+"LoginUser");
-		}
-	}
-	
 	public void accept(Visitor v){
 		v.check(this);
 	}
