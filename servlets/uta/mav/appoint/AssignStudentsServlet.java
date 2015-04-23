@@ -1,7 +1,9 @@
 package uta.mav.appoint;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,14 +40,17 @@ public class AssignStudentsServlet extends HttpServlet {
 		else{
 			try{
 				advUser = new AdvisorUser();
-				System.out.println(user.getEmail());
+				String s = new String();
 				DatabaseManager dbm = new DatabaseManager();
+				advUser = dbm.getAdvisor(user.getEmail());
 				header = "templates/" + advUser.getHeader() + ".jsp";
 				deptAdvisors = new ArrayList<AdvisorUser>();
+				//deptAdvisors =  dbm.getAdvisorsOfDepartment(advUser.getDept());
 				AdvisorUser adv1 = new AdvisorUser( "Dr. Reynaldo", "A", "Z", 8);
 				AdvisorUser adv2 = new AdvisorUser( "Dr. Alex", "A", "Z", 8);
 				deptAdvisors.add(adv2);
 				deptAdvisors.add(adv1);
+				deptAdvisors.add(advUser);
 				if (deptAdvisors.size() > 0){
 					session.setAttribute("deptAdvisors", deptAdvisors);
 				}
@@ -65,7 +70,53 @@ public class AssignStudentsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		session = request.getSession();
+		LoginUser user = (LoginUser)session.getAttribute("user");
+		if (user == null){
+				
+				response.sendRedirect("login");		
+		}else{
+			try {
+			DatabaseManager dbm = new DatabaseManager();
+			
+			advUser = dbm.getAdvisor(user.getEmail());
+			header = "templates/" + advUser.getHeader() + ".jsp";
+			deptAdvisors = new ArrayList<AdvisorUser>();
+			AdvisorUser adv1 = new AdvisorUser( "Dr. Reynaldo", "A", "Z", 8);
+			AdvisorUser adv2 = new AdvisorUser( "Dr. Alex", "A", "Z", 8);
+			deptAdvisors.add(adv2);
+			deptAdvisors.add(adv1);
+			deptAdvisors.add(advUser);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		Enumeration<String> paramNames = request.getParameterNames();
+				while(paramNames.hasMoreElements()) 
+				{
+				
+					String paramName = (String)paramNames.nextElement();
+					System.out.println(paramName );
+					String[] paramValues = request.getParameterValues(paramName);
+					if (paramValues.length == 1) {
+						String paramValue = paramValues[0];
+					if (paramValue.length() == 0)
+						System.out.println("No Value");
+					else
+						System.out.println(paramValue);
+					}else 
+					{
+						for(int i=0; i<paramValues.length; i++) {
+							System.out.println( paramValues[i]);
+					}
+					
+					}
+				}
+		request.setAttribute("includeHeader", header);
+		response.sendRedirect("index");	
+		
 	}
 
 }

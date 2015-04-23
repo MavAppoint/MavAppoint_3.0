@@ -19,16 +19,8 @@ public class CheckUser extends SQLCmd{
 	@Override
 	public void queryDB(){
 		try{
-			String command = "SELECT COUNT(*),ROLE,pname FROM USER,User_Advisor WHERE user.userid=User_Advisor.userid AND user.EMAIL=? AND user.PASSWORD=?";
+			String command = "SELECT role FROM User where EMAIL=? AND PASSWORD=?";
 			PreparedStatement statement = conn.prepareStatement(command); 
-			statement.setString(1,email);
-			statement.setString(2,password);
-			res = statement.executeQuery();
-			while(res.next()){
-				pname = res.getString(3);
-			}
-			command = "SELECT COUNT(*),ROLE,pname FROM USER,User_Advisor WHERE user.EMAIL=? AND user.PASSWORD=?";
-			statement = conn.prepareStatement(command); 
 			statement.setString(1,email);
 			statement.setString(2,password);
 			res = statement.executeQuery();
@@ -43,22 +35,23 @@ public class CheckUser extends SQLCmd{
 	public void processResult(){
 		LoginUser user = null;
 		try{
+			System.out.println(res);
 			while(res.next()){
-				if (!(res.getInt(1) == 0)){
-					if (res.getString(2).toLowerCase().equals("advisor")){
-						DatabaseManager databaseManager = new DatabaseManager();
-						user = databaseManager.getAdvisor(email);
-					}
-					else if (res.getString(2).toLowerCase().equals("student")){
-						user = new StudentUser(email);
-					}
-					else if (res.getString(2).toLowerCase().equals("admin")){
-						user = new AdminUser(email);
-					} 
-					else {
-						user = new FacultyUser(email);
-					}
-				}	
+				if (res.getString(1).toLowerCase().equals("advisor")){
+					System.out.println("About to find!");
+					DatabaseManager databaseManager = new DatabaseManager();
+					user = databaseManager.getAdvisor(email);
+					System.out.println("Found!" + user.toString());
+				}
+				else if (res.getString(1).toLowerCase().equals("student")){
+					user = new StudentUser(email);
+				}
+				else if (res.getString(1).toLowerCase().equals("admin")){
+					user = new AdminUser(email);
+				} 
+				else {
+					user = new FacultyUser(email);
+				}
 			}
 			result.add(user);
 		}

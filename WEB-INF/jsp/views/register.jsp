@@ -20,7 +20,7 @@
 										for (int i=0;i<departments.size();i++){
 											
 											%>
-								<option value=<%=departments.get(i)%>><%=departments.get(i)%></option>
+								<option value=<%=i%>><%=departments.get(i)%></option>
 								<%	}%>
 							</form>
 			
@@ -49,11 +49,19 @@
 										for (int i=0;i<major.size();i++){
 											
 											%>
-								<option value=<%=major.get(i)%>><%=major.get(i)%></option>
+								<option value=<%=i%>><%=major.get(i)%></option>
 								<%	}%>
 							</form>
 					</select> 
 					<br>
+					
+					<label for="firstName"><font color="#e67e22" size="4">First Name</label> 
+					<br>
+					<input type="text" class="form-control" name=firstName>
+					
+					<label for="lastName"><font color="#e67e22" size="4">Last Name</label> 
+					<br>
+					<input type="text" class="form-control" name=lastName>
 					
 					<label for="student_Id"><font color="#e67e22" size="4">Student ID</label> 
 					<br>
