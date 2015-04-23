@@ -20,7 +20,7 @@
 										for (int i=0;i<departments.size();i++){
 											
 											%>
-								<option value=<%=departments.get(i)%>><%=departments.get(i)%></option>
+								<option value=<%=i%>><%=departments.get(i)%></option>
 								<%	}%>
 							</form>
 			
@@ -49,7 +49,7 @@
 										for (int i=0;i<major.size();i++){
 											
 											%>
-								<option value=<%=major.get(i)%>><%=major.get(i)%></option>
+								<option value=<%=i%>><%=major.get(i)%></option>
 								<%	}%>
 							</form>
 					</select> 
