@@ -101,7 +101,7 @@ public class CreateAdvisorServlet extends HttpServlet{
 	            	+ "\nUsername: " + advisorUser.getPname()
 	            	+ "\npassword: \""+advisorUser.getPassword()+"\" "
 	            	+ "\nMavAppoint";
-			String toEmail = "mavappoint.donotreply@gmail.com";
+			String toEmail = advisorUser.getEmail();
 			
 			Email newMail = new Email(msgSub, msgText, toEmail);
 			newMail.sendMail();
