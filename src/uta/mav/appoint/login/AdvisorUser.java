@@ -31,6 +31,7 @@ public class AdvisorUser extends LoginUser{
 		this.nameLow = name_low;
 		this.nameHigh = name_high;
 		this.degType = degree_types;
+		this.majors = new ArrayList<String>();
 		this.majors.add("Software Engineering");
 		this.majors.add("Computer Science");
 		this.majors.add("Computer Engineering");
