@@ -33,7 +33,7 @@
    }
    
    </script>
-    <form method= "post">
+    <form method= "post" action= "assign_students">
       <table class="table">
         <thead>
           <tr>
@@ -115,16 +115,17 @@
 		    		 <option value ="<%=deptAdvisors.get(i).getMajors().get(m) %>" > <%=deptAdvisors.get(i).getMajors().get(m) %></option>
 		    		 <%} %></select></td>
         		 </tr> 
-        	<%   }
+        	<%  }
         
-        }
-          else{ %> 
+        }else{ %> 
           <tr><th>Something is Wrong<th></tr>
          <% }%>
         
         </tbody>
       </table>
-      <div class="panel-footer text-right"><input type="submit" class="btn-lg" value="Submit"></div>
+      <div class="panel-footer text-center">
+      	<input type="submit" class="btn-lg" value="Submit">
+      </div>
        
       </form>
     </div>

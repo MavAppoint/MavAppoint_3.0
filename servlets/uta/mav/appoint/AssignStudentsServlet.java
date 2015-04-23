@@ -1,6 +1,7 @@
 package uta.mav.appoint;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -43,7 +44,7 @@ public class AssignStudentsServlet extends HttpServlet {
 				advUser = dbm.getAdvisor(user.getEmail());
 				header = "templates/" + advUser.getHeader() + ".jsp";
 				
-				deptAdvisors = new ArrayList<AdvisorUser>();
+				//deptAdvisors =  dbm.getAdvisorsOfDepartment(advUser.getDept());
 				AdvisorUser adv1 = new AdvisorUser( "Dr. Reynaldo", "A", "Z", 8);
 				AdvisorUser adv2 = new AdvisorUser( "Dr. Alex", "A", "Z", 8);
 				deptAdvisors.add(adv2);
@@ -67,7 +68,28 @@ public class AssignStudentsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		session = request.getSession();
+		LoginUser user = (LoginUser)session.getAttribute("user");
+		if (user == null){
+				
+				response.sendRedirect("login");		
+		}else{
+			try {
+			DatabaseManager dbm = new DatabaseManager();
+			
+			advUser = dbm.getAdvisor(user.getEmail());
+			header = "templates/" + advUser.getHeader() + ".jsp";
+			
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		request.setAttribute("includeHeader", header);
+		response.sendRedirect("index");	
+		
 	}
 
 }
