@@ -2,15 +2,16 @@
 <%@ page import="java.util.ArrayList"%>
 
 <% ArrayList<String> array = (ArrayList<String>)session.getAttribute("advisors");
-	if (array != null){ %>
+	if (array != null){ 
 	
-<% ArrayList<String> departments = (ArrayList<String>)session.getAttribute("departments");
-%>
+ArrayList<String> departments = (ArrayList<String>)session.getAttribute("departments");
 
-<% ArrayList<String> degreeType = (ArrayList<String>)session.getAttribute("degreeType");
-%>
-	
-<% ArrayList<String> major = (ArrayList<String>)session.getAttribute("major");
+ArrayList<String> degreeType = (ArrayList<String>)session.getAttribute("degreeType");
+
+ArrayList<String> major = (ArrayList<String>)session.getAttribute("major");
+
+ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("letters");
+
 %>
 	
 <div class="container">
@@ -21,12 +22,22 @@
 		<select id="drp_department" class="btn btn-default btn-lg dropdown-toggle">
 			<option value="select">Select</option>
 			<%
-							for (int i=0;i<departments.size();i++){
-								
-								%>
-					<option value="option<%=i%>"><%=departments.get(i)%></option>
-					<%	}%>
-				</form>
+
+			for (int i=0;i<departments.size();i++){
+				
+				%>
+			<option id="option" onclick = "selectdepartment()" value="<%=departments.get(i)%>"><%=departments.get(i)%></option>
+	
+	
+		<%	}%>
+		
+</form>
+<script> function selectdepartment(){
+						document.getElementById("option").value;
+						advisor_form.submit();
+					 }
+			</script>
+
 
 		</select> 
 
@@ -41,34 +52,63 @@
 							for (int i=0;i<degreeType.size();i++){
 								
 								%>
-					<option value="option<%=i%>"><%=degreeType.get(i)%></option>
+					<option onclick = "selectdegreetype()" value="option<%=i%>"><%=degreeType.get(i)%></option>
 					<%	}%>
 				</form>
+				<script>function selectdegreetype(){
+						document.getElementById("option").value;
+						advisor_form.submit();
+					 }
+				</script>
 		</select> 
 		<br>
 
     </div>
-    <div class="col-md-2">
+    <div class="col-md-4">
 
         <label for="drp_major"><font color="#e67e22" size="4">Major</font></label> 
-		<br>
+        <br>
 		<select id="drp_major" class="btn btn-default btn-lg dropdown-toggle">
 			<option value="select">Select</option>
 				<%
 							for (int i=0;i<major.size();i++){
 								
 								%>
-					<option value="option<%=i%>"><%=major.get(i)%></option>
+					<option id = "major" onclick = "selectmajor()" value="option<%=i%>"><%=major.get(i)%></option>
 					<%	}%>
 				</form>
+					<script>function selectmajor(){
+						document.getElementById("major").value;
+						advisor_form.submit();
+					 }
+				</script>
 		</select> 
 		<br>
 
     </div>
     
-    <div class="col-md-6"></div>
-    <br>
-	</div>
+    <div class="col-md-4"></div>
+    <label for="drp_lastName"><font color="#e67e22" size="4">Last Name</font></label> 
+		<br>
+		<select id="drp_major" class="btn btn-default btn-lg dropdown-toggle">
+			<option value="select">Select</option>
+				<%
+							for (int i=0;i<letters.size();i++){
+								
+								%>
+					<option id = "letter" onclick = "selectLetter()" value="option<%=i%>"><%=letters.get(i)%></option>
+					<%	}%>
+				</form>
+			
+					<script>function selectLetter(){
+						document.getElementById("letter").value;
+						advisor_form.submit();
+					 }
+				</script>
+		</select> 
+		<br>
+
+    </div>
 	<div class="page-header">
 
 
