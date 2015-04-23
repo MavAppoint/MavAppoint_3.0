@@ -12,10 +12,14 @@ public class GetAdvisorById extends SQLCmd{
 	public GetAdvisorById(Integer userId){
 		super();
 		this.userId = userId;
+		advisorUser = new AdvisorUser();
+		advisorUser.setUserId(userId);
 		
-		SQLCmd sqlCmd = new GetUserById(userId);
+		SQLCmd sqlCmd = new GetUserById(advisorUser);
 		sqlCmd.execute();
+		System.out.println("Got Advisor "+sqlCmd.getResult().get(0));
 		advisorUser = (AdvisorUser)sqlCmd.getResult().get(0);
+		System.out.println("Got Advisor");
 	}
 	
 	
@@ -35,6 +39,7 @@ public class GetAdvisorById extends SQLCmd{
 	@Override
 	public void processResult(){
 		try{
+			res.next();
 			int i = 1;
 			advisorUser.setPname(res.getString(i));
 			i++;
@@ -48,6 +53,8 @@ public class GetAdvisorById extends SQLCmd{
 			i++;
 			advisorUser.setIsLead(res.getInt(i));
 			i++;
+			
+			result.add(advisorUser);
 		}
 		catch(SQLException sq){
 			System.out.println(sq.toString());

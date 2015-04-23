@@ -21,14 +21,16 @@ public class AddDepartmentsByUserId extends SQLCmd {
 		try{
 			String command = "INSERT INTO department_user (name, userId) VALUES ";
 			for(int majorsIndex = 0; majorsIndex < departments.size(); majorsIndex++)
+			{
 				if(majorsIndex>0)
 					command += ", ";
 				command += "(?, ?)";
+			}
 			PreparedStatement statement = conn.prepareStatement(command);
 			for(int majorsIndex = 0; majorsIndex < departments.size(); majorsIndex++)
 			{
-				statement.setString(majorsIndex*2,departments.get(majorsIndex));
-				statement.setInt(majorsIndex*2+1,userId);
+				statement.setString(majorsIndex*2+1,departments.get(majorsIndex));
+				statement.setInt(majorsIndex*2+2,userId);
 			}
 
 			statement.executeUpdate();

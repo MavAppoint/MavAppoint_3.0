@@ -16,6 +16,7 @@ public class CreateUser  extends SQLCmd{
 		this.email=loginUser.getEmail();
 		this.password=loginUser.getPassword();
 		this.role = loginUser.getRole();
+		this.loginUser = loginUser;
 		b = false;
 	}
 	

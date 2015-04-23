@@ -512,12 +512,15 @@ public class RDBImpl implements DBImplInterface{
 		ArrayList<AdvisorUser> advisorUsers = new ArrayList<AdvisorUser>();
 		SQLCmd sqlCmd = new GetAdvisorIdsOfDepartment(department);
 		sqlCmd.execute();
+		System.out.println("User Ids "+sqlCmd.getResult());
 		
 		for(int i=0; i<sqlCmd.getResult().size(); i++)
 		{
 			Integer userId = Integer.valueOf((String)sqlCmd.getResult().get(i));
+			System.out.println("User Id "+userId);
 			SQLCmd sqlCmd2 = new GetAdvisorById(userId);
 			sqlCmd2.execute();
+			System.out.println("Advisor "+sqlCmd2.getResult());
 			AdvisorUser advisorUser = (AdvisorUser)sqlCmd2.getResult().get(0);
 			advisorUsers.add(advisorUser);
 		}

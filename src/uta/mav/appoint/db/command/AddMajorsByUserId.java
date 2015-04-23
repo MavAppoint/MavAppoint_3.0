@@ -21,14 +21,17 @@ public class AddMajorsByUserId extends SQLCmd {
 		try{
 			String command = "INSERT INTO major_user (name, userId) VALUES ";
 			for(int majorsIndex = 0; majorsIndex < majors.size(); majorsIndex++)
+			{
 				if(majorsIndex>0)
 					command += ", ";
-				command += "(?, ?)";
+				command += " (?, ?)";
+			}
 			PreparedStatement statement = conn.prepareStatement(command);
 			for(int majorsIndex = 0; majorsIndex < majors.size(); majorsIndex++)
 			{
-				statement.setString(majorsIndex*2,majors.get(majorsIndex));
-				statement.setInt(majorsIndex*2+1,userId);
+				System.out.println("Want to add :"+majors.get(majorsIndex)+":");
+				statement.setString(majorsIndex*2+1,majors.get(majorsIndex));
+				statement.setInt(majorsIndex*2+2,userId);
 			}
 
 			statement.executeUpdate();
