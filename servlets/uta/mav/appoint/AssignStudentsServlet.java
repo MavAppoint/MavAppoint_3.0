@@ -43,7 +43,7 @@ public class AssignStudentsServlet extends HttpServlet {
 				DatabaseManager dbm = new DatabaseManager();
 				advUser = dbm.getAdvisor(user.getEmail());
 				header = "templates/" + advUser.getHeader() + ".jsp";
-				
+				deptAdvisors = new ArrayList<AdvisorUser>();
 				//deptAdvisors =  dbm.getAdvisorsOfDepartment(advUser.getDept());
 				AdvisorUser adv1 = new AdvisorUser( "Dr. Reynaldo", "A", "Z", 8);
 				AdvisorUser adv2 = new AdvisorUser( "Dr. Alex", "A", "Z", 8);
