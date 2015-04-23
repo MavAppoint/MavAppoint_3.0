@@ -69,30 +69,18 @@ public class RDBImpl implements DBImplInterface{
 		return result;
 	}
 	
-	public Boolean addUser(RegisterBean registerBean){
+	public Boolean createStudent(StudentUser studentUser){
 		try{
-			System.out.printf("About to use Bean\n");
-			SQLCmd cmd = new Register(registerBean);
-			System.out.printf("About to execute Bean\n");
+			SQLCmd cmd = new CreateUser(studentUser);
 			cmd.execute();
-			System.out.print("Used Bean & has "+ (Boolean)cmd.getResult().get(0)+"\n");
-			if ((Boolean)cmd.getResult().get(0)){
-				System.out.print("Created user & has "+ (Boolean)cmd.getResult().get(0)+"\n");
-				cmd = new GetUserIDByEmail(registerBean.getEmail());
-				cmd.execute();
-				System.out.printf("Created user & has %d\n", (int)cmd.getResult().get(0));
-				cmd = new RegisterInitialStudent((int)cmd.getResult().get(0),registerBean);
-				cmd.execute();
-				System.out.printf("Created student & has "+(Boolean)cmd.getResult().get(0)+"\n");
-				return (Boolean)cmd.getResult().get(0);
-			}
-			else{
-				System.out.println("Wrong value: "+cmd.getResult().get(0)+"RBImpl.java");
-				return false;
-			}	
+			
+			cmd = new CreateStudent(studentUser);
+			cmd.execute();
+			System.out.println(cmd.getResult());
+			return (Boolean)cmd.getResult().get(0);
 		}
 		catch(Exception e){
-			System.out.println(e+"RBImpl.java");
+			System.out.println(e+this.getClass().getName());
 			return false;
 		}
 	}
@@ -439,13 +427,13 @@ public class RDBImpl implements DBImplInterface{
 		return app;
 	}
 	
-	public Integer createUser(String email, String password, String role){
+	public Integer createUser(LoginUser loginUser){
 		Integer userId = -1;
 		try{
-			SQLCmd cmd = new CreateUser(email, password, role);
+			SQLCmd cmd = new CreateUser(loginUser);
 			cmd.execute();
 			if ((Boolean)cmd.getResult().get(0)){
-				cmd = new GetUserIDByEmail(email);
+				cmd = new GetUserIDByEmail(loginUser.getEmail());
 				cmd.execute();
 				userId = (int)cmd.getResult().get(0);
 			}
@@ -460,13 +448,17 @@ public class RDBImpl implements DBImplInterface{
 		return userId;
 	}
 	
-	public Boolean createAdvisor(Integer userId, String pname, String name_low, String name_high, Integer degree_types, Integer lead_status){
+	public Boolean createAdvisor(AdvisorUser advisorUser){
 		try{
-			SQLCmd cmd = new CreateAdvisor(userId, pname, name_low, name_high, degree_types, lead_status);
+			SQLCmd cmd = new CreateUser(advisorUser);
 			cmd.execute();
+			cmd = new CreateAdvisor(advisorUser);
+			cmd.execute();
+			System.out.println("Created Advisor");
 				return (Boolean)cmd.getResult().get(0);
 		}
 		catch(Exception e){
+			System.out.println(e+this.getClass().getName());
 			return false;
 		}
 	}
@@ -484,7 +476,7 @@ public class RDBImpl implements DBImplInterface{
 	public ArrayList<String> getDepartmentStrings() throws SQLException{
 		ArrayList<String> arraylist = new ArrayList<String>();
 		try{
-			SQLCmd cmd = new GetDepartmentStrings();
+			SQLCmd cmd = new GetDepartmentNames();
 			cmd.execute();
 			ArrayList<Object> tmp = cmd.getResult();
 			for (int i=0;i<tmp.size();i++){
@@ -530,6 +522,35 @@ public class RDBImpl implements DBImplInterface{
 		}
 		
 		return advisorUsers;
+	}
+	
+	public Boolean updateAdvisors(ArrayList<AdvisorUser> advisorUsers) throws SQLException {
+		
+		for(int i=0; i<advisorUsers.size(); i++)
+		{
+			SQLCmd sqlCmd = new UpdateAdvisor(advisorUsers.get(i));
+			sqlCmd.execute();
+		}
+		
+		return true;
+	}
+	
+	public ArrayList<Department> getDepartments() throws SQLException {
+		SQLCmd sqlCmd = new GetDepartmentNames();
+		sqlCmd.execute();
+		
+		ArrayList<Department> departments = new ArrayList<Department>();
+		for(int depIndex=0; depIndex<sqlCmd.getResult().size(); depIndex++)
+		{
+			String depName = (String)sqlCmd.getResult().get(depIndex);
+			SQLCmd sqlCmd2 = new GetDepartmentByName(depName);
+			sqlCmd2.execute();
+		
+			Department department = (Department)sqlCmd2.getResult().get(0);
+			departments.add(department);
+		}
+		
+		return departments;
 	}
 }
 

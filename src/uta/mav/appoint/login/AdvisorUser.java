@@ -20,27 +20,10 @@ public class AdvisorUser extends LoginUser{
 	private Integer degType;
 	private Integer isLead;
 	
-	public AdvisorUser(String email, String password, String pname, String name_low, String name_high, Integer degree_types, Integer lead_status){
-		super(email,password,"advisor");
-		this.pname = pname;
-		this.nameLow = name_low;
-		this.nameHigh = name_high;
-		this.degType = degree_types;
-		this.isLead = lead_status;
-		
-		try
-		{
-			DatabaseManager databaseManager = new DatabaseManager();
-			databaseManager.createAdvisor(getUserId(), pname, name_low, name_high, degree_types, lead_status);
-		} catch (Exception e){
-			System.out.println(e+"AdvisorUser");
-		}
-
-	}
 	public AdvisorUser(){
 		super();
-
 	}
+	
 	//Testing Constructor Dont modify it
 	public AdvisorUser( String pname, String name_low, String name_high, Integer degree_types){
 		super();
@@ -62,6 +45,72 @@ public class AdvisorUser extends LoginUser{
 	
 	public AdvisorUser(String em){
 		super(em);
+	}
+	
+	public Boolean advisesStudent(StudentUser studentUser)
+	{
+
+		Boolean advises = false;
+		
+		ArrayList<String> advDeps = getDepartments();
+		ArrayList<String> studDeps = studentUser.getDepartments();
+		for(int advDepIndex = 0; advDepIndex < advDeps.size(); advDepIndex++)
+		{
+			for(int studDepIndex = 0; studDepIndex < studDeps.size(); studDepIndex++)
+				if(advDeps.get(advDepIndex).equals(studDeps.get(studDepIndex)))
+				{
+					advises = true;
+					break;
+				}
+		}
+		
+		if(!advises)
+			return false;
+		
+		ArrayList<String> advMajors = getMajors();
+		ArrayList<String> studMajors = studentUser.getMajors();
+		for(int advDepIndex = 0; advDepIndex < advMajors.size(); advDepIndex++)
+		{
+			for(int studDepIndex = 0; studDepIndex < studMajors.size(); studDepIndex++)
+				if(advMajors.get(advDepIndex).equals(studMajors.get(studDepIndex)))
+				{
+					advises = true;
+					break;
+				}
+		}
+		
+		if(!advises)
+			return false;
+		
+		Character studentLastName = studentUser.getLastName().charAt(0);
+		Character advNameLow = getNameLow().charAt(0);
+		Character advNameHigh = getNameHigh().charAt(0);
+		if(studentLastName<advNameLow || advNameHigh<studentLastName)
+			return false;
+		
+		Integer advDegTypes = getDegType();
+		Integer studDegTypes = studentUser.getDegreeType();
+		for(int degLevel=8; degLevel>0; degLevel/=2)
+		{
+			Boolean advTakes = false;
+			Boolean studIs = false;
+			if(advDegTypes>degLevel)
+			{
+				advDegTypes -= degLevel;
+				advTakes = true;
+			}
+			
+			if(studDegTypes>degLevel)
+			{
+				studDegTypes -= degLevel;
+				studIs = true;
+			}
+			
+			if(advTakes && studIs)
+				return true;
+		}
+		
+		return false;
 	}
 	
 	@Override
@@ -132,14 +181,6 @@ public class AdvisorUser extends LoginUser{
 		this.degType = degType;
 	}
 
-	public int getIsLead() {
-		return isLead;
-	}
-
-	public void setIsLead(int isLead) {
-		this.isLead = isLead;
-	}
-
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
@@ -155,4 +196,10 @@ public class AdvisorUser extends LoginUser{
 	public void setIsLead(Integer isLead) {
 		this.isLead = isLead;
 	}
+
+	public Integer getIsLead() {
+		return isLead;
+	}
+	
+	
 }

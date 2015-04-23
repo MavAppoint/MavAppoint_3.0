@@ -55,6 +55,14 @@
 					</select> 
 					<br>
 					
+					<label for="firstName"><font color="#e67e22" size="4">First Name</label> 
+					<br>
+					<input type="text" class="form-control" name=firstName>
+					
+					<label for="lastName"><font color="#e67e22" size="4">Last Name</label> 
+					<br>
+					<input type="text" class="form-control" name=lastName>
+					
 					<label for="student_Id"><font color="#e67e22" size="4">Student ID</label> 
 					<br>
 					<input type="text" class="form-control" name=student_Id placeholder="1000xxxxxx or 6000xxxxxx">
