@@ -28,7 +28,9 @@
 <script type="text/javascript"
 	src="components/bootstrap3/js/bootstrap-datetimepicker.min.js"></script>
 </head>
-<body>
+<%if(request.getRequestURL().toString().endsWith("assign_students")){ %>
+<body onload="myFunction()"><% }else{ %>
+	<body> <%} %>
 	<div class="container">
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div id="inversenavbar" class="container-fluid"
