@@ -96,10 +96,12 @@ public class CreateAdvisorServlet extends HttpServlet{
 			PrintWriter out = response.getWriter();
 			
 			String msgSub = "Mavappoint User Information";
-			String msgText ="Your account has been created"
-	            	+ "\n Username: " + advisorUser.getPassword()
-	            	+ "\npassword: \"newadvisor!@3\" ";
-			String toEmail = "mavappoint.donotreply@gmail.com";
+
+			String msgText ="An advisor account has been created for your email address! Login to http://bartsimpson.uta.edu:8080/MavAppoint/login to change your password. Your login information is:"
+	            	+ "\nUsername: " + advisorUser.getPname()
+	            	+ "\npassword: \""+advisorUser.getPassword()+"\" "
+	            	+ "\nMavAppoint";
+			String toEmail = advisorUser.getEmail();
 			
 			Email newMail = new Email(msgSub, msgText, toEmail);
 			newMail.sendMail();
