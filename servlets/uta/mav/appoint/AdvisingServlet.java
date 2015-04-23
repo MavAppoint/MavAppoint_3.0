@@ -34,6 +34,14 @@ public class AdvisingServlet extends HttpServlet{
 		degreeType.add("Doctorate");
 		session.setAttribute("degreeType", degreeType);
 		
+		ArrayList<Character> letters = new ArrayList<>();
+		char ch;
+		for(ch = 'A'; ch <= 'Z'; ch++)
+		{
+			letters.add(ch);
+		}
+		session.setAttribute("letters", letters);
+		
 		LoginUser user = (LoginUser)session.getAttribute("user");
 		if (user == null){
 			user = new LoginUser();
