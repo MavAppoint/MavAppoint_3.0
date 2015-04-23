@@ -42,4 +42,5 @@ public interface DBImplInterface {
 	public ArrayList<AdvisorUser> getAdvisorsOfDepartment(String department) throws SQLException;
 	public Boolean updateAdvisors(ArrayList<AdvisorUser> advisorUsers) throws SQLException;
 	public ArrayList<Department> getDepartments() throws SQLException;
+	public Department getDepartmentByName(String name) throws SQLException;
 }
