@@ -47,11 +47,12 @@ public class RDBImpl implements DBImplInterface{
 		try{
 			SQLCmd cmd = new CheckUser(set.getEmailAddress(), set.getPassword());
 			cmd.execute();
+			System.out.println("Result = "+cmd.getResult());
 			user = (LoginUser)(cmd.getResult()).get(0);
 			
 		}
 		catch(Exception e){
-			System.out.println(e);
+			System.out.println(e+" -- FOUND IN -- "+this.getClass().getSimpleName());
 		}
 		return user;
 	}
@@ -352,32 +353,13 @@ public class RDBImpl implements DBImplInterface{
 	
 	public AdvisorUser getAdvisor(String email){
 		SQLCmd cmd = new GetAdvisor(email);
+		cmd = new GetUserIDByEmail(email);
 		cmd.execute();
-		AdvisorUser advisorUser = new AdvisorUser(email);
-		int i=0;
-		advisorUser.setPassword((String)cmd.getResult().get(i));
-		i++;
-		advisorUser.setValidated(Integer.valueOf((String)cmd.getResult().get(i)));
-		i++;
-		advisorUser.setPname((String)cmd.getResult().get(i));
-		i++;
-		advisorUser.setNameLow((String)cmd.getResult().get(i));
-		i++;
-		advisorUser.setNameHigh((String)cmd.getResult().get(i));
-		i++;
-		advisorUser.setDegType(Integer.valueOf((String)cmd.getResult().get(i)));
-		i++;
-		advisorUser.setIsLead(Integer.valueOf((String)cmd.getResult().get(i)));
-		i++;
-		advisorUser.setDept((String)cmd.getResult().get(i));
-		i++;
-		ArrayList<String> majors = new ArrayList<String>();
-		for(int j=i; j<cmd.getResult().size(); j++)
-		{
-			majors.add((String)cmd.getResult().get(j));
-		}
-		advisorUser.setMajors(majors);
-		return advisorUser;
+		Integer userId = (Integer)cmd.getResult().get(0);
+		
+		cmd = new GetAdvisorById(userId);
+		cmd.execute();
+		return (AdvisorUser)cmd.getResult().get(0);
 	}
 	
 	public ArrayList<AppointmentType> getAppointmentTypes(String pname){
@@ -450,6 +432,8 @@ public class RDBImpl implements DBImplInterface{
 	}
 	
 	public Boolean createAdvisor(AdvisorUser advisorUser){
+		advisorUser.setRole("advisor");
+		
 		try{
 			SQLCmd cmd = new CreateUser(advisorUser);
 			cmd.execute();
