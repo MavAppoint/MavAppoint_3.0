@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import uta.mav.appoint.beans.GetSet;
 import uta.mav.appoint.beans.RegisterBean;
 import uta.mav.appoint.db.DatabaseManager;
-import uta.mav.appoint.login.LoginUser;
+import uta.mav.appoint.login.*;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -106,35 +106,20 @@ public class RegisterServlet extends HttpServlet {
 			//need to add check for maverick email address
 			//need to add check that both passwords match
 			//need to redirect back to register with correct error message
-			RegisterBean set = new RegisterBean();
-			set.setEmail(email);
-			set.setPassword(password);
-			set.setRole(role);
-			set.setDegree_type(degree_type);
-			set.setPhone_num(phone_num);
-			set.setStudent_Id(student_Id);
+			StudentUser studentUser = new StudentUser();
+			studentUser.setEmail(email);
+			studentUser.setPassword(password);
+			studentUser.setRole(role);
+			studentUser.setDegreeType(degree_type);
+			studentUser.setPhoneNumber(phone_num);
+			studentUser.setStudentId(student_Id);
 		
 			DatabaseManager dbm = new DatabaseManager();
-			if (dbm.addUser(set)){
-				//if adduser successful, log in as added user and redirect
-				//back to start
-				System.out.println("Created user");
-				GetSet sets = new GetSet();
-				sets.setEmailAddress(email);
-				sets.setPassword(password);
-					
-				//call db manager and authenticate user, return value will be 0 or
-				//an integer indicating a role
-				LoginUser user = dbm.checkUser(sets);
-				System.out.println("Checked User");
-				if(user != null){
-					session = request.getSession();
-					System.out.println("Success");
-					session.setAttribute("user", user);
-					System.out.println(user.toString());
-					response.sendRedirect("index");
-					success = true;
-				}
+			if (dbm.createStudent(studentUser)){
+				session = request.getSession();
+				session.setAttribute("user", studentUser);
+				response.sendRedirect("index");
+				success = true;
 			}
 		}
 		catch(Exception e){

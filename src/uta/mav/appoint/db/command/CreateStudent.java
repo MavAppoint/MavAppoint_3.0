@@ -3,9 +3,9 @@ package uta.mav.appoint.db.command;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import uta.mav.appoint.beans.RegisterBean;
+import uta.mav.appoint.login.*;
 
-public class RegisterInitialStudent  extends SQLCmd{
+public class CreateStudent  extends SQLCmd{
 
 	int userid;
 	int student_Id;
@@ -13,12 +13,11 @@ public class RegisterInitialStudent  extends SQLCmd{
 	String phone_num;
 	Boolean b;
 	
-	public RegisterInitialStudent(int id,RegisterBean registerBean){
-		userid = id;
-		student_Id = registerBean.getStudent_Id();
-		degree_type = registerBean.getDegree_type();
-		phone_num = registerBean.getPhone_num();
-		System.out.println(phone_num+"Initial Student\n");
+	public CreateStudent(StudentUser studentUser){
+		userid = studentUser.getUserId();
+		student_Id = studentUser.getStudentId();
+		degree_type = studentUser.getDegreeType();
+		phone_num = studentUser.getPhoneNumber();
 		b = false;
 	}
 	

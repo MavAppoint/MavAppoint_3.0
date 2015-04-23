@@ -23,7 +23,7 @@ public interface DBImplInterface {
 	public ArrayList<Object> getAppointments(AdminUser user) throws SQLException;
 	public Boolean createAppointment(Appointment a, String email) throws SQLException;
 	public ArrayList<TimeSlotComponent> getAdvisorSchedule(String name) throws SQLException;
-	public Boolean addUser(RegisterBean registerBean) throws SQLException;
+	public Boolean createStudent(StudentUser studentUser) throws SQLException;
 	public ArrayList<String> getAdvisors() throws SQLException;
 	public AdvisorUser getAdvisor(String email) throws SQLException;
 	public LoginUser checkUser(GetSet set) throws SQLException;
@@ -36,8 +36,8 @@ public interface DBImplInterface {
 	public String addAppointmentType(AdvisorUser user, AppointmentType at) throws SQLException;
 	public ArrayList<String> getDepartmentStrings() throws SQLException;
 	public ArrayList<String> getMajor() throws SQLException;
-	public Integer createUser(String email, String password, String role) throws SQLException;
-	public Boolean createAdvisor(Integer userId, String pname, String name_low, String name_high, Integer degree_types, Integer lead_status) throws SQLException;
+	public Integer createUser(LoginUser loginUser) throws SQLException;
+	public Boolean createAdvisor(AdvisorUser advisorUser) throws SQLException;
 	public ArrayList<AdvisorUser> getAdvisorsOfDepartment(String department) throws SQLException;
-	
+	public Boolean updateAdvisors(ArrayList<AdvisorUser> advisorUsers) throws SQLException;
 }

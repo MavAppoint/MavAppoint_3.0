@@ -1,27 +1,30 @@
 package uta.mav.appoint.db.command;
 
 import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
 
-import uta.mav.appoint.beans.CreateAdvisorBean;
+import uta.mav.appoint.login.*;
 
 public class CreateAdvisor extends SQLCmd{
 
-	Integer userId;
-	String pname;
-	String name_low;
-	String name_high;
-	Integer degree_types;
-	Integer lead_status;
-	Boolean b;
+	private Integer userId;
+	private String pname;
+	private String name_low;
+	private String name_high;
+	private String notification;
+	private Integer degree_types;
+	private Integer lead_status;
+	private Boolean b;
 	
-	public CreateAdvisor(Integer userId, String pname, String name_low, String name_high, Integer degree_types, Integer lead_status){
-		this.userId = userId;
-		this.pname = pname;
-		this.name_low = name_low;
-		this.name_high = name_high;
-		this.degree_types = degree_types;
-		this.lead_status = lead_status;
+	public CreateAdvisor(AdvisorUser advisorUser){
+		this.userId = advisorUser.getUserId();
+		this.pname = advisorUser.getPname();
+		this.notification = advisorUser.getNotification();
+		this.name_low = advisorUser.getNameLow();
+		this.name_high = advisorUser.getNameHigh();
+		this.degree_types = advisorUser.getDegType();
+		this.lead_status = advisorUser.getIsLead();
 		
 		b = false;
 	}
@@ -34,7 +37,7 @@ public class CreateAdvisor extends SQLCmd{
 			PreparedStatement statement = conn.prepareStatement(command);
 			statement.setInt(1,userId);
 			statement.setString(2,pname);
-			statement.setString(3,"Day");
+			statement.setString(3,notification);
 			statement.setString(4,name_low);
 			statement.setString(5,name_high);
 			statement.setInt(6,degree_types);
