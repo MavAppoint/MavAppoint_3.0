@@ -24,10 +24,15 @@
    function lowRange(){
 	   var selects = document.getElementsByTagName("select"), len = selects.length, i;
 	   for (i = 0; i < len; i++) {
-		    if (selects[i].id == "lowRange") {
+		    if (selects[i].id == "lowRange"+i) {
 		        selects[i].value = selects[i].title;
-		    }else if (selects[i].id == "highRange") {
+		    }else if (selects[i].id == "highRange"+i) {
 		        selects[i].value = selects[i].title;
+		    }else if (selects[i].id == "majors"+i) {
+		    	var index = selects[i].title.split(",");
+		    	for(int = j; j < index.lenght; j++ ){
+		        selects[i].value = index[j];
+		    	}
 		    }
    	}
    }
@@ -110,7 +115,7 @@
 		    		 <option value ="undergrad" >Undergrad</option>
 		    		 <option value ="graduate" >Graduate</option>
 		    		 <option value ="doctorate" >Doctorate</option></select></td>
-        		 <td><select multiple name = "majors<%=i %>" id="majors" title ="" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
+        		 <td><select multiple name = "majors<%=i %>" id="majors" title ="<%=deptAdvisors.get(i).getMajors().toString() %>" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
 		    		 <% for(int m = 0; m < deptAdvisors.get(i).getMajors().size(); m++) {%>
 		    		 <option value ="<%=deptAdvisors.get(i).getMajors().get(m) %>" > <%=deptAdvisors.get(i).getMajors().get(m) %></option>
 		    		 <%} %></select></td>
