@@ -73,6 +73,7 @@ public class RDBImpl implements DBImplInterface{
 		try{
 			SQLCmd cmd = new CreateUser(studentUser);
 			cmd.execute();
+			System.out.println("Created User"+cmd.getResult());
 			
 			cmd = new CreateStudent(studentUser);
 			cmd.execute();
@@ -551,6 +552,14 @@ public class RDBImpl implements DBImplInterface{
 		}
 		
 		return departments;
+	}
+	
+
+	
+	public Department getDepartmentByName(String name) throws SQLException {
+		SQLCmd sqlCmd2 = new GetDepartmentByName(name);
+		sqlCmd2.execute();
+		return (Department)sqlCmd2.getResult().get(0);
 	}
 }
 

@@ -104,5 +104,9 @@ public class DatabaseManager {
 	public ArrayList<Department> getDepartments() throws SQLException {
 		return imp.getDepartments();
 	}
+	
+	public Department getDepartmentByName(String name) throws SQLException {
+		return imp.getDepartmentByName(name);
+	}
 }
 

@@ -41,15 +41,25 @@ public class CreateUser  extends SQLCmd{
 
 	@Override
 	public void processResult() {
-		SQLCmd cmd = new GetUserIDByEmail(loginUser.getEmail());
-		cmd.execute();
-		loginUser.setUserId((int)cmd.getResult().get(0));
-		
-		cmd = new AddMajorsByUserId(loginUser.getUserId(), loginUser.getMajors());
-		cmd.execute();
-		
-		cmd = new AddDepartmentsByUserId(loginUser.getUserId(), loginUser.getDepartments());
-		cmd.execute();
+		try
+		{
+			SQLCmd cmd = new GetUserIDByEmail(loginUser.getEmail());
+			cmd.execute();
+			loginUser.setUserId((int)cmd.getResult().get(0));
+			System.out.println("Finished getting ID");
+			
+			cmd = new AddMajorsByUserId(loginUser.getUserId(), loginUser.getMajors());
+			cmd.execute();
+			System.out.println("Finished adding majors");
+			
+			cmd = new AddDepartmentsByUserId(loginUser.getUserId(), loginUser.getDepartments());
+			cmd.execute();
+			System.out.println("Finished adding departments");
+		}
+		catch(Exception e)
+		{
+			System.out.println(e+" In "+this.getClass().getSimpleName());
+		}
 		
 		result.add(b);	
 	}

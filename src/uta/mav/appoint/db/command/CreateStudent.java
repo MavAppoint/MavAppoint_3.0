@@ -37,7 +37,9 @@ public class CreateStudent  extends SQLCmd{
 			statement.setString(4,phone_num);
 			statement.setString(5,last_name);
 			statement.setString(6,first_name);
+			System.out.println("Made it here");
 			statement.executeUpdate();
+			System.out.println("Made it here too");
 			b = true;
 		}
 		catch(SQLException sqe){
