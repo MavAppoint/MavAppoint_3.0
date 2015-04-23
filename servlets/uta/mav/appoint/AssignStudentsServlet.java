@@ -38,7 +38,7 @@ public class AssignStudentsServlet extends HttpServlet {
 		else{
 			try{
 				advUser = new AdvisorUser();
-
+				String s = new String();
 				DatabaseManager dbm = new DatabaseManager();
 				advUser = dbm.getAdvisor(user.getEmail());
 				header = "templates/" + advUser.getHeader() + ".jsp";
