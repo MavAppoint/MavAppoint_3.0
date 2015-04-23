@@ -19,6 +19,8 @@ import uta.mav.appoint.login.*;
  */
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L; // test comment
+	private ArrayList<String> departments;
+	private ArrayList<String> majors;
 	
 	HttpSession session;
 	/**
@@ -34,12 +36,12 @@ public class RegisterServlet extends HttpServlet {
 		session.setAttribute("degreeType", degreeType);
 		try {
 			DatabaseManager dbm = new DatabaseManager();
-			ArrayList<String> departments = dbm.getDepartmentStrings();
+			departments = dbm.getDepartmentStrings();
 			session.setAttribute("departments", departments);
 			
 			//get majors from database
-			ArrayList<String> major = dbm.getMajor();
-			session.setAttribute("major", major);
+			majors = dbm.getMajor();
+			session.setAttribute("major", majors);
 		} catch(Exception e){
 			System.out.println(e+" RegisterServlet");
 		}
@@ -93,15 +95,17 @@ public class RegisterServlet extends HttpServlet {
 			String firstName = request.getParameter("firstName");
 			Integer degree_type = Integer.valueOf(request.getParameter("drp_degreeType"));
 			
-			ArrayList<String> departments = new ArrayList<String>();
-			departments.add(request.getParameter("drp_department"));
+			ArrayList<String> departmentsSelected = new ArrayList<String>();
+			String departmentFound = departments.get(Integer.valueOf(request.getParameter("drp_department")));
+			departmentsSelected.add(departmentFound);
 			
 			System.out.println("param "+request.getParameter("drp_major").toString());
-			ArrayList<String> majors = new ArrayList<String>();
-			majors.add(request.getParameter("drp_major"));
+			ArrayList<String> majorsSelected = new ArrayList<String>();
+			String majorFound = majors.get(Integer.valueOf(request.getParameter("drp_major")));
+			majorsSelected.add(majorFound);
 			
-			System.out.println("Departments "+departments);
-			System.out.println("Majors "+majors);
+			System.out.println("Departments "+departmentsSelected);
+			System.out.println("Majors "+majorsSelected);
 	
 			//need to add check for maverick email address
 			//need to add check that both passwords match
@@ -115,8 +119,8 @@ public class RegisterServlet extends HttpServlet {
 			studentUser.setStudentId(student_Id);
 			studentUser.setLastName(lastName);
 			studentUser.setFirstName(firstName);
-			studentUser.setDepartments(departments);
-			studentUser.setMajors(majors);
+			studentUser.setDepartments(departmentsSelected);
+			studentUser.setMajors(majorsSelected);
 		
 			DatabaseManager dbm = new DatabaseManager();
 			if (dbm.createStudent(studentUser)){
