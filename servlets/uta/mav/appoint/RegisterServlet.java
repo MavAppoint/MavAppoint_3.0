@@ -18,7 +18,7 @@ import uta.mav.appoint.login.LoginUser;
  * Servlet implementation class RegisterServlet
  */
 public class RegisterServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; // test comment
 	String email;
 	String password;
 	String rpassword;
