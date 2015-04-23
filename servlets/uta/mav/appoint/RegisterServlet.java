@@ -50,6 +50,7 @@ public class RegisterServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Boolean success = false;
+		
 		try{
 			String email = request.getParameter("emailAddress");
 			if(!email.endsWith("@mavs.uta.edu"))
@@ -92,8 +93,13 @@ public class RegisterServlet extends HttpServlet {
 			String firstName = request.getParameter("firstName");
 			Integer degree_type = Integer.valueOf(request.getParameter("drp_degreeType"));
 			
-			ArrayList<String> departments = new ArrayList<String> (Arrays.asList(request.getParameter("drp_department")));
-			ArrayList<String> majors = new ArrayList<String> (Arrays.asList(request.getParameter("drp_major")));
+			ArrayList<String> departments = new ArrayList<String>();
+			departments.add(request.getParameter("drp_department"));
+			
+			System.out.println("param "+request.getParameter("drp_major").toString());
+			ArrayList<String> majors = new ArrayList<String>();
+			majors.add(request.getParameter("drp_major"));
+			
 			System.out.println("Departments "+departments);
 			System.out.println("Majors "+majors);
 	
