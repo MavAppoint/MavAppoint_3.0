@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import uta.mav.appoint.db.DatabaseManager;
+import uta.mav.appoint.login.AdvisorUser;
 import uta.mav.appoint.login.LoginUser;
 
 /**
@@ -20,40 +21,36 @@ public class ChangePasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	HttpSession session;
 	String header;
-	String password;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ChangePasswordServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		session = request.getSession();
-		LoginUser user = (LoginUser)session.getAttribute("user");
+
 		
-		if (user == null){
-			user = new LoginUser();
-			session.setAttribute("user", user);
-			response.sendRedirect("/WEB-INF/jsp/views/login.jsp");	
+		try{
+			AdvisorUser user = (AdvisorUser)session.getAttribute("user");
+			if (user == null){
+				user = new AdvisorUser();
+				session.setAttribute("user", user);
+				response.sendRedirect("/WEB-INF/jsp/views/login.jsp");	
+			}
+			else{
+				try{
+					header = "templates/" + user.getHeader() + ".jsp";
+	
+				}
+				catch(Exception e){
+					System.out.printf(e.toString());
+				}
+			}
 		}
-		else{
-			try{
-				header = "templates/" + user.getHeader() + ".jsp";
-				DatabaseManager dbm = new DatabaseManager();
-				
-			}
-			catch(Exception e){
-				System.out.printf(e.toString());
-			}
+		catch(Exception e){
+			header = "templates/header.jsp";
+			System.out.println(e);
 		}
 		request.setAttribute("includeHeader", header);
-		request.getRequestDispatcher("/WEB-INF/jsp/views/change_advisor_password.jsp").forward(request,response);
+		request.getRequestDispatcher("/WEB-INF/jsp/views/change_password.jsp").forward(request,response);
 	}
 
 	/**
@@ -61,6 +58,20 @@ public class ChangePasswordServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		try{
+			session = request.getSession();
+			AdvisorUser user = (AdvisorUser)session.getAttribute("user");
+			DatabaseManager dbm = new DatabaseManager();
+			String password = request.getParameter("password");
+			String repeatpassword = request.getParameter("repeatpassword");
+			if(user.getPassword().equals(password)){
+				user.setPassword(repeatpassword);
+				user.setValidated(1);
+			}
+		}
+		catch(Exception e){
+			e.getStackTrace();
+		}
 	}
 
 }
