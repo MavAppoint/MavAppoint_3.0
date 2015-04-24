@@ -17,7 +17,7 @@ public class GetAdvisor extends SQLCmd{
 	@Override
 	public void queryDB(){
 		try{
-			SQLCmd cmd = new GetUserID(email);
+			SQLCmd cmd = new GetUserIDByEmail(email);
 			cmd.execute();
 			userId = (int)cmd.getResult().get(0);
 			

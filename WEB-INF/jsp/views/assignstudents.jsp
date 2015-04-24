@@ -2,7 +2,8 @@
 <%@ page  import= "uta.mav.appoint.login.AdvisorUser" %>
 <jsp:include page='<%=(String) request.getAttribute("includeHeader")%>' />
 
-
+<% ArrayList<AdvisorUser> deptAdvisors = new ArrayList<AdvisorUser>();
+           deptAdvisors = (ArrayList<AdvisorUser>)session.getAttribute("deptAdvisors");%>
 <div class="container">
 <!-- Panel -->
 <div class="panel panel-default">
@@ -14,7 +15,25 @@
     <h4>High - High end of the range </h4>
   </div>
   <!-- Table -->
-    
+   <script>
+  
+   function myFunction() {
+	   lowRange(); 
+	}
+   
+   function lowRange(){
+	   var selects = document.getElementsByTagName("select"), len = selects.length, i;
+	   for (i = 0; i < len; i++) {
+		    if (selects[i].id == "lowRange") {
+		        selects[i].value = selects[i].title;
+		    }else if (selects[i].id == "highRange") {
+		        selects[i].value = selects[i].title;
+		    }
+   	}
+   }
+   
+   </script>
+    <form method= "post" action= "assign_students">
       <table class="table">
         <thead>
           <tr>
@@ -26,14 +45,13 @@
           </tr>
         </thead>
         <tbody>
-           <% ArrayList<AdvisorUser> deptAdvisors = new ArrayList<AdvisorUser>();
-           deptAdvisors = (ArrayList<AdvisorUser>)session.getAttribute("deptAdvisors");
-          if (deptAdvisors != null){
+       
+         <% if (deptAdvisors != null){
         	  
-        	  for(int i = 0; i < deptAdvisors.size(); i++){%>
+        	  for(int i = 0; i < deptAdvisors.size(); i++){ %>
         		 <tr>
         		 <td><%= deptAdvisors.get(i).getPname()%></td>
-        		 <td><select type="button" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
+        		 <td><select name="lowRange<%=i %>" id="lowRange" title ="<%= deptAdvisors.get(i).getNameLow() %>" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
 					<option value ="A" >A</option>
 					<option value ="B" >B</option>
 					<option value ="C" >C</option>
@@ -60,7 +78,7 @@
 					<option value ="X" >X</option>
 					<option value ="Y" >Y</option>
 					<option value ="Z" >Z</option></select></td>
-        		 <td><select type="button" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
+        		 <td><select name="highRange<%=i%>"  id="highRange" title ="<%= deptAdvisors.get(i).getNameHigh() %>" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
 					<option value ="A" >A</option>
 					<option value ="B" >B</option>
 					<option value ="C" >C</option>
@@ -87,22 +105,36 @@
 					<option value ="X" >X</option>
 					<option value ="Y" >Y</option>
 					<option value ="Z" >Z</option></select></td>
-        		 <td><select type="button" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
+        		 <td><select name="degree<%=i %>" id="degree" title ="" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
 		    		 <option value ="all" >All</option>
 		    		 <option value ="undergrad" >Undergrad</option>
 		    		 <option value ="graduate" >Graduate</option>
 		    		 <option value ="doctorate" >Doctorate</option></select></td>
-        		 <td><%= deptAdvisors.get(i).getMajors().get(1)%></td>
+        		 <td><select multiple name = "majors<%=i %>" id="majors" title ="" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
+		    		 <% for(int m = 0; m < deptAdvisors.get(i).getMajors().size(); m++) {%>
+		    		 <option value ="<%=deptAdvisors.get(i).getMajors().get(m) %>" > <%=deptAdvisors.get(i).getMajors().get(m) %></option>
+		    		 <%} %></select></td>
         		 </tr> 
-        	<%   }
+        	<%  }
         
-        }
-          else{ %> 
+        }else{ %> 
           <tr><th>Something is Wrong<th></tr>
          <% }%>
+        
         </tbody>
       </table>
+      <div class="panel-footer text-center">
+      	<input type="submit" class="btn-lg" value="Submit">
+      </div>
+       
+      </form>
     </div>
+   
    </div>
+   
     
+<<<<<<< HEAD
 <%@include file="templates/footer.jsp"%>%>
+=======
+<%@include file="templates/footer.jsp"%>
+>>>>>>> MavAppoint/master

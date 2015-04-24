@@ -11,16 +11,16 @@ import uta.mav.appoint.login.*;
 public class DatabaseManager {
 	private DBImplInterface imp = new RDBImpl();
 	
-	public Integer createUser(String email, String password, String role) throws SQLException{
-		return imp.createUser(email, password, role);
+	public Integer createUser(LoginUser loginUser) throws SQLException{
+		return imp.createUser(loginUser);
 	}
 		
 	public LoginUser checkUser(GetSet set) throws SQLException{
 		return imp.checkUser(set);
 	}
 	
-	public Boolean addUser(RegisterBean registerBean) throws SQLException{
-		return imp.addUser(registerBean);
+	public Boolean createStudent(StudentUser studentUser) throws SQLException{
+		return imp.createStudent(studentUser);
 	}
 	
 	public ArrayList<String> getAdvisors() throws SQLException{
@@ -89,8 +89,28 @@ public class DatabaseManager {
 		return imp.getMajor();
 	}
 	
-	public Boolean createAdvisor(Integer userId, String pname, String name_low, String name_high, Integer degree_types, Integer lead_status) throws SQLException{
-		return imp.createAdvisor(userId, pname, name_low, name_high, degree_types, lead_status);
+	public Boolean createAdvisor(AdvisorUser advisorUser) throws SQLException{
+		return imp.createAdvisor(advisorUser);
+	}
+	
+	public ArrayList<AdvisorUser> getAdvisorsOfDepartment(String department) throws SQLException{
+		return imp.getAdvisorsOfDepartment(department);
+	}
+	
+	public Boolean updateAdvisors(ArrayList<AdvisorUser> advisorUsers) throws SQLException {
+		return imp.updateAdvisors(advisorUsers);
+	}
+	
+	public ArrayList<Department> getDepartments() throws SQLException {
+		return imp.getDepartments();
+	}
+	
+	public Department getDepartmentByName(String name) throws SQLException {
+		return imp.getDepartmentByName(name);
+	}
+	
+	public Boolean updateUser(LoginUser loginUser) throws SQLException {
+		return imp.updateUser(loginUser);
 	}
 }
 

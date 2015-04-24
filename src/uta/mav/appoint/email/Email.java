@@ -17,7 +17,8 @@ public class Email {
 	{
 		subject = sub;
 		text = txt;
-		toEmail = destEmail;
+		//toEmail = destEmail;
+		toEmail = "mavappoint.donotreply@gmail.com";
 	}
 	public void sendMail()
 	{
