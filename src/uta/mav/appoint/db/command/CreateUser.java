@@ -1,6 +1,7 @@
 package uta.mav.appoint.db.command;
 
 import java.sql.PreparedStatement;
+import uta.mav.appoint.email.*;
 
 import uta.mav.appoint.login.*;
 
@@ -17,6 +18,15 @@ public class CreateUser  extends SQLCmd{
 		this.password=loginUser.getPassword();
 		this.role = loginUser.getRole();
 		this.loginUser = loginUser;
+		
+		Email userEmail = new Email("MavAppoint Account Created",
+			"Your account for MavAppoint has been created! Your account information is:\n"
+			+"Role:"+role+"\n"
+			+"Email:"+email+"\n"
+			+"Password:"+password,
+			email);
+		userEmail.sendMail();
+			
 		b = false;
 	}
 	
