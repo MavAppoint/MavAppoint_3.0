@@ -82,7 +82,7 @@ public class RDBImpl implements DBImplInterface{
 			return (Boolean)cmd.getResult().get(0);
 		}
 		catch(Exception e){
-			System.out.println(e+this.getClass().getName());
+			System.out.println(e+" -- Found In -- "+this.getClass().getName());
 			return false;
 		}
 	}
