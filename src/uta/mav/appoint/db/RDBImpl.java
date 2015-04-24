@@ -541,12 +541,16 @@ public class RDBImpl implements DBImplInterface{
 		return departments;
 	}
 	
-
-	
 	public Department getDepartmentByName(String name) throws SQLException {
 		SQLCmd sqlCmd2 = new GetDepartmentByName(name);
 		sqlCmd2.execute();
 		return (Department)sqlCmd2.getResult().get(0);
+	}
+	
+	public Boolean updateUser(LoginUser loginUser) throws SQLException {
+		SQLCmd sqlCmd = new UpdateUser(loginUser);
+		sqlCmd.execute();
+		return true;
 	}
 }
 
