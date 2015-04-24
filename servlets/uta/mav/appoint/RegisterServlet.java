@@ -100,11 +100,9 @@ public class RegisterServlet extends HttpServlet {
 			Integer student_Id = Integer.valueOf(request.getParameter("student_Id"));
 			studentUser.setStudentId(student_Id);
 			
-			String lastName = request.getParameter("lastName");
-			studentUser.setLastName(lastName);
-			
-			String firstName = request.getParameter("firstName");
-			studentUser.setFirstName(firstName);
+			System.out.println("Last Name Initial: "+request.getParameter("drp_last_name_initial"));
+			String lastNameInitial = request.getParameter("drp_last_name_initial");
+			studentUser.setLastNameInitial(lastNameInitial);
 			
 			Integer degree_type = Integer.valueOf(request.getParameter("drp_degreeType"));
 			studentUser.setDegreeType(degree_type);

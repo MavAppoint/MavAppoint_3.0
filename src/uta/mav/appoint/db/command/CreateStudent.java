@@ -11,8 +11,7 @@ public class CreateStudent  extends SQLCmd{
 	private Integer student_Id;
 	private Integer degree_type;
 	private String phone_num;
-	private String last_name;
-	private String first_name;
+	private String last_name_initial;
 	private Boolean b;
 	
 	public CreateStudent(StudentUser studentUser){
@@ -20,32 +19,32 @@ public class CreateStudent  extends SQLCmd{
 		student_Id = studentUser.getStudentId();
 		degree_type = studentUser.getDegreeType();
 		phone_num = studentUser.getPhoneNumber();
-		last_name = studentUser.getLastName();
-		first_name = studentUser.getFirstName();
+		last_name_initial = studentUser.getLastNameInitial();
 		b = false;
 	}
 	
 	@Override
 	public void queryDB() {
 		try{
-			String command = "INSERT INTO User_Student (userid,student_Id,degree_type,phone_num,last_name,first_name) "
-								+"values(?,?,?,?,?,?)";
+			String command = "INSERT INTO User_Student (userid,student_Id,degree_type,phone_num,last_name_initial) "
+								+"values(?,?,?,?,?)";
 			PreparedStatement statement = conn.prepareStatement(command);
-			statement.setInt(1,userid);
-			statement.setInt(2,student_Id);
-			statement.setInt(3,degree_type);
-			statement.setString(4,phone_num);
-			statement.setString(5,last_name);
-			statement.setString(6,first_name);
-			System.out.println("Made it here");
+			int i=1;
+			statement.setInt(i,userid);
+			i++;
+			statement.setInt(i,student_Id);
+			i++;
+			statement.setInt(i,degree_type);
+			i++;
+			statement.setString(i,phone_num);
+			i++;
+			statement.setString(i,last_name_initial);
 			statement.executeUpdate();
-			System.out.println("Made it here too");
 			b = true;
 		}
 		catch(SQLException sqe){
 			System.out.println(sqe.toString()+"RegisterInitialStudent");
 		}
-		
 	}
 
 	@Override

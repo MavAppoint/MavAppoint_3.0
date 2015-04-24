@@ -82,7 +82,7 @@ public class AdvisorUser extends LoginUser{
 		if(!advises)
 			return false;
 		
-		Character studentLastName = studentUser.getLastName().charAt(0);
+		Character studentLastName = studentUser.getLastNameInitial().charAt(0);
 		Character advNameLow = getNameLow().charAt(0);
 		Character advNameHigh = getNameHigh().charAt(0);
 		if(studentLastName<advNameLow || advNameHigh<studentLastName)
