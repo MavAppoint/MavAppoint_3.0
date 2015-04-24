@@ -133,4 +133,8 @@
    </div>
    
     
+<<<<<<< HEAD
+<%@include file="templates/footer.jsp"%>%>
+=======
 <%@include file="templates/footer.jsp"%>
+>>>>>>> MavAppoint/master
