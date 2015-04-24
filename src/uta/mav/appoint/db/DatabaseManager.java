@@ -108,5 +108,9 @@ public class DatabaseManager {
 	public Department getDepartmentByName(String name) throws SQLException {
 		return imp.getDepartmentByName(name);
 	}
+	
+	public Boolean updateUser(LoginUser loginUser) throws SQLException {
+		return imp.updateUser(loginUser);
+	}
 }
 
