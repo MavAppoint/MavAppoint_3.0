@@ -46,8 +46,12 @@ public class LoginServlet extends HttpServlet {
 			LoginUser user = dbm.checkUser(sets);
 			if(user != null){
 				session.setAttribute("user", user);
-				response.sendRedirect("index");
-				
+				if(user.getValidated().equals(0)){
+					response.sendRedirect("changePassword");
+				}
+				else{
+					response.sendRedirect("index");
+				}
 			}
 			else{
 				//redirect back to login if authentication fails

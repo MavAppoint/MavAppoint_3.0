@@ -130,6 +130,14 @@
 		<servlet-name>CreateAdvisorServlet</servlet-name>
 		<url-pattern>/create_advisor</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<servlet-name>ChangePasswordServlet</servlet-name>
+		<servlet-class>uta.mav.appoint.ChangePasswordServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChangePasswordServlet</servlet-name>
+		<url-pattern>/changePassword</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AddAppointmentServlet</servlet-name>
 		<url-pattern>/add_app_type</url-pattern>
