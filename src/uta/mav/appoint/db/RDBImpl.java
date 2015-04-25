@@ -224,7 +224,12 @@ public class RDBImpl implements DBImplInterface{
 					statement.setString(9,appointment.getDescription());
 					statement.setString(10,email);
 					statement.setString(11,appointment.getStudentPhoneNumber());
+					
+					System.out.println("Update about to execute");
 					statement.executeUpdate();
+					System.out.println("Should have set "+appointment.getStudentPhoneNumber());
+					System.out.println("Update should have executed");
+					
 					command = "UPDATE Advising_Schedule SET studentId=? where userid=? AND date=? and start >= ? and end <= ?";
 					statement=conn.prepareStatement(command);
 					statement.setInt(1,Integer.parseInt(appointment.getStudentId()));
@@ -250,7 +255,7 @@ public class RDBImpl implements DBImplInterface{
 			Connection conn = this.connectDB();
 			PreparedStatement statement;
 //			String command = "SELECT User_Advisor.pname,User_Advisor.email,date,start,end,type,id,Appointments.description,studentId,Appointments.student_email FROM USER,Appointments,User_Advisor "
-					String command = "SELECT User_Advisor.pname,User.email,date,start,end,type,id,Appointments.description,studentId,Appointments.student_email FROM USER,Appointments,User_Advisor "
+					String command = "SELECT User_Advisor.pname,User.email,date,start,end,type,id,Appointments.description,studentId,Appointments.student_email,Appointments.student_cell FROM USER,Appointments,User_Advisor "
 						+ "WHERE USER.email=? AND user.userid=Appointments.advisor_userid AND User_Advisor.userid=Appointments.advisor_userid";
 			statement = conn.prepareStatement(command);
 			statement.setString(1, user.getEmail());
@@ -267,6 +272,7 @@ public class RDBImpl implements DBImplInterface{
 				set.setDescription(rs.getString(8));
 				set.setStudentId(rs.getString(9));
 				set.setStudentEmail(rs.getString(10));
+				set.setStudentPhoneNumber(rs.getString(11));
 				Appointments.add(set);
 			}
 			conn.close();
