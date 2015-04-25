@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import uta.mav.appoint.db.DatabaseManager;
 import uta.mav.appoint.email.Email;
 import uta.mav.appoint.login.*;
+import uta.mav.appoint.db.command.*;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -52,7 +53,6 @@ public class RegisterServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Found -- "+request.getParameter("drp_department"));
 		if(!Boolean.valueOf(request.getParameter("submitted")))
 		{
 			session = request.getSession();
