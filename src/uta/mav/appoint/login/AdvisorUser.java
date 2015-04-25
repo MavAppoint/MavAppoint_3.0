@@ -47,13 +47,11 @@ public class AdvisorUser extends LoginUser{
 		super(em);
 	}
 	
-	public Boolean advisesStudent(StudentUser studentUser)
+	public Boolean advisesStudent(ArrayList<String> studDeps, ArrayList<String> studMajors, Character studentLastName, Integer studDegTypes)
 	{
-
 		Boolean advises = false;
 		
 		ArrayList<String> advDeps = getDepartments();
-		ArrayList<String> studDeps = studentUser.getDepartments();
 		for(int advDepIndex = 0; advDepIndex < advDeps.size(); advDepIndex++)
 		{
 			for(int studDepIndex = 0; studDepIndex < studDeps.size(); studDepIndex++)
@@ -68,7 +66,6 @@ public class AdvisorUser extends LoginUser{
 			return false;
 		
 		ArrayList<String> advMajors = getMajors();
-		ArrayList<String> studMajors = studentUser.getMajors();
 		for(int advDepIndex = 0; advDepIndex < advMajors.size(); advDepIndex++)
 		{
 			for(int studDepIndex = 0; studDepIndex < studMajors.size(); studDepIndex++)
@@ -82,14 +79,12 @@ public class AdvisorUser extends LoginUser{
 		if(!advises)
 			return false;
 		
-		Character studentLastName = studentUser.getLastName().charAt(0);
 		Character advNameLow = getNameLow().charAt(0);
 		Character advNameHigh = getNameHigh().charAt(0);
 		if(studentLastName<advNameLow || advNameHigh<studentLastName)
 			return false;
 		
 		Integer advDegTypes = getDegType();
-		Integer studDegTypes = studentUser.getDegreeType();
 		for(int degLevel=8; degLevel>0; degLevel/=2)
 		{
 			Boolean advTakes = false;

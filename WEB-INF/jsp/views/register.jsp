@@ -55,13 +55,14 @@
 					</select> 
 					<br>
 					
-					<label for="firstName"><font color="#e67e22" size="4">First Name</label> 
+			        <label for="drp_last_name_initial"><font color="#e67e22" size="4">Last Name Initial</font></label> 
 					<br>
-					<input type="text" class="form-control" name=firstName>
-					
-					<label for="lastName"><font color="#e67e22" size="4">Last Name</label> 
+					<select id="drp_last_name_initial" name="drp_last_name_initial" class="btn btn-default btn-lg dropdown-toggle">
+						<% for (char letter='A';letter<'Z';letter++){ %>
+								<option value=<%=letter%>><%=letter%></option>
+						<%	}%>
+					</select> 
 					<br>
-					<input type="text" class="form-control" name=lastName>
 					
 					<label for="student_Id"><font color="#e67e22" size="4">Student ID</label> 
 					<br>

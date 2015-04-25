@@ -34,6 +34,10 @@ public class DatabaseManager {
 	public ArrayList<TimeSlotComponent> getAdvisorSchedule(String name) throws SQLException{
 		return imp.getAdvisorSchedule(name);
 	}
+	
+	public ArrayList<TimeSlotComponent> getAdvisorSchedules(ArrayList<AdvisorUser> advisorUsers) throws SQLException{
+		return imp.getAdvisorSchedules(advisorUsers);
+	}
 
 	public Boolean createAppointment(Appointment a,String email) throws SQLException{
 		return imp.createAppointment(a,email);
@@ -107,6 +111,10 @@ public class DatabaseManager {
 	
 	public Department getDepartmentByName(String name) throws SQLException {
 		return imp.getDepartmentByName(name);
+	}
+	
+	public Boolean updateUser(LoginUser loginUser) throws SQLException {
+		return imp.updateUser(loginUser);
 	}
 }
 

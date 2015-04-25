@@ -1,6 +1,7 @@
 package uta.mav.appoint.db.command;
 
 import java.sql.PreparedStatement;
+import uta.mav.appoint.email.*;
 
 import uta.mav.appoint.login.*;
 
