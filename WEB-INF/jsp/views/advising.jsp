@@ -26,14 +26,14 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 			for (int i=0;i<departments.size();i++){
 				
 				%>
-			<option id="option" onclick = "selectdepartment()" value="<%=departments.get(i)%>"><%=departments.get(i)%></option>
+			<option id="department" onclick = "selectdepartment()" value="<%=departments.get(i)%>"><%=departments.get(i)%></option>
 	
 	
 		<%	}%>
 		
 </form>
 <script> function selectdepartment(){
-						document.getElementById("option").value;
+						document.getElementById("department").value;
 						advisor_form.submit();
 					 }
 			</script>
@@ -52,11 +52,11 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 							for (int i=0;i<degreeType.size();i++){
 								
 								%>
-					<option onclick = "selectdegreetype()" value="option<%=i%>"><%=degreeType.get(i)%></option>
+					<option id = degree onclick = "selectdegreetype()" value="option<%=i%>"><%=degreeType.get(i)%></option>
 					<%	}%>
 				</form>
 				<script>function selectdegreetype(){
-						document.getElementById("option").value;
+						document.getElementById("degree").value;
 						advisor_form.submit();
 					 }
 				</script>
