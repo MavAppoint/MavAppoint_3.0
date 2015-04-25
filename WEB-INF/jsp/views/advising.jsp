@@ -3,8 +3,10 @@
 <%@ page import ="uta.mav.appoint.login.Department"%>
 <%@ page import ="uta.mav.appoint.login.AdvisorUser"%>
 
-<% ArrayList<String> array = (ArrayList<String>)session.getAttribute("advisors");
+<% ArrayList<AdvisorUser> array = (ArrayList<AdvisorUser>)session.getAttribute("advisors");
 	if (array != null){ 
+		
+		System.out.println("First Advisor: " + array.get(0));
 	
 ArrayList<Department> departments = (ArrayList<Department>)session.getAttribute("departments");
 
@@ -122,7 +124,7 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 							for (int i=0;i<array.size();i++){
 								
 								%>
-					<button type="button" id="button1<%=i%>" onclick="button<%=i%>()"><%=array.get(i)%></button>
+					<button type="button" id="button1<%=i%>" onclick="button<%=i%>"><%=array.get(i)%></button>
 					<script> function button<%=i%>(){
 											document.getElementById("advisor_button").value = "<%=array.get(i)%>";
 											advisor_form.submit();
