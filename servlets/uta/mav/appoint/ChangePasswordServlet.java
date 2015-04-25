@@ -70,10 +70,9 @@ public class ChangePasswordServlet extends HttpServlet {
 					user.setPassword(password);
 					user.setValidated(1);
 					dbm.updateUser(user);
-					
 
 					session.setAttribute("user", user);
-					response.sendRedirect("login");
+					response.sendRedirect("index");
 				}
 			}
 			else{
