@@ -3,18 +3,21 @@ package uta.mav.appoint.db.command;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class GetMajor extends SQLCmd{
+public class GetAdvisorIdsOfDepartment extends SQLCmd{
+	private String department;
 	
-	public GetMajor(){
+	public GetAdvisorIdsOfDepartment(String department){
 		super();
+		this.department = department;
 	}
 	
 	
 	@Override
 	public void queryDB(){
 		try{
-			String command = "SELECT name FROM MAJOR";
+			String command = " select User_advisor.userId from user_advisor,department_user where department_user.userid=user_advisor.userid and department_user.name = ?";
 			PreparedStatement statement = conn.prepareStatement(command);
+			statement.setString(1, department);
 			res = statement.executeQuery();	
 		}
 		catch(SQLException sq){
@@ -37,4 +40,3 @@ public class GetMajor extends SQLCmd{
 		
 	}
 }
-

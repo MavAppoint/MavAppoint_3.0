@@ -64,19 +64,21 @@ public class CreateAdvisorServlet extends HttpServlet{
 		session = request.getSession();
 		LoginUser user = (LoginUser)session.getAttribute("user");
 		try{
-			String email = (String)request.getParameter("emailAddress");
-			String password = "newadvisor!@3";
-			String pname = (String)request.getParameter("pname");
-			String name_low = "A";
-			String name_high = "Z";
-			Integer degree_types = 7;
-			Integer lead_status = Integer.valueOf(request.getParameter("isLead"));
+			AdvisorUser advisorUser = new AdvisorUser();
+			advisorUser.setEmail((String)request.getParameter("emailAddress"));
+			advisorUser.setPassword("newadvisor!@3");
+			advisorUser.setNotification("day");
+			advisorUser.setPname((String)request.getParameter("pname"));
+			advisorUser.setNameLow("A");
+			advisorUser.setNameHigh("Z");
+			advisorUser.setDegType(7);
+			advisorUser.setIsLead(Integer.valueOf(request.getParameter("isLead")));
 			
 			try{
 				
-				AdvisorUser advisorUser = new AdvisorUser(email, password, pname, name_low, name_high, degree_types, lead_status);
-				if (advisorUser != null && advisorUser.getUserId()>0){
-					user.setMsg("Advisor account created with password \""+password+"\".");
+				DatabaseManager dbm = new DatabaseManager();
+				if (dbm.createAdvisor(advisorUser)){
+					user.setMsg("Advisor account created with password \""+advisorUser.getPassword()+"\".");
 				}
 				else{
 					user.setMsg("Error: Cannot create account.");
@@ -94,11 +96,12 @@ public class CreateAdvisorServlet extends HttpServlet{
 			PrintWriter out = response.getWriter();
 			
 			String msgSub = "Mavappoint User Information";
+
 			String msgText ="An advisor account has been created for your email address! Login to http://bartsimpson.uta.edu:8080/MavAppoint/login to change your password. Your login information is:"
-	            	+ "\nUsername: " + pname
-	            	+ "\npassword: \"newadvisor!@3\" "
+	            	+ "\nUsername: " + advisorUser.getPname()
+	            	+ "\npassword: \""+advisorUser.getPassword()+"\" "
 	            	+ "\nMavAppoint";
-			String toEmail = "mavappoint.donotreply@gmail.com";
+			String toEmail = advisorUser.getEmail();
 			
 			Email newMail = new Email(msgSub, msgText, toEmail);
 			newMail.sendMail();
