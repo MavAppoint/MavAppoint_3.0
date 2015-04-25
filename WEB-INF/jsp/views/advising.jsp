@@ -1,6 +1,7 @@
 <jsp:include page='<%=(String) request.getAttribute("includeHeader")%>' />
 <%@ page import="java.util.ArrayList"%>
 <%@ page import ="uta.mav.appoint.login.Department"%>
+<%@ page import ="uta.mav.appoint.login.AdvisorUser"%>
 
 <% ArrayList<String> array = (ArrayList<String>)session.getAttribute("advisors");
 	if (array != null){ 
@@ -16,28 +17,22 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 %>
 	
 <div class="container">
+		<form action="advising" method="post" name="advisor_form">
 	<div class="row">
     <div class="col-md-2">
         <label for="drp_department"><font color="#e67e22" size="4">Department</label> 
+
 		<br>
-		<select id="drp_department" class="btn btn-default btn-lg dropdown-toggle">
-			<option value="select">Select</option>
+		<select id="drp_department" onchange = "submit();" name = "drp_department" class="btn btn-default btn-lg dropdown-toggle">
 			<%
 
 			for (int i=0;i<departments.size();i++){
 				
 				%>
-			<option id="department" onclick = "selectdepartment()" value="<%=departments.get(i)%>"><%=departments.get(i).getName()%></option>
-	
-	
+				<option id="option" value = <%=i%>> <%=departments.get(i).getName()%></option>
 		<%	}%>
-		
-</form>
-<script> function selectdepartment(){
-						document.getElementById("department").value;
-						advisor_form.submit();
-					 }
-			</script>
+			
+
 
 
 		</select> 
@@ -48,12 +43,11 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
         <label for="drp_degreeType"><font color="#e67e22" size="4">Degree Type</font></label> 
 		<br>
 		<select id="drp_degreeType" class="btn btn-default btn-lg dropdown-toggle">
-			<option value="select">Select</option>
 			<%
 							for (int i=0;i<degreeType.size();i++){
 								
 								%>
-					<option id = degree onclick = "selectdegreetype()" value="option<%=i%>"><%=degreeType.get(i)%></option>
+					<option id = "degree" onclick = "selectdegreetype()" value="option<%=i%>"><%=degreeType.get(i)%></option>
 					<%	}%>
 				</form>
 				<script>function selectdegreetype(){
@@ -70,7 +64,6 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
         <label for="drp_major"><font color="#e67e22" size="4">Major</font></label> 
         <br>
 		<select id="drp_major" class="btn btn-default btn-lg dropdown-toggle">
-			<option value="select">Select</option>
 				<%
 							for (int i=0;i<major.size();i++){
 								
@@ -92,7 +85,6 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
     <label for="drp_lastName"><font color="#e67e22" size="4">Last Name</font></label> 
 		<br>
 		<select id="drp_major" class="btn btn-default btn-lg dropdown-toggle">
-			<option value="select">Select</option>
 				<%
 							for (int i=0;i<letters.size();i++){
 								
@@ -116,7 +108,7 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 
 		<div class="pull-right form-inline">
 			<div class="btn-group">
-				<form action="advising" method="post" name="advisor_form">
+		
 					<input type=hidden name=advisor_button id="advisor_button">
 
 					<!-- begin processing advisors  -->
