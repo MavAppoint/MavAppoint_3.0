@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import uta.mav.appoint.beans.CreateAdvisorBean;
 import uta.mav.appoint.login.AdvisorUser;
+import uta.mav.appoint.login.Department;
 import uta.mav.appoint.login.LoginUser;
 import uta.mav.appoint.visitor.AppointmentVisitor;
 import uta.mav.appoint.visitor.Visitor;
@@ -30,6 +31,7 @@ import java.util.*;
  */
 public class CreateAdvisorServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
+	private ArrayList<Department> departments;
     private HttpSession session;   
     private String header;
  
@@ -39,6 +41,15 @@ public class CreateAdvisorServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		session = request.getSession();
 		LoginUser user = (LoginUser)session.getAttribute("user");
+		
+		try {
+			DatabaseManager dbm = new DatabaseManager();
+			departments = dbm.getDepartments();
+			session.setAttribute("departments", departments);
+		} catch(Exception e){
+			System.out.println(e+" RegisterServlet");
+		}
+		
 		if (user == null){
 				user = new LoginUser();
 				session.setAttribute("user", user);
@@ -69,13 +80,20 @@ public class CreateAdvisorServlet extends HttpServlet{
 			advisorUser.setPassword("newadvisor!@3");
 			advisorUser.setNotification("day");
 			advisorUser.setPname((String)request.getParameter("pname"));
+			
+			ArrayList<String> departmentsSelected = new ArrayList<String>();
+			String departmentFound = departments.get(Integer.valueOf(request.getParameter("drp_department"))).getName();
+			departmentsSelected.add(departmentFound);
+			advisorUser.setDepartments(departmentsSelected);
+			
+			advisorUser.setMajors(departments.get(Integer.valueOf(request.getParameter("drp_department"))).getMajors());
+			
 			advisorUser.setNameLow("A");
 			advisorUser.setNameHigh("Z");
 			advisorUser.setDegType(7);
 			advisorUser.setIsLead(Integer.valueOf(request.getParameter("isLead")));
 			
 			try{
-				
 				DatabaseManager dbm = new DatabaseManager();
 				if (dbm.createAdvisor(advisorUser)){
 					user.setMsg("Advisor account created with password \""+advisorUser.getPassword()+"\".");
