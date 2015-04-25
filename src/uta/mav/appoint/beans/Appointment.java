@@ -18,6 +18,10 @@ public class Appointment implements Serializable{
 	String studentid;
 	int appointmentId;
 	String studentEmail;
+	String studentPhoneNumber;
+	Integer advisorUserId;
+	Integer studentUserId;
+	
 	/**
 	 * @return the pname
 	 */
@@ -143,5 +147,33 @@ public class Appointment implements Serializable{
 	 */
 	public void setStudentEmail(String studentEmail) {
 		this.studentEmail = studentEmail;
+	}
+	
+	public String getStudentid() {
+		return studentid;
+	}
+	
+	public void setStudentid(String studentid) {
+		this.studentid = studentid;
+	}
+	
+	public String getStudentPhoneNumber() {
+		return studentPhoneNumber;
+	}
+	
+	public void setStudentPhoneNumber(String studentPhoneNumber) {
+		this.studentPhoneNumber = studentPhoneNumber;
+	}
+	public Integer getAdvisorUserId() {
+		return advisorUserId;
+	}
+	public void setAdvisorUserId(Integer advisorUserId) {
+		this.advisorUserId = advisorUserId;
+	}
+	public Integer getStudentUserId() {
+		return studentUserId;
+	}
+	public void setStudentUserId(Integer studentUserId) {
+		this.studentUserId = studentUserId;
 	}
 }
