@@ -210,8 +210,8 @@ public class RDBImpl implements DBImplInterface{
 			rs = statement.executeQuery();
 			while(rs.next()){
 				if (rs.getInt(1) < 1){
-					command = "INSERT INTO Appointments (id,advisor_userid,student_userid,date,start,end,type,studentId,description,student_email)"
-							+"VALUES(?,?,?,?,?,?,?,?,?,?)";
+					command = "INSERT INTO Appointments (id,advisor_userid,student_userid,date,start,end,type,studentId,description,student_email,student_cell)"
+							+"VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 					statement = conn.prepareStatement(command);
 					statement.setInt(1, a.getAppointmentId());
 					statement.setInt(2,advisor_id);
@@ -223,6 +223,7 @@ public class RDBImpl implements DBImplInterface{
 					statement.setInt(8,Integer.parseInt(a.getStudentId()));
 					statement.setString(9,a.getDescription());
 					statement.setString(10,email);
+					statement.setString(11,a.getStudentPhoneNumber());
 					statement.executeUpdate();
 					command = "UPDATE Advising_Schedule SET studentId=? where userid=? AND date=? and start >= ? and end <= ?";
 					statement=conn.prepareStatement(command);
