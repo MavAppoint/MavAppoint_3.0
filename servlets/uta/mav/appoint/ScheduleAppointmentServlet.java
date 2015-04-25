@@ -13,6 +13,7 @@ import uta.mav.appoint.beans.Appointment;
 import uta.mav.appoint.beans.AppointmentType;
 import uta.mav.appoint.db.DatabaseManager;
 import uta.mav.appoint.login.LoginUser;
+import uta.mav.appoint.email.Email;
 
 public class ScheduleAppointmentServlet extends HttpServlet{
 	private static final long serialVersionUID = -5925080374199613248L;
@@ -66,6 +67,12 @@ public class ScheduleAppointmentServlet extends HttpServlet{
 			if (result == true){
 				response.setHeader("Refresh","2; URL=advising");
 				request.getRequestDispatcher("/WEB-INF/jsp/views/success.jsp").forward(request,response);
+				String sub = "Appointment set for " + a.getAdvisingDate();
+				String mess = ",\nAn appointment has been set for " + a.getAdvisingDate()
+				+ " at " + a.getAdvisingStartTime() + " - " + a.getAdvisingEndTime()
+				+ "\nAppoint ID: " + a.getAppointmentId();
+				Email newMail = new Email(sub,mess,email);
+				newMail.sendMail();
 			}
 			else{
 				response.setHeader("Refresh","2; URL=advising");
