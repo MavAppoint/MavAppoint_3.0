@@ -558,6 +558,7 @@ public class RDBImpl implements DBImplInterface{
 	public ArrayList<Department> getDepartments() throws SQLException {
 		SQLCmd sqlCmd = new GetDepartmentNames();
 		sqlCmd.execute();
+		Department department;
 		
 		ArrayList<Department> departments = new ArrayList<Department>();
 		for(int depIndex=0; depIndex<sqlCmd.getResult().size(); depIndex++)
@@ -566,7 +567,7 @@ public class RDBImpl implements DBImplInterface{
 			SQLCmd sqlCmd2 = new GetDepartmentByName(depName);
 			sqlCmd2.execute();
 		
-			Department department = (Department)sqlCmd2.getResult().get(0);
+			department = (Department)sqlCmd2.getResult().get(0);
 			departments.add(department);
 		}
 		
