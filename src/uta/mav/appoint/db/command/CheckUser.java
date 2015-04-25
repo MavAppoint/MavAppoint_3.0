@@ -26,7 +26,7 @@ public class CheckUser extends SQLCmd{
 			res = statement.executeQuery();
 			}
 		catch (Exception e){
-			System.out.println(e);	
+			System.out.println(e+" -- Found in -- "+this.getClass().getSimpleName());	
 		}
 		
 	}
@@ -38,19 +38,20 @@ public class CheckUser extends SQLCmd{
 			System.out.println(res);
 			while(res.next()){
 				if (res.getString(1).toLowerCase().equals("advisor")){
-					System.out.println("About to find!");
 					DatabaseManager databaseManager = new DatabaseManager();
 					user = databaseManager.getAdvisor(email);
-					System.out.println("Found!" + user.toString());
 				}
 				else if (res.getString(1).toLowerCase().equals("student")){
-					user = new StudentUser(email);
+					DatabaseManager databaseManager = new DatabaseManager();
+					user = databaseManager.getStudent(email);
 				}
 				else if (res.getString(1).toLowerCase().equals("admin")){
-					user = new AdminUser(email);
+					DatabaseManager databaseManager = new DatabaseManager();
+					user = databaseManager.getAdmin(email);
 				} 
 				else {
-					user = new FacultyUser(email);
+					DatabaseManager databaseManager = new DatabaseManager();
+					user = databaseManager.getFaculty(email);
 				}
 			}
 			result.add(user);

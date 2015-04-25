@@ -384,14 +384,43 @@ public class RDBImpl implements DBImplInterface{
 	}
 	
 	public AdvisorUser getAdvisor(String email){
-		SQLCmd cmd = new GetAdvisor(email);
-		cmd = new GetUserIDByEmail(email);
+		SQLCmd cmd = new GetUserIDByEmail(email);
 		cmd.execute();
 		Integer userId = (Integer)cmd.getResult().get(0);
 		
 		cmd = new GetAdvisorById(userId);
 		cmd.execute();
 		return (AdvisorUser)cmd.getResult().get(0);
+	}
+	
+	public StudentUser getStudent(String email){
+		SQLCmd cmd = new GetUserIDByEmail(email);
+		cmd.execute();
+		Integer userId = (Integer)cmd.getResult().get(0);
+		
+		cmd = new GetStudentById(userId);
+		cmd.execute();
+		return (StudentUser)cmd.getResult().get(0);
+	}
+	
+	public AdminUser getAdmin(String email){
+		SQLCmd cmd = new GetUserIDByEmail(email);
+		cmd.execute();
+		Integer userId = (Integer)cmd.getResult().get(0);
+		
+		cmd = new GetAdminById(userId);
+		cmd.execute();
+		return (AdminUser)cmd.getResult().get(0);
+	}
+	
+	public FacultyUser getFaculty(String email){
+		SQLCmd cmd = new GetUserIDByEmail(email);
+		cmd.execute();
+		Integer userId = (Integer)cmd.getResult().get(0);
+		
+		cmd = new GetFacultyById(userId);
+		cmd.execute();
+		return (FacultyUser)cmd.getResult().get(0);
 	}
 	
 	public ArrayList<AppointmentType> getAppointmentTypes(String pname){
