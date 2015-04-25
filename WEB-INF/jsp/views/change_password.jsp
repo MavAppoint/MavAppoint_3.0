@@ -6,6 +6,10 @@
 		<div class="row">
 			<div class="col-md-4 col-lg-4">
 				<div class="form-group"> 
+				
+					<label for="currentpassword"><font color="#e67e22" size="4">Current Password</label> 
+					<br>
+					<input type="password" class="form-control" name=currentpassword>
 					
 					<label for="password"><font color="#e67e22" size="4">New Password</label> 
 					<br>
@@ -13,7 +17,7 @@
 					
 					<label for="repeatPassword"><font color="#e67e22" size="4">Repeat Password</label> 
 					<br>
-					<input type="repeatPassword" class="form-control" name=repeatPassword>
+					<input type="password" class="form-control" name=repeatpassword>
 				</div>
 			</div>
 		</div>

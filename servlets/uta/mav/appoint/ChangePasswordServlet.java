@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import uta.mav.appoint.db.DatabaseManager;
-import uta.mav.appoint.login.AdvisorUser;
 import uta.mav.appoint.login.LoginUser;
 
 /**
@@ -29,9 +28,9 @@ public class ChangePasswordServlet extends HttpServlet {
 
 		
 		try{
-			AdvisorUser user = (AdvisorUser)session.getAttribute("user");
+			LoginUser user = (LoginUser)session.getAttribute("user");
 			if (user == null){
-				user = new AdvisorUser();
+				user = new LoginUser();
 				session.setAttribute("user", user);
 				response.sendRedirect("/WEB-INF/jsp/views/login.jsp");	
 			}
@@ -60,13 +59,26 @@ public class ChangePasswordServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		try{
 			session = request.getSession();
-			AdvisorUser user = (AdvisorUser)session.getAttribute("user");
+			LoginUser user = (LoginUser)session.getAttribute("user");
 			DatabaseManager dbm = new DatabaseManager();
+			String currentpassword = request.getParameter("currentpassword");
 			String password = request.getParameter("password");
 			String repeatpassword = request.getParameter("repeatpassword");
-			if(user.getPassword().equals(password)){
-				user.setPassword(repeatpassword);
-				user.setValidated(1);
+			if(user.getPassword().equals(currentpassword)){
+				if(password.equals(repeatpassword))
+				{
+					user.setPassword(password);
+					user.setValidated(1);
+					dbm.updateUser(user);
+					
+
+					session.setAttribute("user", user);
+					response.sendRedirect("login");
+				}
+			}
+			else{
+				response.sendRedirect("changePassword");
+				System.out.println("Password invalid");
 			}
 		}
 		catch(Exception e){
