@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import uta.mav.appoint.db.DatabaseManager;
+import uta.mav.appoint.login.Department;
 import uta.mav.appoint.login.LoginUser;
 
 /**
@@ -50,7 +51,7 @@ public class AdvisingServlet extends HttpServlet{
 		try{
 			//get departments from database
 				DatabaseManager dbm = new DatabaseManager();
-				ArrayList<String> departments = dbm.getDepartmentStrings();
+				ArrayList<Department> departments = dbm.getDepartments();
 				session.setAttribute("departments", departments);
 				
 				//get majors from database
@@ -87,12 +88,19 @@ public class AdvisingServlet extends HttpServlet{
 		}
 		try{
 					header = "templates/" + user.getHeader() + ".jsp";
+					
+					
+					String department = (String)request.getParameter("department");
+					
+					
+					
 					DatabaseManager dbm = new DatabaseManager();
 					ArrayList<String> array =  dbm.getAdvisors();
 					if (array.size() != 0){
 						session.setAttribute("advisors", array);
 					}					
 					//get advisor schedules
+					
 					String advisor = (String)request.getParameter("advisor_button");
 					ArrayList<TimeSlotComponent> schedule;
 					if (advisor != null){
