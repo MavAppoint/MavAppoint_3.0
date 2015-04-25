@@ -25,6 +25,7 @@ public class AssignStudentsServlet extends HttpServlet {
     private String header;
     private AdvisorUser advUser;
     private ArrayList<AdvisorUser> deptAdvisors;
+    private Department department;
     
 
 	/**
@@ -40,19 +41,22 @@ public class AssignStudentsServlet extends HttpServlet {
 		else{
 			try{
 				advUser = new AdvisorUser();
-				String s = new String();
+				
 				DatabaseManager dbm = new DatabaseManager();
 				advUser = dbm.getAdvisor(user.getEmail());
 				header = "templates/" + advUser.getHeader() + ".jsp";
 				deptAdvisors = new ArrayList<AdvisorUser>();
-				//deptAdvisors =  dbm.getAdvisorsOfDepartment(advUser.getDept());
-				AdvisorUser adv1 = new AdvisorUser( "Dr. Reynaldo", "A", "Z", 8);
-				AdvisorUser adv2 = new AdvisorUser( "Dr. Alex", "A", "Z", 8);
-				deptAdvisors.add(adv2);
-				deptAdvisors.add(adv1);
+				AdvisorUser adv0 = new AdvisorUser("Dr. Reynaldo", "A", "Z",1);
+				AdvisorUser adv1 = new AdvisorUser("Dr. Frankestein", "A", "Z",1);
 				deptAdvisors.add(advUser);
+				deptAdvisors.add(adv0);
+				deptAdvisors.add(adv1);
+
+				//department = dbm.getDepartmentByName(advUser.getDept());
+				
 				if (deptAdvisors.size() > 0){
 					session.setAttribute("deptAdvisors", deptAdvisors);
+					//session.setAttribute("department", department);
 				}
 			}
 			catch(Exception e){
@@ -81,12 +85,7 @@ public class AssignStudentsServlet extends HttpServlet {
 			
 			advUser = dbm.getAdvisor(user.getEmail());
 			header = "templates/" + advUser.getHeader() + ".jsp";
-			deptAdvisors = new ArrayList<AdvisorUser>();
-			AdvisorUser adv1 = new AdvisorUser( "Dr. Reynaldo", "A", "Z", 8);
-			AdvisorUser adv2 = new AdvisorUser( "Dr. Alex", "A", "Z", 8);
-			deptAdvisors.add(adv2);
-			deptAdvisors.add(adv1);
-			deptAdvisors.add(advUser);
+			
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

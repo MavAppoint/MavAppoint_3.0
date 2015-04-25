@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
 <title>MavAppoint</title>
@@ -28,9 +29,13 @@
 <script type="text/javascript"
 	src="components/bootstrap3/js/bootstrap-datetimepicker.min.js"></script>
 </head>
-<%if(request.getRequestURL().toString().endsWith("assign_students")){ %>
-<body onload="myFunction()"><% }else{ %>
-	<body> <%} %>
+<%String load = new String();
+if (request.getRequestURI().contains("assignstudents")){
+	load = "myFunction()";
+}else{
+	load = "";
+}%>
+<body onload="<%=load%>" >
 	<div class="container">
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div id="inversenavbar" class="container-fluid"

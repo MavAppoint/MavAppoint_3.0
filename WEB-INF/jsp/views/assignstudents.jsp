@@ -1,9 +1,11 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page  import= "uta.mav.appoint.login.AdvisorUser" %>
+<%@ page  import= "uta.mav.appoint.login.*" %>
 <jsp:include page='<%=(String) request.getAttribute("includeHeader")%>' />
 
 <% ArrayList<AdvisorUser> deptAdvisors = new ArrayList<AdvisorUser>();
-           deptAdvisors = (ArrayList<AdvisorUser>)session.getAttribute("deptAdvisors");%>
+           deptAdvisors = (ArrayList<AdvisorUser>)session.getAttribute("deptAdvisors");
+           
+           //Department department = (Department)session.getAttribute("department");%>
 <div class="container">
 <!-- Panel -->
 <div class="panel panel-default">
@@ -19,15 +21,34 @@
   
    function myFunction() {
 	   lowRange(); 
+
 	}
    
    function lowRange(){
+	   
 	   var selects = document.getElementsByTagName("select"), len = selects.length, i;
 	   for (i = 0; i < len; i++) {
 		    if (selects[i].id == "lowRange") {
 		        selects[i].value = selects[i].title;
 		    }else if (selects[i].id == "highRange") {
 		        selects[i].value = selects[i].title;
+		    }else if (selects[i].id == "majors") {
+		    	var values = selects[i].title.split(",");
+		    	
+		    	var opts = selects[i].options;
+		    	
+		    	
+		    	for (var p = 0; p < values.length; p++)
+		        {
+		            for (var j = 0; j < opts.length; j++)
+		            {
+		                if (opts[j].innerHTML == values[p])
+		                {
+		                    opts[j].selected = true;
+		                    
+		                }
+		            }
+		        }
 		    }
    	}
    }
@@ -110,9 +131,9 @@
 		    		 <option value ="undergrad" >Undergrad</option>
 		    		 <option value ="graduate" >Graduate</option>
 		    		 <option value ="doctorate" >Doctorate</option></select></td>
-        		 <td><select multiple name = "majors<%=i %>" id="majors" title ="" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
+        		 <td><select multiple="multiple" name = "majors<%=i %>" id="majors" title ="<%=deptAdvisors.get(i).getMajors().toString().substring(1, deptAdvisors.get(i).getMajors().toString().length() -1) %>" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
 		    		 <% for(int m = 0; m < deptAdvisors.get(i).getMajors().size(); m++) {%>
-		    		 <option value ="<%=deptAdvisors.get(i).getMajors().get(m) %>" > <%=deptAdvisors.get(i).getMajors().get(m) %></option>
+		    		 <option value ="<%=deptAdvisors.get(0).getMajors().get(m) %>" > <%=deptAdvisors.get(0).getMajors().get(m) %></option>
 		    		 <%} %></select></td>
         		 </tr> 
         	<%  }

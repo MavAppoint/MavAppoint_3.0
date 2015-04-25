@@ -124,6 +124,7 @@ public class AdvisingServlet extends HttpServlet{
 						//get advisors by the department that was selected
 						ArrayList<AdvisorUser> advisors = dbm.getAdvisorsOfDepartment(departments.get(departmentNum).getName());
 						
+						session.setAttribute("advisors", advisors);
 						//session.setAttribute("advisors", advisors);
 						schedule = dbm.getAdvisorSchedules(advisors);
 					}
