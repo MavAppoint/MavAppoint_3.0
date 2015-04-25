@@ -6,6 +6,11 @@ import uta.mav.appoint.visitor.Visitor;
 
 public class AdminUser extends LoginUser{
 	
+	
+
+	public AdminUser() {
+		super();
+	}
 
 	public AdminUser(String em){
 		super(em);
