@@ -58,16 +58,23 @@ public class RDBImpl implements DBImplInterface{
 	}
 	
 	public Boolean updateAppointment(Appointment a){
-		Boolean result = false;
+		
 		try{
 			SQLCmd cmd = new UpdateAppointment(a);
 			cmd.execute();
-			result = (Boolean)(cmd.getResult()).get(0);
+			System.out.println("Finished update");
+
+			System.out.println("Found id " + a.getAppointmentId());
+			cmd = new GetAppointmentById(a);
+			cmd.execute();
+			System.out.println("Finished getting appointment");
+			
+			return true;
 		}
 		catch(Exception e){
-			
+			System.out.println(e+"-- Found in -- "+ this.getClass().getSimpleName());
 		}
-		return result;
+		return false;
 	}
 	
 	public Boolean createStudent(StudentUser studentUser){
