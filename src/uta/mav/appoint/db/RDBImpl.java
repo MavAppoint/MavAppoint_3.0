@@ -140,6 +140,38 @@ public class RDBImpl implements DBImplInterface{
 		return array;
 	}
 
+	public ArrayList<TimeSlotComponent> getAdvisorSchedules(ArrayList<AdvisorUser> advisorUsers){
+		ArrayList<TimeSlotComponent> timeSlots = new ArrayList<TimeSlotComponent>();
+		try {
+			Connection conn = this.connectDB();
+			PreparedStatement statement;
+			for(int i=0; i<advisorUsers.size(); i++)
+			{
+				String command = "SELECT pname,date,start,end,id FROM USER,Advising_Schedule,User_Advisor "
+								+ "WHERE USER.userid=User_Advisor.userid AND USER.userid=Advising_Schedule.userid AND USER.userid=Advising_Schedule.userid AND User_Advisor.pname=? AND studentId is null";
+				statement = conn.prepareStatement(command);
+				statement.setString(1,advisorUsers.get(i).getPname());
+				ResultSet res = statement.executeQuery();
+				while(res.next()){
+					//Use flyweight factory to avoid build cost if possible
+					PrimitiveTimeSlot set = (PrimitiveTimeSlot)TimeSlotFlyweightFactory.getInstance().getFlyweight(res.getString(1)+"-"+res.getString(2),res.getString(3));
+					set.setName(res.getString(1));
+					set.setDate(res.getString(2));
+					set.setStartTime(res.getString(3));
+					set.setEndTime(res.getString(4));
+					set.setUniqueId(res.getInt(5));
+					timeSlots.add(set);
+				}
+			}	
+			timeSlots = TimeSlotHelpers.createCompositeTimeSlot(timeSlots);
+			conn.close();
+		}
+		catch(Exception e){
+			System.out.printf(e.toString());
+		}
+		return timeSlots;
+	}
+
 	public Boolean createAppointment(Appointment a, String email){
 		Boolean result = false;
 		int student_id = 0;

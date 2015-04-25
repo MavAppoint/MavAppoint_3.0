@@ -24,6 +24,7 @@ public interface DBImplInterface {
 	public ArrayList<Object> getAppointments(AdminUser user) throws SQLException;
 	public Boolean createAppointment(Appointment a, String email) throws SQLException;
 	public ArrayList<TimeSlotComponent> getAdvisorSchedule(String name) throws SQLException;
+	public ArrayList<TimeSlotComponent> getAdvisorSchedules(ArrayList<AdvisorUser> advisorUsers) throws SQLException;
 	public Boolean createStudent(StudentUser studentUser) throws SQLException;
 	public ArrayList<String> getAdvisors() throws SQLException;
 	public AdvisorUser getAdvisor(String email) throws SQLException;
