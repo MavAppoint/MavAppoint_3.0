@@ -1,10 +1,11 @@
 <jsp:include page='<%=(String) request.getAttribute("includeHeader")%>' />
 <%@ page import="java.util.ArrayList"%>
+<%@ page import ="uta.mav.appoint.login.Department"%>
 
 <% ArrayList<String> array = (ArrayList<String>)session.getAttribute("advisors");
 	if (array != null){ 
 	
-ArrayList<String> departments = (ArrayList<String>)session.getAttribute("departments");
+ArrayList<Department> departments = (ArrayList<Department>)session.getAttribute("departments");
 
 ArrayList<String> degreeType = (ArrayList<String>)session.getAttribute("degreeType");
 
@@ -26,7 +27,7 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 			for (int i=0;i<departments.size();i++){
 				
 				%>
-			<option id="department" onclick = "selectdepartment()" value="<%=departments.get(i)%>"><%=departments.get(i)%></option>
+			<option id="department" onclick = "selectdepartment()" value="<%=departments.get(i)%>"><%=departments.get(i).getName()%></option>
 	
 	
 		<%	}%>
