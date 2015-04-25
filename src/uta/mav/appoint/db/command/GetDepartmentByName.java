@@ -34,6 +34,7 @@ public class GetDepartmentByName   extends SQLCmd{
 	public void processResult(){
 		try{
 			Department department = new Department();
+			department.setName(name);
 			
 			ArrayList<String> majors = new ArrayList<String>();
 			while (res.next()){
