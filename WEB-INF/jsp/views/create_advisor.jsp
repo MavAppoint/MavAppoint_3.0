@@ -1,11 +1,27 @@
 <jsp:include page='<%=(String) request.getAttribute("includeHeader")%>' />
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="uta.mav.appoint.login.Department"%>
+
+<% ArrayList<Department> departments = (ArrayList<Department>)session.getAttribute("departments"); %>
+
 <div class="container">
 	<label><font color="#e67e22" size="5"> Create New
 			Advisor: </label>
 
-	<form action="create_advisor" method="post" name="advisor_form"
-		onsubmit="return false;">
+	<form action="create_advisor" method="post" name="advisor_form" onsubmit="return false;">
 		<div class="form-group">
+		
+		<label for="drp_department"><font color="#e67e22" size="4">Departments</label> 
+			<br>
+			<select onchange="change();" id="drp_department" name="drp_department" class="btn btn-default btn-lg dropdown-toggle">
+				<%
+				for (int i=0;i<departments.size();i++)
+				{%>
+					<option value=<%=i%> ><%=departments.get(i).getName()%></option>
+			<%	}%>
+			</select> 
+			<br>
+			
 			<label for="emailAddress"><font color="#e67e22" size="4">Email
 					Address</label><br> <input type="text" style="width: 350px;"
 				class="form-control" id="emailAddress" placeholder="">

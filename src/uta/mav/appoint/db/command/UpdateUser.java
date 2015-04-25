@@ -31,11 +31,12 @@ public class UpdateUser extends SQLCmd {
 		try{
 			String command = "UPDATE User SET email = ?, password = ?, role = ?, validated = ? WHERE userId=?";
 			PreparedStatement statement = conn.prepareStatement(command);
-			statement.setString(1,loginUser.getEmail());
-			statement.setString(2,loginUser.getPassword());
-			statement.setString(3,loginUser.getRole());
-			statement.setInt(4,loginUser.getValidated());
-			statement.setInt(4,loginUser.getUserId());
+			int i=1;
+			statement.setString(i++,loginUser.getEmail());
+			statement.setString(i++,loginUser.getPassword());
+			statement.setString(i++,loginUser.getRole());
+			statement.setInt(i++,loginUser.getValidated());
+			statement.setInt(i++,loginUser.getUserId());
 
 			statement.executeUpdate();
 			b=true;

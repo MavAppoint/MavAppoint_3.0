@@ -31,6 +31,18 @@ public class DatabaseManager {
 		return imp.getAdvisor(email);
 	}
 	
+	public StudentUser getStudent(String email) throws SQLException{
+		return imp.getStudent(email);
+	}
+	
+	public AdminUser getAdmin(String email) throws SQLException{
+		return imp.getAdmin(email);
+	}
+	
+	public FacultyUser getFaculty(String email) throws SQLException{
+		return imp.getFaculty(email);
+	}
+	
 	public ArrayList<TimeSlotComponent> getAdvisorSchedule(String name) throws SQLException{
 		return imp.getAdvisorSchedule(name);
 	}

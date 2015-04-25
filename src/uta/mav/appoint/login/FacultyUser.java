@@ -7,6 +7,10 @@ import uta.mav.appoint.visitor.Visitor;
 public class FacultyUser extends LoginUser{
 	
 
+	public FacultyUser() {
+		super();
+	}
+
 	public FacultyUser(String em){
 		super(em);
 	}
