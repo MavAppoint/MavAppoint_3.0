@@ -16,7 +16,7 @@ public class DeleteMajorsByUserId extends SQLCmd {
 	
 	public void queryDB(){
 		try{
-			String command = "DELETE FROM majors_user WHERE userId=?";
+			String command = "DELETE FROM major_user WHERE userId=?";
 			PreparedStatement statement = conn.prepareStatement(command);
 			
 			statement.setInt(1,userId);
