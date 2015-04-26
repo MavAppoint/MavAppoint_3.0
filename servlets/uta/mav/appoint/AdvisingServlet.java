@@ -23,6 +23,10 @@ public class AdvisingServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	HttpSession session;
 	String header;
+	ArrayList<Department> departments;
+	private ArrayList<String> majors;
+	private ArrayList<AdvisorUser> advisors;
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -52,20 +56,20 @@ public class AdvisingServlet extends HttpServlet{
 		try{
 			//get departments from database
 				DatabaseManager dbm = new DatabaseManager();
-				ArrayList<Department> departments = dbm.getDepartments();
+				departments = dbm.getDepartments();
 				session.setAttribute("departments", departments);
 				
 				//get majors from database
-				ArrayList<String> major = dbm.getMajor();
-				session.setAttribute("major", major);
+				majors = departments.get(0).getMajors();
+				session.setAttribute("major", majors);
 				
 				header = "templates/" + user.getHeader() + ".jsp";
 				//must be logged in to see advisor schedules - safety concern
-				ArrayList<String> array =  dbm.getAdvisors();
-				if (array.size() != 0){
-					session.setAttribute("advisors", array);
+				advisors =  dbm.getAdvisorsOfDepartment(departments.get(0).getName());
+				if (advisors.size() != 0){
+					session.setAttribute("advisors", advisors);
 				}
-				ArrayList<TimeSlotComponent> schedules = dbm.getAdvisorSchedule("all");
+				ArrayList<TimeSlotComponent> schedules = dbm.getAdvisorSchedules(advisors);
 				if (schedules.size() != 0){
 					session.setAttribute("schedules", schedules);
 				}
@@ -80,6 +84,8 @@ public class AdvisingServlet extends HttpServlet{
 		request.setAttribute("includeHeader", header);
 		request.getRequestDispatcher("/WEB-INF/jsp/views/advising.jsp").forward(request, response);
 	}
+	
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		session = request.getSession();
@@ -91,45 +97,40 @@ public class AdvisingServlet extends HttpServlet{
 		
 		
 		try{
-					header = "templates/" + user.getHeader() + ".jsp";
-					
-					String dept = request.getParameter("drp_department");
-					
-					
-					
-					
-					DatabaseManager dbm = new DatabaseManager();
-					ArrayList<String> array =  dbm.getAdvisors();
-					if (array.size() != 0){
-						session.setAttribute("advisors", array);
-					}					
-					//get advisor schedules
-					
-					String advisor = (String)request.getParameter("advisor_button");
-					ArrayList<TimeSlotComponent> schedule;
-					if (advisor != null){
-						schedule = dbm.getAdvisorSchedule(advisor);
-					}
-					else{
-						schedule = dbm.getAdvisorSchedule("all");
-					}
-					
-					if(dept != null)
-					{
-						//get departments from database
-						ArrayList<Department> departments = dbm.getDepartments();
-						
-						int departmentNum = Integer.parseInt(dept);
-						
-						//get advisors by the department that was selected
-						ArrayList<AdvisorUser> advisors = dbm.getAdvisorsOfDepartment(departments.get(departmentNum).getName());
-						
-						session.setAttribute("advisors", advisors);
-						//session.setAttribute("advisors", advisors);
-						schedule = dbm.getAdvisorSchedules(advisors);
-					}
-					
-						session.setAttribute("schedules", schedule);
+			DatabaseManager dbm = new DatabaseManager();
+			
+			session = request.getSession();
+			Integer departmentIndex = Integer.valueOf(request.getParameter("drp_department"));
+			
+			Department selectedDep = departments.get(departmentIndex);
+			departments.remove(selectedDep);
+			departments.add(0, selectedDep);
+			session.setAttribute("departments", departments);
+			
+			majors = selectedDep.getMajors();
+			session.setAttribute("major", majors);
+			
+			advisors =  dbm.getAdvisorsOfDepartment(departments.get(0).getName());
+			if (advisors.size() != 0){
+				session.setAttribute("advisors", advisors);
+			}
+			
+			String advisor = (String)request.getParameter("advisor_button");
+			ArrayList<TimeSlotComponent> schedule;
+			schedule = dbm.getAdvisorSchedules(advisors);
+			if (advisor != null){
+				schedule = dbm.getAdvisorSchedule(advisor);
+			}
+			else{
+				for(int i=0; i<advisors.size(); i++)
+				{
+					schedule.addAll(dbm.getAdvisorSchedule(advisors.get(i).getPname()));
+				}
+			}
+			
+			
+			session.setAttribute("schedules", schedule);
+			
 		}
 		catch(Exception e){
 			System.out.printf(e.toString());
