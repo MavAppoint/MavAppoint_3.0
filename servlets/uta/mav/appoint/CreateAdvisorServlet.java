@@ -72,7 +72,6 @@ public class CreateAdvisorServlet extends HttpServlet{
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		session = request.getSession();
 		LoginUser user = (LoginUser)session.getAttribute("user");
 		try{
 			AdvisorUser advisorUser = new AdvisorUser();
@@ -87,6 +86,7 @@ public class CreateAdvisorServlet extends HttpServlet{
 			advisorUser.setDepartments(departmentsSelected);
 			
 			advisorUser.setMajors(departments.get(Integer.valueOf(request.getParameter("drp_department"))).getMajors());
+			advisorUser.setMajors(new ArrayList<String>());
 			
 			advisorUser.setNameLow("A");
 			advisorUser.setNameHigh("Z");
@@ -128,7 +128,7 @@ public class CreateAdvisorServlet extends HttpServlet{
 			out.close();
 			}
 		catch(Exception e){
-			System.out.printf(e.toString());
+			System.out.println(e.toString());
 		}
 	}
 }

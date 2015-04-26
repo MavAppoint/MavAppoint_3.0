@@ -54,46 +54,35 @@ public class LoginUser {
 		case 2:
 			return "Masters";
 		case 3:
-			return "Bachelors & Masters";
+			return "Bachelors,Masters";
 		case 4:
 			return "Doctorate";
 		case 5:
-			return "Bachelors & Doctorate";
+			return "Bachelors,Doctorate";
 		case 6:
-			return "Masters & Doctorate";
+			return "Masters,Doctorate";
 		default:
-			return "Bachelors & Masters & Doctorate";
+			return "Bachelors,Masters,Doctorate";
 		}
 	}
 	
 	public Integer setDegreeTypeFromString(String degreeTypeString)
 	{
 		Integer degreeType = 7;
-		switch(degreeTypeString)
-		{
-		case "Bachelors":
+		if(degreeTypeString.equals("Bachelors"))
 			degreeType = 1;
-			break;
-		case "Masters":
+		else if(degreeTypeString.equals("Masters"))
 			degreeType = 2;
-			break;
-		case "Bachelors & Masters":
+		else if(degreeTypeString.equals("Bachelors,Masters"))
 			degreeType = 3;
-			break;
-		case "Doctorate":
+		else if(degreeTypeString.equals("Doctorate"))
 			degreeType = 4;
-			break;
-		case "Bachelors & Doctorate":
+		else if(degreeTypeString.equals("Bachelors,Doctorate"))
 			degreeType = 5;
-			break;
-		case "Masters & Doctorate":
+		else if(degreeTypeString.equals("Masters,Doctorate"))
 			degreeType = 6;
-			break;
-		default:
+		else
 			degreeType = 7;
-			break;
-		}
-		setDegType(degreeType);
 		return degreeType;
 	}
 

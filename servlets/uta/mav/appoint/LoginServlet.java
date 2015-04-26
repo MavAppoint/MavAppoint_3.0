@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 			else{
 				//redirect back to login if authentication fails
 				//need to add a "invalid username or password" response
-				session.setAttribute("message", "Username or Password Invalied");
+				session.setAttribute("message", "Username or Password Invalid");
 				request.getRequestDispatcher("/WEB-INF/jsp/views/login.jsp").forward(request,response);
 			}
 		}
