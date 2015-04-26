@@ -6,7 +6,7 @@
 <% ArrayList<AdvisorUser> array = (ArrayList<AdvisorUser>)session.getAttribute("advisors");
 	if (array != null){ 
 		
-		System.out.println("First Advisor: " + array.get(0));
+		System.out.println("First Advisor in jsp: " + array.get(0).getPname());
 	
 ArrayList<Department> departments = (ArrayList<Department>)session.getAttribute("departments");
 
@@ -120,15 +120,13 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 		    							advisor_form.submit();
 		    						 }
 		    				</script>
-					<%
-							for (int i=0;i<array.size();i++){
-								
-								%>
-					<button type="button" id="button1<%=i%>" onclick="button<%=i%>"><%=array.get(i)%></button>
+					<%for (int i=0;i<array.size();i++){	%>
+					
+					<button type="button" id="button1<%=i%>" onclick="button<%=i%>()"><%=array.get(i).getPname()%></button>
 					<script> function button<%=i%>(){
-											document.getElementById("advisor_button").value = "<%=array.get(i)%>";
-											advisor_form.submit();
-											}
+						document.getElementById("advisor_button").value = "<%=array.get(i).getPname()%>";
+						advisor_form.submit();
+						}
 									</script>
 					<%	}%>
 				</form>
