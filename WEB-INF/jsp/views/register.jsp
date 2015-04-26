@@ -6,11 +6,13 @@
  ArrayList<Department> departments = (ArrayList<Department>)session.getAttribute("departments");
  ArrayList<String> degreeType = (ArrayList<String>)session.getAttribute("degreeType");
  ArrayList<String> major = (ArrayList<String>)session.getAttribute("major");
+ String message = (String)session.getAttribute("message");
 %>
 
 <div class="container">	
 	<form action="register" method="post" name="register_form">
 		<div class="row">
+<label for="message"><font color="#e67e22" size="4"><%=message%></label>
 			<div class="col-md-4 col-lg-4">
 				<div class="form-group">
 				
