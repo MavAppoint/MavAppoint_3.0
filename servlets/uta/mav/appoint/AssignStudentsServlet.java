@@ -108,6 +108,7 @@ public class AssignStudentsServlet extends HttpServlet {
 					ArrayList<String> majorsArray = new ArrayList<>();
 					String highValue = new String();
 					String lowValue = new String();
+					ArrayList<String> degreeType = new ArrayList<>();
 					
 					if(paramName.contains(majors)){
 						
@@ -116,7 +117,7 @@ public class AssignStudentsServlet extends HttpServlet {
 						for(int i=0; i<paramValues.length; i++) {
 							majorsArray.add(paramValues[i]);
 						}
-						System.out.println(majorsArray.toString());
+	
 						deptAdvisors.get(index).setMajors(majorsArray);
 						
 					}
@@ -124,7 +125,7 @@ public class AssignStudentsServlet extends HttpServlet {
 						index = Integer.valueOf(paramName.substring(9));
 						String[] paramValues = request.getParameterValues(paramName);
 						highValue = paramValues[0];
-						System.out.println(highValue);
+				
 						deptAdvisors.get(index).setNameHigh(highValue);
 						
 					}
@@ -132,17 +133,22 @@ public class AssignStudentsServlet extends HttpServlet {
 						index = Integer.valueOf(paramName.substring(8));
 						String[] paramValues = request.getParameterValues(paramName);
 						lowValue = paramValues[0];
-						System.out.println(lowValue);
+					
 						deptAdvisors.get(index).setNameLow(lowValue);
 					}
 					if(paramName.contains(degree)){
+						index = Integer.valueOf(paramName.substring(6));
+						String[] paramValues = request.getParameterValues(paramName);
+						for(int i=0; i<paramValues.length; i++) {
+							degreeType.add(paramValues[i]);
+						}
+						System.out.println(degreeType.toString());
 						
 					}
 					
 				}
 		DatabaseManager dbm2 = new DatabaseManager();
 		try {
-			System.out.println(deptAdvisors.get(0).getPname() + "   nameHigh: " + deptAdvisors.get(0).getNameHigh() +" nameLow: " + deptAdvisors.get(0).getNameLow()+ " majors Array: " + deptAdvisors.get(0).getMajors().toString());
 			
 			dbm2.updateAdvisors(deptAdvisors);
 		} catch (SQLException e) {

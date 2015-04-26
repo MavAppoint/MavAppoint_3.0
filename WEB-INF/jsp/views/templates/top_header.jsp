@@ -31,7 +31,7 @@
 </head>
 <%String load = new String();
 if (request.getRequestURI().contains("assignstudents")){
-	load = "myFunction()";
+	load = "assignStudents()";
 }else{
 	load = "";
 }%>

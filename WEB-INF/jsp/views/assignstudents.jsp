@@ -17,40 +17,6 @@
     <h4>High - High end of the range </h4>
   </div>
   <!-- Table -->
-   <script>
-   function myFunction() {
-	   lowRange(); 
-
-	}
-   function lowRange(){
-	   
-	   var selects = document.getElementsByTagName("select"), len = selects.length, i;
-	   for (i = 0; i < len; i++) {
-		    if (selects[i].id == "lowRange") {
-		        selects[i].value = selects[i].title;
-		    }else if (selects[i].id == "highRange") {
-		        selects[i].value = selects[i].title;
-		    }else if (selects[i].id == "majors") {
-		    	var values = selects[i].title.split(",");
-		    	var opts = selects[i].options;
-		    	
-		    	
-		    	for (var p = 0; p < values.length; p++)
-		        {
-		            for (var j = 0; j < opts.length; j++)
-		            {
-		                if (opts[j].innerHTML == values[p] || opts[j].value == values[p])
-		                {
-		                    opts[j].selected = true;
-		                    
-		                }
-		            }
-		        }
-		    }
-   	}
-   }
-   
-   </script>
     <form method= "post" action= "assign_students">
       <table class="table">
         <thead>
@@ -123,11 +89,11 @@
 					<option value ="X" >X</option>
 					<option value ="Y" >Y</option>
 					<option value ="Z" >Z</option></select></td>
-        		 <td><select name="degree<%=i %>" id="degree" title ="" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
-		    		 <option value ="all" >All</option>
-		    		 <option value ="undergrad" >Undergrad</option>
-		    		 <option value ="graduate" >Graduate</option>
-		    		 <option value ="doctorate" >Doctorate</option></select></td>
+        		 <td><select multiple="multiple" name="degree<%=i %>" id="degree" title ="<%=deptAdvisors.get(i).stringDegreeType()%>" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
+		    		 <option value ="All" >All</option>
+		    		 <option value ="Bachelors" >Bachelors</option>
+		    		 <option value ="Masters" >Masters</option>
+		    		 <option value ="Doctorate" >Doctorate</option></select></td>
         		 <td><select multiple="multiple" name = "majors<%=i %>" id="majors" title ="<%=deptAdvisors.get(i).getMajors().toString().substring(1, deptAdvisors.get(i).getMajors().toString().length() -1) %>" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
 		    		 <% for(int m = 0; m < department.getMajors().size(); m++) {%>
 		    		 <option value ="<%=department.getMajors().get(m) %>" > <%=department.getMajors().get(m) %></option>
