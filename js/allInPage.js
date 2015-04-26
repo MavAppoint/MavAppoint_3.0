@@ -29,24 +29,19 @@
     	var answers = selects[i].title.split(",");
     	var questions = selects[i].options;
     	
-    	if(answers.length >= 3){
+    	
+    	for (var p = 0; p < answers.length; p++)
+        {
+            for (var j = 0; j < questions.length; j++)
+            {
+                if (questions[j].innerHTML == answers[p] || questions[j].value == answers[p])
+                {
+                    questions[j].selected = true;
+                    
+                }
+            }
+        }
     		
-    		questions[0].selected = true;
-               
-    	}
-    	else{
-	    	for (var p = 0; p < answers.length; p++)
-	        {
-	            for (var j = 0; j < questions.length; j++)
-	            {
-	                if (questions[j].innerHTML == answers[p] || questions[j].value == answers[p])
-	                {
-	                    questions[j].selected = true;
-	                    
-	                }
-	            }
-	        }
-    	}	
       }
 	}
 }

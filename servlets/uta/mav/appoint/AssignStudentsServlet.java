@@ -55,17 +55,13 @@ public class AssignStudentsServlet extends HttpServlet {
 				
 				session.setAttribute("deptAdvisors", deptAdvisors);
 				session.setAttribute("department", department);
-				
+				request.setAttribute("includeHeader", header);
+				request.getRequestDispatcher("/WEB-INF/jsp/views/assignstudents.jsp").forward(request, response);
 			}
 			catch(Exception e){
 				System.out.printf(e.toString());
 			}
 		}
-	
-		
-		
-		request.setAttribute("includeHeader", header);
-		request.getRequestDispatcher("/WEB-INF/jsp/views/assignstudents.jsp").forward(request, response);
 	}
 
 	/**
@@ -95,58 +91,60 @@ public class AssignStudentsServlet extends HttpServlet {
 		System.out.println("/////////////////////////////////////////////////////////////");
 		Enumeration<String> paramNames = request.getParameterNames();
 		
-				while(paramNames.hasMoreElements()) 
-				{
+		while(paramNames.hasMoreElements()) 
+		{
+		
+			String paramName = (String)paramNames.nextElement();
+			System.out.println(paramName );
+			String majors = "majors";
+			String highRange = "highRange";
+			String lowRange = "lowRange";
+			String degree = "degree";
+			Integer index;
+			ArrayList<String> majorsArray = new ArrayList<>();
+			String highValue = new String();
+			String lowValue = new String();
+			ArrayList<String> degreeType = new ArrayList<>();
+			
+			if(paramName.contains(majors)){
 				
-					String paramName = (String)paramNames.nextElement();
-					System.out.println(paramName );
-					String majors = "majors";
-					String highRange = "highRange";
-					String lowRange = "lowRange";
-					String degree = "degree";
-					Integer index;
-					ArrayList<String> majorsArray = new ArrayList<>();
-					String highValue = new String();
-					String lowValue = new String();
-					ArrayList<String> degreeType = new ArrayList<>();
-					
-					if(paramName.contains(majors)){
-						
-						index = Integer.valueOf(paramName.substring(6));
-						String[] paramValues = request.getParameterValues(paramName);
-						for(int i=0; i<paramValues.length; i++) {
-							majorsArray.add(paramValues[i]);
-						}
-	
-						deptAdvisors.get(index).setMajors(majorsArray);
-						
-					}
-					if(paramName.contains(highRange)){
-						index = Integer.valueOf(paramName.substring(9));
-						String[] paramValues = request.getParameterValues(paramName);
-						highValue = paramValues[0];
-				
-						deptAdvisors.get(index).setNameHigh(highValue);
-						
-					}
-					if(paramName.contains(lowRange)){
-						index = Integer.valueOf(paramName.substring(8));
-						String[] paramValues = request.getParameterValues(paramName);
-						lowValue = paramValues[0];
-					
-						deptAdvisors.get(index).setNameLow(lowValue);
-					}
-					if(paramName.contains(degree)){
-						index = Integer.valueOf(paramName.substring(6));
-						String[] paramValues = request.getParameterValues(paramName);
-						for(int i=0; i<paramValues.length; i++) {
-							degreeType.add(paramValues[i]);
-						}
-						System.out.println(degreeType.toString());
-						
-					}
-					
+				index = Integer.valueOf(paramName.substring(6));
+				String[] paramValues = request.getParameterValues(paramName);
+				for(int i=0; i<paramValues.length; i++) {
+					majorsArray.add(paramValues[i]);
 				}
+
+				deptAdvisors.get(index).setMajors(majorsArray);
+				
+			}
+			if(paramName.contains(highRange)){
+				index = Integer.valueOf(paramName.substring(9));
+				String[] paramValues = request.getParameterValues(paramName);
+				highValue = paramValues[0];
+		
+				deptAdvisors.get(index).setNameHigh(highValue);
+				
+			}
+			if(paramName.contains(lowRange)){
+				index = Integer.valueOf(paramName.substring(8));
+				String[] paramValues = request.getParameterValues(paramName);
+				lowValue = paramValues[0];
+			
+				deptAdvisors.get(index).setNameLow(lowValue);
+			}
+			if(paramName.contains(degree)){
+				index = Integer.valueOf(paramName.substring(6));
+				String[] paramValues = request.getParameterValues(paramName);
+				for(int i=0; i<paramValues.length; i++) {
+					degreeType.add(paramValues[i]);
+				}
+				System.out.println(degreeType.toString().substring(1, degreeType.toString().length() -1));
+				Integer type ;
+				type = deptAdvisors.get(index).setDegreeTypeFromString(degreeType.toString().substring(1, degreeType.toString().length() -1));
+				deptAdvisors.get(index).setDegType(type);
+			}
+			
+		}
 		DatabaseManager dbm2 = new DatabaseManager();
 		try {
 			

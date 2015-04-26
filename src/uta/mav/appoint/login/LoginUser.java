@@ -73,13 +73,13 @@ public class LoginUser {
 			degreeType = 1;
 		else if(degreeTypeString.equals("Masters"))
 			degreeType = 2;
-		else if(degreeTypeString.equals("Bachelors,Masters"))
+		else if(degreeTypeString.equals("Bachelors, Masters"))
 			degreeType = 3;
 		else if(degreeTypeString.equals("Doctorate"))
 			degreeType = 4;
-		else if(degreeTypeString.equals("Bachelors,Doctorate"))
+		else if(degreeTypeString.equals("Bachelors, Doctorate"))
 			degreeType = 5;
-		else if(degreeTypeString.equals("Masters,Doctorate"))
+		else if(degreeTypeString.equals("Masters, Doctorate"))
 			degreeType = 6;
 		else
 			degreeType = 7;

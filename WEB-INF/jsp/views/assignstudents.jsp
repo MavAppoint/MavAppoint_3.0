@@ -90,7 +90,6 @@
 					<option value ="Y" >Y</option>
 					<option value ="Z" >Z</option></select></td>
         		 <td><select multiple="multiple" name="degree<%=i %>" id="degree" title ="<%=deptAdvisors.get(i).stringDegreeType()%>" class="btn btn-default dropdown-toggle  pull-left" data-toggle="dropdown">
-		    		 <option value ="All" >All</option>
 		    		 <option value ="Bachelors" >Bachelors</option>
 		    		 <option value ="Masters" >Masters</option>
 		    		 <option value ="Doctorate" >Doctorate</option></select></td>
