@@ -12,7 +12,7 @@
 <div class="container">	
 	<form action="register" method="post" name="register_form">
 		<div class="row">
-<label for="message"><font color="#e67e22" size="4"><%=message%></label>
+	<label for="message"><font color="#e67e22" size="4"><%=message%></label>
 			<div class="col-md-4 col-lg-4">
 				<div class="form-group">
 				

@@ -1,4 +1,5 @@
 <%@ include file="templates/header.jsp"%>
+<%  String message = (String)session.getAttribute("message"); %>
 <style>
 .panel-heading {
 	padding: 5px 15px;
@@ -21,6 +22,7 @@
 </style>
 
 <div class="container" style="margin-top: 40px">
+	<label for="message"><font color="#e67e22" size="4"><%=message%></label>
 	<div class="row">
 		<div class="col-sm-6 col-md-4 col-md-offset-4">
 			<div class="panel panel-default">
