@@ -41,7 +41,7 @@ public class GetStudentById  extends SQLCmd{
 			int i = 1;
 			studentUser.setStudentId(res.getInt(i));
 			i++;
-			studentUser.setDegreeType(res.getInt(i));
+			studentUser.setDegType(res.getInt(i));
 			i++;
 			studentUser.setPhoneNumber(res.getString(i));
 			i++;
