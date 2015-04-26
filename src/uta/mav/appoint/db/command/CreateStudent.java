@@ -17,7 +17,7 @@ public class CreateStudent  extends SQLCmd{
 	public CreateStudent(StudentUser studentUser){
 		userid = studentUser.getUserId();
 		student_Id = studentUser.getStudentId();
-		degree_type = studentUser.getDegreeType();
+		degree_type = studentUser.getDegType();
 		phone_num = studentUser.getPhoneNumber();
 		last_name_initial = studentUser.getLastNameInitial();
 		b = false;

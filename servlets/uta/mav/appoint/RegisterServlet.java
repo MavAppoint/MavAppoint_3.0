@@ -132,7 +132,7 @@ public class RegisterServlet extends HttpServlet {
 				studentUser.setLastNameInitial(lastNameInitial);
 				
 				Integer degree_type = Integer.valueOf(request.getParameter("drp_degreeType"));
-				studentUser.setDegreeType(degree_type);
+				studentUser.setDegType(degree_type);
 				
 				ArrayList<String> departmentsSelected = new ArrayList<String>();
 				String departmentFound = departments.get(Integer.valueOf(request.getParameter("drp_department"))).getName();
