@@ -2,8 +2,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="uta.mav.appoint.login.Department"%>
 
-<% ArrayList<Department> departments = (ArrayList<Department>)session.getAttribute("departments"); %>
-
+<%   ArrayList<Department> departments = (ArrayList<Department>)session.getAttribute("departments"); %>
 <div class="container">
 	<label><font color="#e67e22" size="5"> Create New
 			Advisor: </label>
@@ -11,9 +10,9 @@
 	<form action="create_advisor" method="post" name="advisor_form" onsubmit="return false;">
 		<div class="form-group">
 		
-		<label for="drp_department"><font color="#e67e22" size="4">Departments</label> 
+			<label for="drp_department"><font color="#e67e22" size="4">Departments</label> 
 			<br>
-			<select onchange="change();" id="drp_department" name="drp_department" class="btn btn-default btn-lg dropdown-toggle">
+			<select id="drp_department" name="drp_department" class="btn btn-default btn-lg dropdown-toggle">
 				<%
 				for (int i=0;i<departments.size();i++)
 				{%>
@@ -21,18 +20,14 @@
 			<%	}%>
 			</select> 
 			<br>
-			
+					
 			<label for="emailAddress"><font color="#e67e22" size="4">Email
 					Address</label><br> <input type="text" style="width: 350px;"
 				class="form-control" id="emailAddress" placeholder="">
-		</div>
-		<div>
 			<label for="pname"><font color="#e67e22" size="4">Display
 					Name</label><br> <input type="text" style="width: 350px;"
 				class="form-control" id="pname" placeholder="">
-		</div>
 
-		<div>
 			<label for="isLead"><font color="#e67e22">Lead Advisor</label><br>
 			<select id="isLead" class="btn btn-default btn-lg dropdown-toggle">
 				<option value=1>True</option>
@@ -50,7 +45,8 @@
 									var email = document.getElementById("emailAddress").value;
 									var pname = document.getElementById("pname").value;
 									var isLead = document.getElementById("isLead").value;
-									var params = ('emailAddress='+email+'&pname='+pname+'&isLead='+isLead);
+									var drp_department = document.getElementById("drp_department").value;
+									var params = ('emailAddress='+email+'&pname='+pname+'&isLead='+isLead+'&drp_department='+drp_department);
 									var xmlhttp;
 									xmlhttp = new XMLHttpRequest();
 									xmlhttp.onreadystatechange=function(){
