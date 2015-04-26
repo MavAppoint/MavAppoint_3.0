@@ -90,6 +90,8 @@ public class RegisterServlet extends HttpServlet {
 				}
 				studentUser.setEmail(email);
 				
+				String password = "newstudent!@3";
+				/*
 				String password = request.getParameter("password");
 				if(password.length()<6)
 				{
@@ -105,8 +107,9 @@ public class RegisterServlet extends HttpServlet {
 					session.setAttribute("message", "Passwords do not match");
 					request.setAttribute("error","Unable to add user");
 					request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
-				}
+				}*/
 				studentUser.setPassword(password);
+				
 				
 				String phone_num = request.getParameter("phone_num");
 				if(!phone_num.matches("^\\d{3}-\\d{3}-\\d{4}"))
