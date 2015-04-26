@@ -17,7 +17,6 @@ public class AdvisorUser extends LoginUser{
 	private String notification;
 	private String nameLow;
 	private String nameHigh;
-	private Integer degType;
 	private Integer isLead;
 	
 	public AdvisorUser(){
@@ -30,7 +29,7 @@ public class AdvisorUser extends LoginUser{
 		this.pname = pname;
 		this.nameLow = name_low;
 		this.nameHigh = name_high;
-		this.degType = degree_types;
+		setDegType(degree_types);
 		this.majors = new ArrayList<String>();
 		this.majors.add("Software Engineering");
 		this.majors.add("Computer Science");
@@ -166,14 +165,6 @@ public class AdvisorUser extends LoginUser{
 
 	public void setNameHigh(String nameHigh) {
 		this.nameHigh = nameHigh;
-	}
-
-	public Integer getDegType() {
-		return degType;
-	}
-
-	public void setDegType(Integer degType) {
-		this.degType = degType;
 	}
 
 	public void setPname(String pname) {

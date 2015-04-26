@@ -12,8 +12,9 @@ public class LoginUser {
 	private String role;
 	private ArrayList<String> majors;
 	private ArrayList<String> departments;
-	String email;
-	String msg;
+	private Integer degType;
+	private String email;
+	private String msg;
 	
 	public LoginUser(){
 		email = "";
@@ -43,6 +44,58 @@ public class LoginUser {
 	public String getHeader(){
 		return "header";
 	}
+	
+	public String stringDegreeType()
+	{
+		switch(degType)
+		{
+		case 1:
+			return "Bachelors";
+		case 2:
+			return "Masters";
+		case 3:
+			return "Bachelors & Masters";
+		case 4:
+			return "Doctorate";
+		case 5:
+			return "Bachelors & Doctorate";
+		case 6:
+			return "Masters & Doctorate";
+		default:
+			return "Bachelors & Masters & Doctorate";
+		}
+	}
+	
+	public Integer setDegreeTypeFromString(String degreeTypeString)
+	{
+		Integer degreeType = 7;
+		switch(degreeTypeString)
+		{
+		case "Bachelors":
+			degreeType = 1;
+			break;
+		case "Masters":
+			degreeType = 2;
+			break;
+		case "Bachelors & Masters":
+			degreeType = 3;
+			break;
+		case "Doctorate":
+			degreeType = 4;
+			break;
+		case "Bachelors & Doctorate":
+			degreeType = 5;
+			break;
+		case "Masters & Doctorate":
+			degreeType = 6;
+			break;
+		default:
+			degreeType = 7;
+			break;
+		}
+		setDegType(degreeType);
+		return degreeType;
+	}
 
 	/**
 	 * @return the email
@@ -53,6 +106,14 @@ public class LoginUser {
 	
 	public String getMsg() {
 		return msg;
+	}
+	
+	public Integer getDegType() {
+		return degType;
+	}
+
+	public void setDegType(Integer degType) {
+		this.degType = degType;
 	}
 
 	/**
