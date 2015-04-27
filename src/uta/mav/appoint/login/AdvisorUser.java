@@ -62,7 +62,11 @@ public class AdvisorUser extends LoginUser{
 		}
 		
 		if(!advises)
+		{
+			System.out.println(getPname()+" -- Does not advise w/ deps " + studDeps.get(0));
 			return false;
+		}
+		advises = false;
 		
 		ArrayList<String> advMajors = getMajors();
 		for(int advDepIndex = 0; advDepIndex < advMajors.size(); advDepIndex++)
@@ -76,25 +80,33 @@ public class AdvisorUser extends LoginUser{
 		}
 		
 		if(!advises)
+		{
+			System.out.println(getPname()+" -- Does not advise w/ majors " + studMajors.get(0));
 			return false;
+		}
 		
 		Character advNameLow = getNameLow().charAt(0);
 		Character advNameHigh = getNameHigh().charAt(0);
+		System.out.println(" FOUND ---------------------------------------- "+advNameLow);
 		if(studentLastName<advNameLow || advNameHigh<studentLastName)
+		{
+			System.out.println(getPname()+" -- Does not advise w/ name " + advNameLow + " and "+advNameHigh);
 			return false;
+		}
 		
+		int tempDeg = studDegTypes;
 		Integer advDegTypes = getDegType();
-		for(int degLevel=8; degLevel>0; degLevel/=2)
+		for(int degLevel=4; degLevel>0; degLevel/=2)
 		{
 			Boolean advTakes = false;
 			Boolean studIs = false;
-			if(advDegTypes>degLevel)
+			if(advDegTypes>=degLevel)
 			{
 				advDegTypes -= degLevel;
 				advTakes = true;
 			}
 			
-			if(studDegTypes>degLevel)
+			if(studDegTypes>=degLevel)
 			{
 				studDegTypes -= degLevel;
 				studIs = true;
@@ -104,6 +116,7 @@ public class AdvisorUser extends LoginUser{
 				return true;
 		}
 		
+		System.out.println(getPname()+" -- Does not advise w/ degTypes " + tempDeg);
 		return false;
 	}
 	
