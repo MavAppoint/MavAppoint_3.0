@@ -15,6 +15,7 @@ public class GetUserById extends SQLCmd{
 		this.loginUser = loginUser;
 		this.userId = loginUser.getUserId();
 		
+		System.out.println("About to get majors");
 		SQLCmd sqlCmd = new GetMajorsByUserId(userId);
 		sqlCmd.execute();
 		
@@ -23,7 +24,8 @@ public class GetUserById extends SQLCmd{
 			majors.add((String)sqlCmd.getResult().get(i));
 		
 		this.loginUser.setMajors(majors);
-		
+
+		System.out.println("About to get departments");
 		sqlCmd = new GetDepartmentsByUserId(userId);
 		sqlCmd.execute();
 		
@@ -32,6 +34,7 @@ public class GetUserById extends SQLCmd{
 			departments.add((String)sqlCmd.getResult().get(i));
 		
 		this.loginUser.setDepartments(departments);
+		System.out.println("Just set departments");
 	}
 	
 	
@@ -42,6 +45,7 @@ public class GetUserById extends SQLCmd{
 			String command = "SELECT email, password, role, validated from User where userid=?";
 			PreparedStatement statement = conn.prepareStatement(command);
 			statement.setInt(1,userId);
+			System.out.println("Executing query");
 			res = statement.executeQuery();
 		}
 		catch(SQLException sq){
@@ -52,7 +56,10 @@ public class GetUserById extends SQLCmd{
 	@Override
 	public void processResult(){
 		try{
+			System.out.println("Setting restult");
 			int i = 1;
+			res.next();
+			
 			loginUser.setEmail(res.getString(i));
 			i++;
 			loginUser.setPassword(res.getString(i));
@@ -60,8 +67,10 @@ public class GetUserById extends SQLCmd{
 			loginUser.setRole(res.getString(i));
 			i++;
 			loginUser.setValidated(res.getInt(i));
-			
+
+			System.out.println("Set restult");
 			result.add(loginUser);
+			System.out.println("Added restult");
 		}
 		catch(SQLException sq){
 			System.out.println(sq.toString());
