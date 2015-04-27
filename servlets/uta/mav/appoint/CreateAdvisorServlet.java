@@ -96,7 +96,7 @@ public class CreateAdvisorServlet extends HttpServlet{
 			try{
 				DatabaseManager dbm = new DatabaseManager();
 				if (dbm.createAdvisor(advisorUser)){
-					user.setMsg("Advisor account created with password \""+advisorUser.getPassword()+"\".");
+					user.setMsg("Advisor account created with password sent to advisor's e-mail.");
 				}
 				else{
 					user.setMsg("Error: Cannot create account.");
@@ -130,6 +130,9 @@ public class CreateAdvisorServlet extends HttpServlet{
 		catch(Exception e){
 			System.out.println(e.toString());
 		}
+
+		request.setAttribute("includeHeader", header);
+		request.getRequestDispatcher("/WEB-INF/jsp/views/create_advisor.jsp").forward(request, response);
 	}
 }
 
