@@ -90,7 +90,7 @@
 					address: <br> <input type="text" name="email" id="email"
 						value="<%= user.getEmail()%>"><br> UTA Student ID: <br>
 					<input type="text" name="studentid"> <br> Phone
-					Number: <br> <input type="text" name="StudentPhoneNumber"> <br>
+					Number: <br> <input type="text" name="phoneNumber"> <br>
 					Description: <br>
 					<textarea rows=4 columns="10" name="description"></textarea>
 				</div>

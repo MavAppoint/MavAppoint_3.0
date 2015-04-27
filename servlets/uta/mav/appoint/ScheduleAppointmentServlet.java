@@ -55,7 +55,7 @@ public class ScheduleAppointmentServlet extends HttpServlet{
 			
 			
 			/*Hien*/
-			a.setStudentPhoneNumber(request.getParameter("studentPhoneNumber"));
+			a.setStudentPhoneNumber(request.getParameter("phoneNumber"));
 			
 			
 			
