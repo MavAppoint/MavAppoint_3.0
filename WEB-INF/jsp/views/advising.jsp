@@ -64,7 +64,7 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 								%>
 					<option id = "major"  value=<%=i%>><%=major.get(i)%></option>
 					<%	}%>
-				</form>
+					
 					<script>function selectmajor(){
 						document.getElementById("major").value;
 						advisor_form.submit();
@@ -85,7 +85,6 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 								%>
 					<option id = "letter" onclick = "selectLetter()" value=<%=i%>><%=letters.get(i)%></option>
 					<%	}%>
-				</form>
 			
 					<script>function selectLetter(){
 						document.getElementById("letter").value;

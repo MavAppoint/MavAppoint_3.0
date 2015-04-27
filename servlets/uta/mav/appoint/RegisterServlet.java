@@ -91,23 +91,6 @@ public class RegisterServlet extends HttpServlet {
 				studentUser.setEmail(email);
 				
 				String password = "newstudent!@3";
-				/*
-				String password = request.getParameter("password");
-				if(password.length()<6)
-				{
-					System.out.println("Unsecure Password");
-					session.setAttribute("message", "Passwords must be at least 6 characters");
-					request.setAttribute("error","Unable to add user");
-					request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
-				}
-				String rpassword = request.getParameter("repeatPassword");
-				if(!password.equals(rpassword))
-				{
-					System.out.println("Passwords do not match Invalid");
-					session.setAttribute("message", "Passwords do not match");
-					request.setAttribute("error","Unable to add user");
-					request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
-				}*/
 				studentUser.setPassword(password);
 				
 				
@@ -153,24 +136,18 @@ public class RegisterServlet extends HttpServlet {
 					Email userEmail = new Email("MavAppoint Account Created",
 							"Your account for MavAppoint has been created! Your account information is:\n"
 							+"Role: "+role+"\n"
-							+"Email: "+email+"\n"
 							+"Password: "+password,
 							email);
 					userEmail.sendMail();
-						
-					session = request.getSession();
-					session.setAttribute("user", studentUser);
-					response.sendRedirect("index");
-					success = true;
 				}
+				session.setAttribute("message", "Account Created! Please check your e-mail for a new password.");
 			}
 			catch(Exception e){
 				System.out.println(e+" RegisterServlet");
 			}
-			if(!success){
-				request.setAttribute("includeHeader", "templates/header.jsp");
-				request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
-			}
+			
+			request.setAttribute("includeHeader", "templates/header.jsp");
+			request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
 		}
 	}
 
