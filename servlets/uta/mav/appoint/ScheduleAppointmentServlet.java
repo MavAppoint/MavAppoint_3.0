@@ -49,6 +49,18 @@ public class ScheduleAppointmentServlet extends HttpServlet{
 		session = request.getSession();
 		try{
 			Appointment a = new Appointment();
+			
+			
+			
+			
+			
+			/*Hien*/
+			a.setStudentPhoneNumber(request.getParameter("studentPhoneNumber"));
+			
+			
+			
+			
+			
 			a.setAppointmentId(Integer.parseInt(request.getParameter("id2")));
 			a.setStudentId(request.getParameter("studentid"));
 			a.setDescription(request.getParameter("description"));
@@ -63,6 +75,17 @@ public class ScheduleAppointmentServlet extends HttpServlet{
 			a.setAdvisingEndTime(addTime(parts[0],parts[1],d));
 			String email = request.getParameter("email");
 			DatabaseManager dbm = new DatabaseManager();
+			
+			
+			
+			
+			//Hien (right above dbm.create...)
+			System.out.println("Hien sent " +a.getStudentPhoneNumber());
+			
+			
+			
+			
+			
 			Boolean result = dbm.createAppointment(a,email);
 			if (result == true){
 				response.setHeader("Refresh","2; URL=advising");
