@@ -1,5 +1,6 @@
 package uta.mav.appoint;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -47,6 +48,8 @@ public class RegisterServlet extends HttpServlet {
 			}
 		}
 		
+		session.setAttribute("message", "");
+		
 		request.setAttribute("includeHeader", "templates/header.jsp");
 		request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
 	}
@@ -70,6 +73,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		else
 		{
+			String msg = "";
 			Boolean success = false;
 			StudentUser studentUser = new StudentUser();
 			String role = "student";
@@ -80,31 +84,21 @@ public class RegisterServlet extends HttpServlet {
 				if(!email.endsWith("@mavs.uta.edu"))
 				{
 					System.out.println("Email Address Invalid");
+					session.setAttribute("message", "Email Address does not end in \"@mavs.uta.edu\"");
 					request.setAttribute("error","Unable to add user");
 					request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
 				}
 				studentUser.setEmail(email);
 				
-				String password = request.getParameter("password");
-				if(password.length()<6)
-				{
-					System.out.println("Unsecure Password");
-					request.setAttribute("error","Unable to add user");
-					request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
-				}
-				String rpassword = request.getParameter("repeatPassword");
-				if(!password.equals(rpassword))
-				{
-					System.out.println("Passwords do not match Invalid");
-					request.setAttribute("error","Unable to add user");
-					request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
-				}
+				String password = "newstudent!@3";
 				studentUser.setPassword(password);
+				
 				
 				String phone_num = request.getParameter("phone_num");
 				if(!phone_num.matches("^\\d{3}-\\d{3}-\\d{4}"))
 				{
 					System.out.println("Phone Number Invalid");
+					session.setAttribute("message", "Phone Number Invalid");
 					request.setAttribute("error","Unable to add user");
 					request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
 				}
@@ -112,6 +106,7 @@ public class RegisterServlet extends HttpServlet {
 				
 				if(!request.getParameter("student_Id").matches("^100\\d{7}") && !request.getParameter("student_Id").matches("^6000\\d{6}")){
 					System.out.println("Student ID Invalid");
+					session.setAttribute("message", "Student ID Invalid");
 					request.setAttribute("error","Unable to add user");
 					request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
 				}
@@ -123,7 +118,7 @@ public class RegisterServlet extends HttpServlet {
 				studentUser.setLastNameInitial(lastNameInitial);
 				
 				Integer degree_type = Integer.valueOf(request.getParameter("drp_degreeType"));
-				studentUser.setDegreeType(degree_type);
+				studentUser.setDegType(degree_type);
 				
 				ArrayList<String> departmentsSelected = new ArrayList<String>();
 				String departmentFound = departments.get(Integer.valueOf(request.getParameter("drp_department"))).getName();
@@ -141,26 +136,18 @@ public class RegisterServlet extends HttpServlet {
 					Email userEmail = new Email("MavAppoint Account Created",
 							"Your account for MavAppoint has been created! Your account information is:\n"
 							+"Role: "+role+"\n"
-							+"Email: "+email+"\n"
 							+"Password: "+password,
 							email);
 					userEmail.sendMail();
-						
-					session = request.getSession();
-					session.setAttribute("user", studentUser);
-					response.sendRedirect("index");
-					success = true;
 				}
+				session.setAttribute("message", "Account Created! Please check your e-mail for a new password.");
 			}
 			catch(Exception e){
-				System.out.println(e+"RegisterServlet");
+				System.out.println(e+" RegisterServlet");
 			}
-			if(!success){
-				System.out.println("Couldn't Log In");
-				//if unable to log in, add error message and redirect back to register
-				request.setAttribute("includeHeader", "templates/header.jsp");
-				request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request, response);
-			}
+			
+			request.setAttribute("includeHeader", "templates/header.jsp");
+			request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
 		}
 	}
 

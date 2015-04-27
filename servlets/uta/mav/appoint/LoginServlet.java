@@ -25,6 +25,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		session = request.getSession();
+		session.setAttribute("message", "");
 		request.getRequestDispatcher("/WEB-INF/jsp/views/login.jsp").forward(request,response);
 	}
 	
@@ -56,12 +57,13 @@ public class LoginServlet extends HttpServlet {
 			else{
 				//redirect back to login if authentication fails
 				//need to add a "invalid username or password" response
-				response.sendRedirect("login");
+				session.setAttribute("message", "Username or Password Invalid");
+				request.getRequestDispatcher("/WEB-INF/jsp/views/login.jsp").forward(request,response);
 			}
 		}
 		catch(Exception e){
 			System.out.println(e);
-			response.sendRedirect("login");
+			request.getRequestDispatcher("/WEB-INF/jsp/views/login.jsp").forward(request,response);
 		}
 	}
 }

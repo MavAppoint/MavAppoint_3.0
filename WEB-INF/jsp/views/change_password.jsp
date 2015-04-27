@@ -1,9 +1,11 @@
 <jsp:include page='<%=(String) request.getAttribute("includeHeader")%>' />
 <%@ page import="java.util.ArrayList"%>
+<%  String message = (String)session.getAttribute("message");%>
 
 <div class="container">
 	<form action="#" method="post">
 		<div class="row">
+			<label for="message"><font color="#e67e22" size="4"><%=message%></label>
 			<div class="col-md-4 col-lg-4">
 				<div class="form-group"> 
 				

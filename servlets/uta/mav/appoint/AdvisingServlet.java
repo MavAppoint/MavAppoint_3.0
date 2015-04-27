@@ -23,6 +23,12 @@ public class AdvisingServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	HttpSession session;
 	String header;
+	ArrayList<Department> departments;
+	private ArrayList<String> majors;
+	private ArrayList<AdvisorUser> advisors;
+	private ArrayList<Character> letters;
+	private ArrayList<String> degreeType;
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -30,13 +36,13 @@ public class AdvisingServlet extends HttpServlet{
 		
 		session = request.getSession(); // comment
 
-		ArrayList<String> degreeType = new ArrayList<>();
-		degreeType.add("Bachelor");
-		degreeType.add("Master");
+		degreeType = new ArrayList<>();
+		degreeType.add("Bachelors");
+		degreeType.add("Masters");
 		degreeType.add("Doctorate");
 		session.setAttribute("degreeType", degreeType);
 		
-		ArrayList<Character> letters = new ArrayList<>();
+		letters = new ArrayList<>();
 		char ch;
 		for(ch = 'A'; ch <= 'Z'; ch++)
 		{
@@ -52,23 +58,24 @@ public class AdvisingServlet extends HttpServlet{
 		try{
 			//get departments from database
 				DatabaseManager dbm = new DatabaseManager();
-				ArrayList<Department> departments = dbm.getDepartments();
+				departments = dbm.getDepartments();
 				session.setAttribute("departments", departments);
 				
 				//get majors from database
-				ArrayList<String> major = dbm.getMajor();
-				session.setAttribute("major", major);
+				majors = departments.get(0).getMajors();
+				session.setAttribute("major", majors);
 				
 				header = "templates/" + user.getHeader() + ".jsp";
 				//must be logged in to see advisor schedules - safety concern
-				ArrayList<String> array =  dbm.getAdvisors();
-				if (array.size() != 0){
-					session.setAttribute("advisors", array);
+				advisors =  dbm.getAdvisorsOfDepartment(departments.get(0).getName());
+				if (advisors.size() != 0){
+					session.setAttribute("advisors", advisors);
 				}
-				ArrayList<TimeSlotComponent> schedules = dbm.getAdvisorSchedule("all");
+				ArrayList<TimeSlotComponent> schedules = dbm.getAdvisorSchedules(advisors);
 				if (schedules.size() != 0){
 					session.setAttribute("schedules", schedules);
 				}
+				
 				ArrayList<Object> appointments = dbm.getAppointments(user);
 				if (appointments.size() != 0){
 					session.setAttribute("appointments", appointments);
@@ -80,6 +87,8 @@ public class AdvisingServlet extends HttpServlet{
 		request.setAttribute("includeHeader", header);
 		request.getRequestDispatcher("/WEB-INF/jsp/views/advising.jsp").forward(request, response);
 	}
+	
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		session = request.getSession();
@@ -91,45 +100,100 @@ public class AdvisingServlet extends HttpServlet{
 		
 		
 		try{
-					header = "templates/" + user.getHeader() + ".jsp";
-					
-					String dept = request.getParameter("drp_department");
-					
-					
-					
-					
-					DatabaseManager dbm = new DatabaseManager();
-					ArrayList<String> array =  dbm.getAdvisors();
-					if (array.size() != 0){
-						session.setAttribute("advisors", array);
-					}					
-					//get advisor schedules
-					
-					String advisor = (String)request.getParameter("advisor_button");
-					ArrayList<TimeSlotComponent> schedule;
-					if (advisor != null){
-						schedule = dbm.getAdvisorSchedule(advisor);
-					}
-					else{
-						schedule = dbm.getAdvisorSchedule("all");
-					}
-					
-					if(dept != null)
+			DatabaseManager dbm = new DatabaseManager();
+			
+			session = request.getSession();
+			
+			Integer departmentIndex = Integer.valueOf(request.getParameter("drp_department"));
+			Department selectedDep = departments.get(departmentIndex);
+			departments.remove(selectedDep);
+			departments.add(0, selectedDep);
+			session.setAttribute("departments", departments);
+			
+			if(departmentIndex==0) // same department
+			{ 
+				Integer majorIndex = Integer.valueOf(request.getParameter("drp_major"));
+				String selectedMajor = majors.get(majorIndex);
+				majors.remove(selectedMajor);
+				majors.add(0, selectedMajor);
+				session.setAttribute("majors", majors);
+				
+			}
+			else
+			{
+				majors = selectedDep.getMajors();
+				session.setAttribute("major", majors);
+			}
+			
+			
+			Integer letterIndex = Integer.valueOf(request.getParameter("drp_lastName"));
+			Character selectedLetter = letters.get(letterIndex);
+			letters = new ArrayList<>();
+			char ch;
+			for(ch = 'A'; ch <= 'Z'; ch++)
+			{
+				letters.add(ch);
+			}
+			letters.remove(selectedLetter);
+			letters.add(0, selectedLetter);
+			session.setAttribute("letters", letters);
+			
+			Integer degreeIndex = Integer.valueOf(request.getParameter("drp_degreeType"));
+			String selectedDegree = degreeType.get(degreeIndex);
+			degreeType.remove(selectedDegree);
+			degreeType.add(0, selectedDegree);
+			session.setAttribute("degreeType", degreeType);
+			
+			advisors =  dbm.getAdvisorsOfDepartment(departments.get(0).getName());
+			if (advisors.size() != 0){
+				session.setAttribute("advisors", advisors);
+			}
+			
+			ArrayList<TimeSlotComponent> schedules = new ArrayList<TimeSlotComponent>();
+			schedules = dbm.getAdvisorSchedules(advisors);
+			if (schedules.size() != 0)
+				session.setAttribute("schedules", schedules);
+			
+			String advisor = (String)request.getParameter("advisor_button");
+			if (advisor != null && !advisor.equals("all")){
+				System.out.println("Not going to check -- "+advisors.get(0).getPname());
+				
+				schedules = dbm.getAdvisorSchedule(advisor);
+				if (schedules.size() != 0)
+					session.setAttribute("schedules", schedules);
+			}
+			else{
+				System.out.println("About to check -- "+advisors.get(0).getPname());
+				ArrayList<String> tempDep = new ArrayList<String>();
+				tempDep.add(departments.get(0).getName());
+				
+				ArrayList<String> tempMajor = new ArrayList<String>();
+				tempMajor.add(majors.get(0));
+				
+				int degreeValue = user.setDegreeTypeFromString(selectedDegree);
+				ArrayList<AdvisorUser> selectedAdvisors = new ArrayList<AdvisorUser>();
+				for(int i=0; i<advisors.size(); i++)
+				{
+					System.out.println("Checking -- "+advisors.get(i).getPname());
+					if(advisors.get(i).advisesStudent(tempDep, tempMajor, selectedLetter, degreeValue))
 					{
-						//get departments from database
-						ArrayList<Department> departments = dbm.getDepartments();
-						
-						int departmentNum = Integer.parseInt(dept);
-						
-						//get advisors by the department that was selected
-						ArrayList<AdvisorUser> advisors = dbm.getAdvisorsOfDepartment(departments.get(departmentNum).getName());
-						
-						session.setAttribute("advisors", advisors);
-						//session.setAttribute("advisors", advisors);
-						schedule = dbm.getAdvisorSchedules(advisors);
+						System.out.println("ADVISES -- "+advisors.get(i).getPname());
+						selectedAdvisors.add(advisors.get(i));
 					}
-					
-						session.setAttribute("schedules", schedule);
+				}
+				
+				//if (selectedAdvisors.size() != 0)
+					session.setAttribute("advisors", selectedAdvisors);
+				
+				schedules = dbm.getAdvisorSchedules(selectedAdvisors);
+				//if (schedules.size() != 0)
+					session.setAttribute("schedules", schedules);
+			}
+			
+			/*ArrayList<Object> appointments = dbm.getAppointments(user);
+			if (appointments.size() != 0){
+				session.setAttribute("appointments", appointments);
+			}*/
 		}
 		catch(Exception e){
 			System.out.printf(e.toString());

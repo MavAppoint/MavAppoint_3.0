@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="components/bootstrap3/css/bootstrap-datetimepicker.min.css">
 <link href="components/mavappoint.css" rel="stylesheet"/>
 <link rel="stylesheet" href="css/fullcalendar.css">
+<link rel="icon" href="img/mavlogo.gif" type="image/x-icon">
 
 <script type="text/javascript" src="components/jquery/jquery.min.js"></script>
 <script type="text/javascript"
@@ -31,7 +32,7 @@
 </head>
 <%String load = new String();
 if (request.getRequestURI().contains("assignstudents")){
-	load = "myFunction()";
+	load = "assignStudents()";
 }else{
 	load = "";
 }%>

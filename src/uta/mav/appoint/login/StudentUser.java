@@ -6,7 +6,6 @@ import uta.mav.appoint.visitor.Visitor;
 
 public class StudentUser extends LoginUser{
 	private Integer studentId;
-	private Integer degreeType;
 	private String 	phoneNumber;
 	private String	lastNameInitial;
 
@@ -39,14 +38,6 @@ public class StudentUser extends LoginUser{
 
 	public void setStudentId(Integer studentId) {
 		this.studentId = studentId;
-	}
-
-	public Integer getDegreeType() {
-		return degreeType;
-	}
-
-	public void setDegreeType(Integer degreeType) {
-		this.degreeType = degreeType;
 	}
 
 	public String getPhoneNumber() {

@@ -6,11 +6,13 @@
  ArrayList<Department> departments = (ArrayList<Department>)session.getAttribute("departments");
  ArrayList<String> degreeType = (ArrayList<String>)session.getAttribute("degreeType");
  ArrayList<String> major = (ArrayList<String>)session.getAttribute("major");
+ String message = (String)session.getAttribute("message");
 %>
 
 <div class="container">	
 	<form action="register" method="post" name="register_form">
 		<div class="row">
+	<label for="message"><font color="#e67e22" size="4"><%=message%></label>
 			<div class="col-md-4 col-lg-4">
 				<div class="form-group">
 				
@@ -82,14 +84,6 @@
 					<label for="emailAddress"><font color="#e67e22" size="4">Email Address</label> 
 					<br>
 					<input type="text" class="form-control" name=emailAddress placeholder="firstname.lastname@mavs.uta.edu"> 
-					
-					<label for="password"><font color="#e67e22" size="4">Password</label> 
-					<br>
-					<input type="password" class="form-control" name=password>
-					
-					<label for="repeatPassword"><font color="#e67e22" size="4">Repeat Password</label> 
-					<br>
-					<input type="password" class="form-control" name=repeatPassword>
 				</div>
 			</div>
 		</div>

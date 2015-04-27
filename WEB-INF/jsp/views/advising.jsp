@@ -5,8 +5,6 @@
 
 <% ArrayList<AdvisorUser> array = (ArrayList<AdvisorUser>)session.getAttribute("advisors");
 	if (array != null){ 
-		
-		System.out.println("First Advisor: " + array.get(0));
 	
 ArrayList<Department> departments = (ArrayList<Department>)session.getAttribute("departments");
 
@@ -44,19 +42,13 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 
         <label for="drp_degreeType"><font color="#e67e22" size="4">Degree Type</font></label> 
 		<br>
-		<select id="drp_degreeType" class="btn btn-default btn-lg dropdown-toggle">
+		<select id="drp_degreeType" name="drp_degreeType" onchange = "submit();" class="btn btn-default btn-lg dropdown-toggle">
 			<%
 							for (int i=0;i<degreeType.size();i++){
 								
 								%>
-					<option id = "degree" onclick = "selectdegreetype()" value="option<%=i%>"><%=degreeType.get(i)%></option>
+					<option id = "degree" value=<%=i%> ><%=degreeType.get(i)%></option>
 					<%	}%>
-				</form>
-				<script>function selectdegreetype(){
-						document.getElementById("degree").value;
-						advisor_form.submit();
-					 }
-				</script>
 		</select> 
 		<br>
 
@@ -65,14 +57,14 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 
         <label for="drp_major"><font color="#e67e22" size="4">Major</font></label> 
         <br>
-		<select id="drp_major" class="btn btn-default btn-lg dropdown-toggle">
+		<select id="drp_major" name="drp_major" onchange = "submit();" class="btn btn-default btn-lg dropdown-toggle">
 				<%
 							for (int i=0;i<major.size();i++){
 								
 								%>
-					<option id = "major" onclick = "selectmajor()" value="option<%=i%>"><%=major.get(i)%></option>
+					<option id = "major"  value=<%=i%>><%=major.get(i)%></option>
 					<%	}%>
-				</form>
+					
 					<script>function selectmajor(){
 						document.getElementById("major").value;
 						advisor_form.submit();
@@ -86,14 +78,13 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
     <div class="col-md-4"></div>
     <label for="drp_lastName"><font color="#e67e22" size="4">Last Name</font></label> 
 		<br>
-		<select id="drp_major" class="btn btn-default btn-lg dropdown-toggle">
+		<select id="drp_lastName" name="drp_lastName" onchange = "submit();" class="btn btn-default btn-lg dropdown-toggle">
 				<%
 							for (int i=0;i<letters.size();i++){
 								
 								%>
-					<option id = "letter" onclick = "selectLetter()" value="option<%=i%>"><%=letters.get(i)%></option>
+					<option id = "letter" onclick = "selectLetter()" value=<%=i%>><%=letters.get(i)%></option>
 					<%	}%>
-				</form>
 			
 					<script>function selectLetter(){
 						document.getElementById("letter").value;
@@ -112,6 +103,10 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 			<div class="btn-group">
 		
 					<input type=hidden name=advisor_button id="advisor_button">
+					<script>
+
+					document.getElementById("advisor_button").value = "all";
+					</script>
 
 					<!-- begin processing advisors  -->
 					<button type="button" id="all1" onclick="alladvisors()">All</button>
@@ -120,15 +115,13 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 		    							advisor_form.submit();
 		    						 }
 		    				</script>
-					<%
-							for (int i=0;i<array.size();i++){
-								
-								%>
-					<button type="button" id="button1<%=i%>" onclick="button<%=i%>"><%=array.get(i)%></button>
+					<%for (int i=0;i<array.size();i++){	%>
+					
+					<button type="button" id="button1<%=i%>" onclick="button<%=i%>()"><%=array.get(i).getPname()%></button>
 					<script> function button<%=i%>(){
-											document.getElementById("advisor_button").value = "<%=array.get(i)%>";
-											advisor_form.submit();
-											}
+						document.getElementById("advisor_button").value = "<%=array.get(i).getPname()%>";
+						advisor_form.submit();
+						}
 									</script>
 					<%	}%>
 				</form>
