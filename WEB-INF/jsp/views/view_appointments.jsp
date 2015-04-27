@@ -34,6 +34,17 @@
 							<th>Description</th>
 							<th>UTA Student ID</th>
 							<th>Student Email</th>
+							
+							
+							
+							
+							<!-- This adds "Phone Number" to the table  -->
+							<th>Phone Number</th> 
+							
+							
+							
+							
+							
 							<th class="text-center">Action</th>
 						</tr>
 					</thead>
@@ -53,6 +64,18 @@
 						<td><%=array.get(i).getDescription() %></td>
 						<td><%=array.get(i).getStudentId()%></td>
 						<td><%=array.get(i).getStudentEmail()%></td>
+						
+						
+						
+						
+						<!-- =array.get(i).getstudentPhoneNumber() -->
+						<td><%=array.get(i).getStudentPhoneNumber()%></td>
+						
+						
+						
+						
+						
+						
 						<td class="text-center"><button type="button" id=button1
 								<%=i%> onclick="button<%=i%>()">Cancel</button></td>
 						<td class="text-center"><button type="button" id=button2_
@@ -74,6 +97,17 @@
 										document.getElementById("end").value = "<%=array.get(i).getAdvisingEndTime()%>"; 
 										document.getElementById("pname").value = "<%=array.get(i).getPname()%>"; 
 										document.getElementById("description").value = "<%=array.get(i).getDescription()%>";
+										
+										
+										
+										
+										//<Hien>
+										document.getElementById("StudentPhoneNumber").value = "<%=array.get(i).getStudentPhoneNumber()%>";
+										
+										
+										
+										
+										
 										$('#addApptModal').modal();
 								}</script>
 					<script> function button__<%=i%>(){
@@ -125,6 +159,14 @@
 					<b>Start: </b><input type="label" name=start id="start" readonly><br>
 					<b>End: </b><input type="label" name=end id="end" readonly><br>
 					<b>Advisor: </b><input type="label" name=pname id="pname" readonly><br>
+					
+					
+					
+					
+					<b>Phone Number: </b> <input type="label" name=StudentPhoneNumber id="StudentPhoneNumber" readonly><br>
+					
+					
+					
 					<b>UTA Student ID: </b><br> <input type="text" name=studentid
 						id="studentid"><br> <b>Description:</b><br>
 					<textarea rows=4 columns="10" name=description id="description"></textarea>

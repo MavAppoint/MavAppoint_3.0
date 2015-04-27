@@ -90,7 +90,7 @@
 					address: <br> <input type="text" name="email" id="email"
 						value="<%= user.getEmail()%>"><br> UTA Student ID: <br>
 					<input type="text" name="studentid"> <br> Phone
-					Number: <br> <input type="text" name="phoneNumber"> <br>
+					Number: <br> <input type="text" name="StudentPhoneNumber"> <br>
 					Description: <br>
 					<textarea rows=4 columns="10" name="description"></textarea>
 				</div>
@@ -113,8 +113,23 @@
 									var student_email = document.getElementById("email").value;
 									var advisor_email = document.getElementById("advisor_email").value;
 									var starttime = document.getElementById("starttime").value;
+									
+									
+									
+									var phoneNumber = document.getElementById("phoneNumber").value;
+									
+									
+									
+									
 									var endtime = document.getElementById("endtime").value;
-									var params = ('student_email='+student_email+'&advisor_email='+advisor_email+'&starttime='+starttime+'&endtime='+endtime);
+									
+									
+									
+									var params = ('student_email='+student_email+'&advisor_email='+advisor_email+'&starttime='+starttime+   '&phoneNumber='+phoneNumber+   '&endtime='+endtime);
+									
+									
+									
+									
 									var xmlhttp;
 									xmlhttp = new XMLHttpRequest();
 									xmlhttp.onreadystatechange=function(){
