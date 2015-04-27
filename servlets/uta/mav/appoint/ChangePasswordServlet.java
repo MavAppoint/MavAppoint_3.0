@@ -74,18 +74,20 @@ public class ChangePasswordServlet extends HttpServlet {
 
 					session.setAttribute("user", user);
 					session.setAttribute("message", "Password changed");
-					response.sendRedirect("changePassword");
+					request.setAttribute("includeHeader", header);
+					request.getRequestDispatcher("/WEB-INF/jsp/views/change_password.jsp").forward(request,response);
 				}
 				else
 				{
 					session.setAttribute("message", "Passwords do not match");
-					response.sendRedirect("changePassword");
+					request.setAttribute("includeHeader", header);
+					request.getRequestDispatcher("/WEB-INF/jsp/views/change_password.jsp").forward(request,response);
 				}
 			}
 			else{
 				session.setAttribute("message", "Password Invalid");
-				response.sendRedirect("changePassword");
-				System.out.println("Password invalid");
+				request.setAttribute("includeHeader", header);
+				request.getRequestDispatcher("/WEB-INF/jsp/views/change_password.jsp").forward(request,response);
 			}
 		}
 		catch(Exception e){

@@ -84,14 +84,6 @@
 					<label for="emailAddress"><font color="#e67e22" size="4">Email Address</label> 
 					<br>
 					<input type="text" class="form-control" name=emailAddress placeholder="firstname.lastname@mavs.uta.edu"> 
-					
-					<label for="password"><font color="#e67e22" size="4">Password</label> 
-					<br>
-					<input type="password" class="form-control" name=password>
-					
-					<label for="repeatPassword"><font color="#e67e22" size="4">Repeat Password</label> 
-					<br>
-					<input type="password" class="form-control" name=repeatPassword>
 				</div>
 			</div>
 		</div>
