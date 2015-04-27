@@ -15,10 +15,9 @@ public class GetUserById extends SQLCmd{
 		this.loginUser = loginUser;
 		this.userId = loginUser.getUserId();
 		
+		System.out.println("About to get majors");
 		SQLCmd sqlCmd = new GetMajorsByUserId(userId);
 		sqlCmd.execute();
-
-		System.out.println("Got Majors");
 		
 		ArrayList<String> majors = new ArrayList<String>();
 		for(int i=0; i<sqlCmd.getResult().size(); i++)
@@ -26,20 +25,16 @@ public class GetUserById extends SQLCmd{
 		
 		this.loginUser.setMajors(majors);
 
-		System.out.println("Set Majors " + majors);
-		
+		System.out.println("About to get departments");
 		sqlCmd = new GetDepartmentsByUserId(userId);
 		sqlCmd.execute();
-
-		System.out.println("Got departments");
 		
 		ArrayList<String> departments = new ArrayList<String>();
 		for(int i=0; i<sqlCmd.getResult().size(); i++)
 			departments.add((String)sqlCmd.getResult().get(i));
 		
 		this.loginUser.setDepartments(departments);
-
-		System.out.println("Set departments "+ departments);
+		System.out.println("Just set departments");
 	}
 	
 	
@@ -50,6 +45,7 @@ public class GetUserById extends SQLCmd{
 			String command = "SELECT email, password, role, validated from User where userid=?";
 			PreparedStatement statement = conn.prepareStatement(command);
 			statement.setInt(1,userId);
+			System.out.println("Executing query");
 			res = statement.executeQuery();
 		}
 		catch(SQLException sq){
@@ -60,24 +56,21 @@ public class GetUserById extends SQLCmd{
 	@Override
 	public void processResult(){
 		try{
-			System.out.println("about to process result "+res.next());
+			System.out.println("Setting restult");
 			int i = 1;
+			res.next();
+			
 			loginUser.setEmail(res.getString(i));
 			i++;
-
-			System.out.println("Set email");
 			loginUser.setPassword(res.getString(i));
 			i++;
-
-			System.out.println("Set role");
 			loginUser.setRole(res.getString(i));
 			i++;
-
-			System.out.println("set validated");
 			loginUser.setValidated(res.getInt(i));
 
-			System.out.println("Adding user");
+			System.out.println("Set restult");
 			result.add(loginUser);
+			System.out.println("Added restult");
 		}
 		catch(SQLException sq){
 			System.out.println(sq.toString());
