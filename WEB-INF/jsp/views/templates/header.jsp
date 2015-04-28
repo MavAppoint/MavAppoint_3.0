@@ -1,5 +1,5 @@
 <%@include file="top_header.jsp"%>
-<div>
+			<div>
 	<ul class="nav navbar-nav">
 		<li><a href="advising"><font style="color: #e67e22" size="3">Advising</font>
 		</a></li>
@@ -12,4 +12,3 @@
 </div>
 </div>
 </nav>
-</div>
