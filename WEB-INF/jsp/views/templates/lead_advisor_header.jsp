@@ -1,6 +1,6 @@
 <%@include file="all_advisor_header.jsp"%>
-
-		   <li><a href="assign_students"><font style="color: #e67e22" size="3">Assign Students To Advisors </a></li>
+	
+	<li><a href="assign_students"><font style="color: #e67e22" size="3">Assign Students To Advisors</font></a></li>
 
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
@@ -13,5 +13,3 @@
 </div>
 
 </nav>
-
-</div>

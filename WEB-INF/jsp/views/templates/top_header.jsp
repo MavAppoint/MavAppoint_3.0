@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 
 <link rel="stylesheet"
-	href="components/bootstrap3/css/bootstrap.min.css">
+	href="components/bootstrap3/css/bootstrap.css">
 <link rel="stylesheet" href="components/bootstrap3/css/bootstrap-datetimepicker.min.css">
 <link href="components/mavappoint.css" rel="stylesheet"/>
 <link rel="stylesheet" href="css/fullcalendar.css">
@@ -37,11 +37,10 @@ if (request.getRequestURI().contains("assignstudents")){
 	load = "";
 }%>
 <body onload="<%=load%>" >
-	<div class="container">
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div id="inversenavbar" class="container-fluid"
-				style="background-color: #104E8B;">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="index"> <b> <font
-							style="color: #e67e22" size="6"> MavAppoint </font></b></a>
-				</div>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div id="inversenavbar" class="container-fluid"
+			style="background-color: #104E8B;">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index"> <b> <font
+						style="color: #e67e22" size="6"> MavAppoint </font></b></a>
+			</div>
