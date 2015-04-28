@@ -33,19 +33,17 @@ public class RegisterServlet extends HttpServlet {
 		degreeType.add("Master");
 		degreeType.add("Doctorate");
 		session.setAttribute("degreeType", degreeType);
-		if(departments==null)
-		{
-			try {
-				DatabaseManager dbm = new DatabaseManager();
-				departments = dbm.getDepartments();
-				session.setAttribute("departments", departments);
-				
-				//get majors from database
-				majors = departments.get(0).getMajors();
-				session.setAttribute("major", majors);
-			} catch(Exception e){
-				System.out.println(e+" RegisterServlet");
-			}
+		
+		try {
+			DatabaseManager dbm = new DatabaseManager();
+			departments = dbm.getDepartments();
+			session.setAttribute("departments", departments);
+			
+			//get majors from database
+			majors = departments.get(0).getMajors();
+			session.setAttribute("major", majors);
+		} catch(Exception e){
+			System.out.println(e+" RegisterServlet");
 		}
 		
 		session.setAttribute("message", "");
