@@ -40,8 +40,9 @@
 			</select> <br>
 		</div>
 
-		<br> <input type="submit" value="submit"
-			onclick="javascript:FormSubmit();">
+		<br> 
+			
+      	<input onclick="javascript:FormSubmit();" type="submit" class="btn-lg" value="Submit">
 	</form>
 	<br>
 	<label id="result"><font color="#0" size="4"></font></label>
