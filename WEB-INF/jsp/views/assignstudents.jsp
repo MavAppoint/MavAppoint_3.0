@@ -11,7 +11,7 @@
 <div class="container">
 <!-- Panel -->
 <div class="panel panel-default">
-	<label for="message"><font color="#0" size="4"><%=message%></label>
+	<label for="message"><font color="#0" size="4"><%=message%></font></label>
   <!-- Default panel contents -->
   <div class="panel-heading"><h1>Assign Students To Advisors</h1></div>
   <div class="panel-body">
