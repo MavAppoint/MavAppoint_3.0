@@ -2,6 +2,7 @@ package uta.mav.appoint;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import uta.mav.appoint.db.DatabaseManager;
-import uta.mav.appoint.login.AdvisorUser;
-import uta.mav.appoint.login.Department;
 import uta.mav.appoint.login.*;
 
 /**
@@ -199,13 +198,8 @@ public class AdvisingServlet extends HttpServlet{
 			
 			Integer letterIndex = Integer.valueOf(request.getParameter("drp_lastName"));
 			Character selectedLetter = letters.get(letterIndex);
-			letters = new ArrayList<>();
-			char ch;
-			for(ch = 'A'; ch <= 'Z'; ch++)
-			{
-				letters.add(ch);
-			}
 			letters.remove(selectedLetter);
+			Collections.sort(letters);
 			letters.add(0, selectedLetter);
 			session.setAttribute("letters", letters);
 			
