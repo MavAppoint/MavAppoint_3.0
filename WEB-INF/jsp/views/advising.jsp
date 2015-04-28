@@ -17,10 +17,17 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 %>
 	
 <div class="container">
+<div class="container">
+<!-- Panel -->
+<div class="panel panel-default">
+<!-- Default panel contents -->
+<div class="panel-heading"><h1>Student Information</h1></div>
+<div class="panel-body">
+
 		<form action="advising" method="post" name="advisor_form">
 	<div class="row">
     <div class="col-md-2">
-        <label for="drp_department"><font color="#e67e22" size="4">Department</label> 
+        <label for="drp_department"><font color="#0" size="4">Department</label> 
 
 		<br>
 		<select id="drp_department" onchange = "submit();" name = "drp_department" class="btn btn-default btn-lg dropdown-toggle">
@@ -40,7 +47,7 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
     </div>
     <div class="col-md-2">
 
-        <label for="drp_degreeType"><font color="#e67e22" size="4">Degree Type</font></label> 
+        <label for="drp_degreeType"><font color="#0" size="4">Degree Type</font></label> 
 		<br>
 		<select id="drp_degreeType" name="drp_degreeType" onchange = "submit();" class="btn btn-default btn-lg dropdown-toggle">
 			<%
@@ -55,7 +62,7 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
     </div>
     <div class="col-md-4">
 
-        <label for="drp_major"><font color="#e67e22" size="4">Major</font></label> 
+        <label for="drp_major"><font color="#0" size="4">Major</font></label> 
         <br>
 		<select id="drp_major" name="drp_major" onchange = "submit();" class="btn btn-default btn-lg dropdown-toggle">
 				<%
@@ -76,7 +83,7 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
     </div>
     
     <div class="col-md-4"></div>
-    <label for="drp_lastName"><font color="#e67e22" size="4">Last Name</font></label> 
+    <label for="drp_lastName"><font color="#0" size="4">Last Name</font></label> 
 		<br>
 		<select id="drp_lastName" name="drp_lastName" onchange = "submit();" class="btn btn-default btn-lg dropdown-toggle">
 				<%
@@ -93,6 +100,11 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 				</script>
 		</select> 
 		<br>
+		
+		</div>
+</div>
+</div>
+</div>
 
     </div>
 	<div class="page-header">
@@ -130,7 +142,7 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 	</div>
 	<%} 
 		 else{%>
-	<label><font color="#e67e22" size="5"> Log in to see Advisor schedules.</font></label>
+	<label><font color="#0" size="5"> Log in to see Advisor schedules.</font></label>
 	<% } %>
 	<!-- end processing advisors -->
 

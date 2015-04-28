@@ -52,7 +52,8 @@ public class AssignStudentsServlet extends HttpServlet {
 				
 			
 				department = dbm.getDepartmentByName(advUser.getDepartments().get(0));
-				
+
+				session.setAttribute("message", "");
 				session.setAttribute("deptAdvisors", deptAdvisors);
 				session.setAttribute("department", department);
 				request.setAttribute("includeHeader", header);
@@ -149,13 +150,15 @@ public class AssignStudentsServlet extends HttpServlet {
 		try {
 			
 			dbm2.updateAdvisors(deptAdvisors);
+			session.setAttribute("message", "Successfully Updated Advisor Assignment");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			session.setAttribute("message", "Advisor Assignment Failed");
 			e.printStackTrace();
 		}
-		
+
 		request.setAttribute("includeHeader", header);
-		response.sendRedirect("index");	
+		request.getRequestDispatcher("/WEB-INF/jsp/views/assignstudents.jsp").forward(request, response);
 		
 	}
 

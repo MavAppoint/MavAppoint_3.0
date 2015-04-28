@@ -65,27 +65,36 @@ public class ChangePasswordServlet extends HttpServlet {
 			String currentpassword = request.getParameter("currentpassword");
 			String password = request.getParameter("password");
 			String repeatpassword = request.getParameter("repeatpassword");
-			if(user.getPassword().equals(currentpassword)){
-				if(password.equals(repeatpassword))
-				{
-					user.setPassword(password);
-					user.setValidated(1);
-					dbm.updateUser(user);
-
-					session.setAttribute("user", user);
-					session.setAttribute("message", "Password changed");
-					request.setAttribute("includeHeader", header);
-					request.getRequestDispatcher("/WEB-INF/jsp/views/change_password.jsp").forward(request,response);
+			if(password.length()>=8)
+			{
+				if(user.getPassword().equals(currentpassword)){
+					if(password.equals(repeatpassword))
+					{
+						user.setPassword(password);
+						user.setValidated(1);
+						dbm.updateUser(user);
+	
+						session.setAttribute("user", user);
+						session.setAttribute("message", "Password changed");
+						request.setAttribute("includeHeader", header);
+						request.getRequestDispatcher("/WEB-INF/jsp/views/change_password.jsp").forward(request,response);
+					}
+					else
+					{
+						session.setAttribute("message", "Passwords do not match");
+						request.setAttribute("includeHeader", header);
+						request.getRequestDispatcher("/WEB-INF/jsp/views/change_password.jsp").forward(request,response);
+					}
 				}
-				else
-				{
-					session.setAttribute("message", "Passwords do not match");
+				else{
+					session.setAttribute("message", "Password Invalid");
 					request.setAttribute("includeHeader", header);
 					request.getRequestDispatcher("/WEB-INF/jsp/views/change_password.jsp").forward(request,response);
 				}
 			}
-			else{
-				session.setAttribute("message", "Password Invalid");
+			else
+			{
+				session.setAttribute("message", "Password Must be 8 Characters long");
 				request.setAttribute("includeHeader", header);
 				request.getRequestDispatcher("/WEB-INF/jsp/views/change_password.jsp").forward(request,response);
 			}

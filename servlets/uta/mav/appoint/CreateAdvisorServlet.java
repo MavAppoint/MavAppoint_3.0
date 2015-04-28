@@ -97,6 +97,29 @@ public class CreateAdvisorServlet extends HttpServlet{
 				DatabaseManager dbm = new DatabaseManager();
 				if (dbm.createAdvisor(advisorUser)){
 					user.setMsg("Advisor account created with password sent to advisor's e-mail.");
+					
+					String msg = user.getMsg();
+					
+					response.setContentType("text/plain");
+					response.setHeader("Cache-Control", "no-cache");
+					response.setHeader("Pragma", "no-cache");
+					response.setCharacterEncoding("UTF-8");
+					PrintWriter out = response.getWriter();
+					
+					String msgSub = "Mavappoint User Information";
+
+					String msgText ="An advisor account has been created for your email address! Login to http://bartsimpson.uta.edu:8080/MavAppoint/login to change your password. Your login information is:"
+			            	+ "\nUsername: " + advisorUser.getPname()
+			            	+ "\npassword: \""+advisorUser.getPassword()+"\" "
+			            	+ "\nMavAppoint";
+					String toEmail = advisorUser.getEmail();
+					
+					Email newMail = new Email(msgSub, msgText, toEmail);
+					newMail.sendMail();
+					out.write(msg);
+					out.flush();
+					out.close();
+					
 				}
 				else{
 					user.setMsg("Error: Cannot create account.");
@@ -105,28 +128,7 @@ public class CreateAdvisorServlet extends HttpServlet{
 			catch(Exception e){
 				user.setMsg("Unable to create advisor..");
 			}
-			String msg = user.getMsg();
-			
-			response.setContentType("text/plain");
-			response.setHeader("Cache-Control", "no-cache");
-			response.setHeader("Pragma", "no-cache");
-			response.setCharacterEncoding("UTF-8");
-			PrintWriter out = response.getWriter();
-			
-			String msgSub = "Mavappoint User Information";
-
-			String msgText ="An advisor account has been created for your email address! Login to http://bartsimpson.uta.edu:8080/MavAppoint/login to change your password. Your login information is:"
-	            	+ "\nUsername: " + advisorUser.getPname()
-	            	+ "\npassword: \""+advisorUser.getPassword()+"\" "
-	            	+ "\nMavAppoint";
-			String toEmail = advisorUser.getEmail();
-			
-			Email newMail = new Email(msgSub, msgText, toEmail);
-			newMail.sendMail();
-			out.write(msg);
-			out.flush();
-			out.close();
-			}
+		}
 		catch(Exception e){
 			System.out.println(e.toString());
 		}

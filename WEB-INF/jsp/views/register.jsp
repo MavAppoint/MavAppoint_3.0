@@ -9,9 +9,18 @@
  String message = (String)session.getAttribute("message");
 %>
 
-<div class="container">	
+<div class="container">
+
 	<form action="register" method="post" name="register_form">
+	
 		<div class="row">
+
+	<div class="container">
+<!-- Panel -->
+<div class="panel panel-default">
+<!-- Default panel contents -->
+<div class="panel-heading"><h1>Register Student</h1></div>
+<div class="panel-body">
 	<label for="message"><font color="#e67e22" size="4"><%=message%></label>
 			<div class="col-md-4 col-lg-4">
 				<div class="form-group">
@@ -21,7 +30,7 @@
 						document.getElementById("submitted").value = true;
 					</script>
 					
-			        <label for="drp_department"><font color="#e67e22" size="4">Departments</label> 
+			        <label for="drp_department"><font color="#0" size="4">Departments</label> 
 					<br>
 					<select onchange="change();" id="drp_department" name="drp_department" class="btn btn-default btn-lg dropdown-toggle">
 						<%
@@ -40,7 +49,7 @@
 					}
 					</script>
 					
-			        <label for="drp_degreeType"><font color="#e67e22" size="4">Degree Type</font></label> 
+			        <label for="drp_degreeType"><font color="#0" size="4">Degree Type</font></label> 
 					<br>
 					<select id="drp_degreeType" name="drp_degreeType" class="btn btn-default btn-lg dropdown-toggle">
 						<%
@@ -52,7 +61,7 @@
 					</select> 
 					<br>
 			
-			        <label for="drp_major"><font color="#e67e22" size="4">Major</font></label> 
+			        <label for="drp_major"><font color="#0" size="4">Major</font></label> 
 					<br>
 					<select id="drp_major" name="drp_major" class="btn btn-default btn-lg dropdown-toggle">
 							<%
@@ -64,7 +73,7 @@
 					</select> 
 					<br>
 					
-			        <label for="drp_last_name_initial"><font color="#e67e22" size="4">Last Name Initial</font></label> 
+			        <label for="drp_last_name_initial"><font color="#0" size="4">Last Name Initial</font></label> 
 					<br>
 					<select id="drp_last_name_initial" name="drp_last_name_initial" class="btn btn-default btn-lg dropdown-toggle">
 						<% for (char letter='A';letter<'Z';letter++){ %>
@@ -73,22 +82,26 @@
 					</select> 
 					<br>
 					
-					<label for="student_Id"><font color="#e67e22" size="4">Student ID</label> 
+					<label for="student_Id"><font color="#0" size="4">Student ID</label> 
 					<br>
 					<input type="text" class="form-control" name=student_Id placeholder="1000xxxxxx or 6000xxxxxx">
 					
-					<label for="phone_num"><font color="#e67e22" size="4">Phone Number</label> 
+					<label for="phone_num"><font color="#0" size="4">Phone Number</label> 
 					<br>
 					<input type="text" class="form-control" name=phone_num placeholder="xxx-xxx-xxxx">
 					
-					<label for="emailAddress"><font color="#e67e22" size="4">Email Address</label> 
+					<label for="emailAddress"><font color="#0" size="4">Email Address</label> 
 					<br>
 					<input type="text" class="form-control" name=emailAddress placeholder="firstname.lastname@mavs.uta.edu"> 
+				    <br>
 				</div>
+				    <input type="submit" class="btn-lg" value="Submit">
 			</div>
 		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>
-		
-	</form>
+		</div>
+	
+</div>
+</div>
+</div>
 		</p>
 		<%@include file="templates/footer.jsp"%>
