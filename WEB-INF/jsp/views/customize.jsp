@@ -1,23 +1,32 @@
 <jsp:include page='<%=(String) request.getAttribute("includeHeader")%>' />
+<style>
+.resize {
+width: 60%;
+}
+.resize-body {
+width: 80%;
+}
+
+
+</style>
+
 <div class="container">
-	<div class="container">
+
 <!-- Panel -->
-<div class="panel panel-default">
+<div class="panel panel-default resize center-block">
 <!-- Default panel contents -->
-<div class="panel-heading"><h1>Appointment Type Manager</h1></div>
-<div class="panel-body">
-		<p>
-		<div class="container">
-			<div class="btn-group">
+<div class="panel-heading text-center"><h1>Appointment Type Manager</h1></div>
+<div class="panel-body resize-body center-block">
+	
 				<form action="appointments" method="post" name="cancel">
 					<input type=hidden name=cancel_button id="cancel_button"> 
 					<input type=hidden name=edit_button id="edit_button">
-					<div class="row col-md-16  custyle">
+					
 						<table class="table table-striped custab">
 							<thead>
 								<tr>
-									<th><font style="color: #0" size="4">Appointment Type</th>
-									<th><font style="color: #0" size="4">Duration</th>
+									<th><font style="color: #0" size="4">Appointment Type</font></th>
+									<th><font style="color: #0" size="4">Duration</font></th>
 								</tr>
 							</thead>
 							<%@ page import="uta.mav.appoint.beans.AppointmentType"%>
@@ -28,8 +37,8 @@
 							<%if (ats != null){%>
 							<%for (int i=0;i<ats.size();i++){ %>
 							<tr>
-								<td><font style="color: #0" size="3"><%=ats.get(i).getType()%></td>
-								<td><font style="color: #0" size="3"><%=ats.get(i).getDuration()%></td>
+								<td><font style="color: #0" size="3"><%=ats.get(i).getType()%></font></td>
+								<td><font style="color: #0" size="3"><%=ats.get(i).getDuration()%></font></td>
 							</tr>
 							<%	}
 			    			}
@@ -37,15 +46,13 @@
 							<!-- end processing advisors -->
 						</table>
 				</form>
-			</div>
+		
 			
 		</div>
 		<div class="panel-footer text-center">
 		      	<input type="submit" class="btn-lg" value="Add Appointment Type" href="#" data-toggle="modal" data-target="#addApptType">
 		     </div>
-</div>
-</div>
-</div>
+
 		<form action="add_app_type" method="post" onsubmit="return false;">
 			<div class="modal fade" id="addApptType" tabindex="-1">
 				<div class="modal-dialog">
@@ -65,7 +72,7 @@
 									class="form-control" id="minutes" step="5" placeholder="">
 							</div>
 							<div>
-								<label id="result"><font style="color: #0" size="4"></label>
+								<label id="result"><font style="color: #0" size="4"></font></label>
 							</div>
 						</div>
 						<div class="modal-footer">
