@@ -10,7 +10,9 @@
 <!--  begin processing schedules -->
 <% ArrayList<TimeSlotComponent> schedules = (ArrayList<TimeSlotComponent>)session.getAttribute("schedules");
 		   ArrayList<Appointment> appointments = (ArrayList<Appointment>)session.getAttribute("appointments");
-		    				%><script>
+		    				%>
+		    				<div class= "container-fluid">
+		    				<script>
 		    				$(document).ready(function(){
 		    					$('#calendar').fullCalendar({
 		    						header: {
@@ -123,7 +125,7 @@
 					<label for="Date">Date:</label> <input type="date"
 						class="form-control" name=Date id="Date"> <input
 						type="hidden" name=pname id="pname"> <label id="result2"><font
-						style="color: #e67e22" size="4"></label>
+						style="color: #e67e22" size="4"></font></label>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">
@@ -186,6 +188,7 @@
 		}
 	}
 	</script>
+	</div>
 <style>
 #calendar {
 	background-color: white;

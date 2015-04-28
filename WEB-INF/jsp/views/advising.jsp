@@ -16,18 +16,18 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 
 %>
 	
-<div class="container">
-<div class="container">
+
+<div class="container-fluid">
 <!-- Panel -->
 <div class="panel panel-default">
 <!-- Default panel contents -->
-<div class="panel-heading"><h1>Student Information</h1></div>
+<div class="panel-heading text-center"><h1>Student Information</h1></div>
 <div class="panel-body">
 
 		<form action="advising" method="post" name="advisor_form">
 	<div class="row">
     <div class="col-md-2">
-        <label for="drp_department"><font color="#0" size="4">Department</label> 
+        <label for="drp_department"><font color="#0" size="4">Department</font></label> 
 
 		<br>
 		<select id="drp_department" onchange = "submit();" name = "drp_department" class="btn btn-default btn-lg dropdown-toggle">
@@ -102,15 +102,10 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 		<br>
 		
 		</div>
-</div>
-</div>
-</div>
-
-    </div>
-	<div class="page-header">
+		
 
 
-
+		
 		<div class="pull-right form-inline">
 			<div class="btn-group">
 		
@@ -129,28 +124,32 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 		    				</script>
 					<%for (int i=0;i<array.size();i++){	%>
 					
-					<button type="button" id="button1<%=i%>" onclick="button<%=i%>()"><%=array.get(i).getPname()%></button>
+					<button type="button" id="button1<%=i%>" onclick="button<%=i%>()"><%= array.get(i).getPname()%></button>
 					<script> function button<%=i%>(){
 						document.getElementById("advisor_button").value = "<%=array.get(i).getPname()%>";
 						advisor_form.submit();
 						}
 									</script>
 					<%	}%>
+					</div>
+					</div>
 				</form>
-			</div>
-		</div>
-	</div>
+			
+		
+
 	<%} 
 		 else{%>
 	<label><font color="#0" size="5"> Log in to see Advisor schedules.</font></label>
 	<% } %>
 	<!-- end processing advisors -->
-
-	<div class="date-display span12">
-		<h3></h3>
 	</div>
+</div>
+</div>
+	<div class="container-fluid">
+	<div class="date-display span12">
+		
 
-	<div id='calendar'></div>
+	<div id='calendar'>
 	<%@ page import="uta.mav.appoint.TimeSlotComponent"%>
 	<%@ page import="uta.mav.appoint.PrimitiveTimeSlot"%>
 	<%@ page import="uta.mav.appoint.CompositeTimeSlot"%>
@@ -225,6 +224,8 @@ ArrayList<Character> letters = (ArrayList<Character>)session.getAttribute("lette
 
 	<br /> <br />
 	<hr>
+</div>
+</div>
 </div>
 <style>
 #calendar {
