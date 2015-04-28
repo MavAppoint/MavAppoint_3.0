@@ -5,10 +5,13 @@
 <% ArrayList<AdvisorUser> deptAdvisors = new ArrayList<AdvisorUser>();
            deptAdvisors = (ArrayList<AdvisorUser>)session.getAttribute("deptAdvisors");
            
-           Department department = (Department)session.getAttribute("department");%>
+           Department department = (Department)session.getAttribute("department");
+           String message = (String)session.getAttribute("message");
+           %>
 <div class="container">
 <!-- Panel -->
 <div class="panel panel-default">
+	<label for="message"><font color="#0" size="4"><%=message%></label>
   <!-- Default panel contents -->
   <div class="panel-heading"><h1>Assign Students To Advisors</h1></div>
   <div class="panel-body">
