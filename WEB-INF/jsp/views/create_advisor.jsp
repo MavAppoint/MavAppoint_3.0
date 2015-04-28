@@ -3,19 +3,29 @@
 <%@ page import="uta.mav.appoint.login.Department"%>
 
 <%   ArrayList<Department> departments = (ArrayList<Department>)session.getAttribute("departments"); %>
-<div class="container">
+<style>
+.resize {
+width: 60%;
+}
+.resize-body {
+width: 80%;
+}
+
+
+</style>
 <div class="container">
 <!-- Panel -->
-<div class="panel panel-default">
+<div class="panel panel-default resize center-block">
 <!-- Default panel contents -->
-<div class="panel-heading"><h1>Create New Advisor</h1></div>
-<div class="panel-body">
+<form action="create_advisor" method="post" name="advisor_form" onsubmit="return false;">
+<div class="panel-heading text-center"><h1>Create New Advisor</h1></div>
+<div class="panel-body resize-body center-block">
 
 
-	<form action="create_advisor" method="post" name="advisor_form" onsubmit="return false;">
+	
 		<div class="form-group">
 		
-			<label for="drp_department"><font color="#0" size="4">Departments</label> 
+			<label for="drp_department"><font color="#0" size="4">Departments</font></label> 
 			<br>
 			<select id="drp_department" name="drp_department" class="btn btn-default btn-lg dropdown-toggle">
 				<%
@@ -27,30 +37,30 @@
 			<br>
 					
 			<label for="emailAddress"><font color="#0" size="4">Email
-					Address</label><br> <input type="text" style="width: 350px;"
+					Address</font></label><br> <input type="text" style="width: 350px;"
 				class="form-control" id="emailAddress" placeholder="">
 			<label for="pname"><font color="#0" size="4">Display
-					Name</label><br> <input type="text" style="width: 350px;"
+					Name</font></label><br> <input type="text" style="width: 350px;"
 				class="form-control" id="pname" placeholder="">
 
-			<label for="isLead"><font color="#0">Lead Advisor</label><br>
+			<label for="isLead"><font color="#0">Lead Advisor</font></label><br>
 			<select id="isLead" class="btn btn-default btn-lg dropdown-toggle">
 				<option value=1>True</option>
 				<option value=0>False</option>
 			</select> <br>
 		</div>
 
-		<br> 
-			
+		</div>
+		<div class= "panel-footer text-center">
       	<input onclick="javascript:FormSubmit();" type="submit" class="btn-lg" value="Submit">
+      	</div>
 	</form>
-	<br>
+
 	<label id="result"><font color="#0" size="4"></font></label>
+
 </div>
 </div>
-</div>
-</div>
-</div>
+
 <script> function FormSubmit(){
 									var email = document.getElementById("emailAddress").value;
 									var pname = document.getElementById("pname").value;
