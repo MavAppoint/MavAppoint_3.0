@@ -73,18 +73,16 @@ public class RegisterServlet extends HttpServlet {
 		}
 		else
 		{
-			String msg = "";
-			Boolean success = false;
 			StudentUser studentUser = new StudentUser();
 			String role = "student";
 			studentUser.setRole(role);
 			
 			try{
 				String email = request.getParameter("emailAddress");
-				if(!email.endsWith("@mavs.uta.edu"))
+				if(!email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"))
 				{
 					System.out.println("Email Address Invalid");
-					session.setAttribute("message", "Email Address does not end in \"@mavs.uta.edu\"");
+					session.setAttribute("message", "Email Address Invalid");
 					request.setAttribute("error","Unable to add user");
 					request.getRequestDispatcher("/WEB-INF/jsp/views/register.jsp").forward(request,response);
 				}
@@ -139,8 +137,13 @@ public class RegisterServlet extends HttpServlet {
 							+"Password: "+password,
 							email);
 					userEmail.sendMail();
+					session.setAttribute("message", "Account Created! Please check your e-mail for a new password.");
 				}
-				session.setAttribute("message", "Account Created! Please check your e-mail for a new password.");
+				else
+				{
+
+					session.setAttribute("message", "Account could not be created");
+				}
 			}
 			catch(Exception e){
 				System.out.println(e+" RegisterServlet");
